@@ -17,18 +17,28 @@ namespace kassasystem
 
         private void btn_room_Click(object sender, EventArgs e)
         {
-            lbl_button_val.Text = "room";
+            listBox1.Items.Add("room");
         }
 
         private void btn_person_Click(object sender, EventArgs e)
         {
-            lbl_button_val.Text = "person";
+            listBox1.Items.Add("person");
 
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
         {
-            lbl_button_val.Text = "";
+            listBox1.Items.Clear();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

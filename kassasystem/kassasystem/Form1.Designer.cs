@@ -34,6 +34,7 @@
             this.btn_room = new System.Windows.Forms.Button();
             this.lbl_button_val = new System.Windows.Forms.Label();
             this.btn_clear = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // btn_person
@@ -48,7 +49,7 @@
             // 
             // btn_room
             // 
-            this.btn_room.Location = new System.Drawing.Point(231, 12);
+            this.btn_room.Location = new System.Drawing.Point(215, 12);
             this.btn_room.Name = "btn_room";
             this.btn_room.Size = new System.Drawing.Size(182, 91);
             this.btn_room.TabIndex = 1;
@@ -67,19 +68,31 @@
             // 
             // btn_clear
             // 
-            this.btn_clear.Location = new System.Drawing.Point(12, 262);
+            this.btn_clear.Location = new System.Drawing.Point(1005, 566);
             this.btn_clear.Name = "btn_clear";
-            this.btn_clear.Size = new System.Drawing.Size(75, 23);
+            this.btn_clear.Size = new System.Drawing.Size(267, 119);
             this.btn_clear.TabIndex = 3;
             this.btn_clear.Text = "clear";
             this.btn_clear.UseVisualStyleBackColor = true;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(1005, 11);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(267, 544);
+            this.listBox1.Sorted = true;
+            this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 292);
+            this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btn_clear);
             this.Controls.Add(this.lbl_button_val);
             this.Controls.Add(this.btn_room);
@@ -98,5 +111,6 @@
         private Button btn_room;
         private Label lbl_button_val;
         private Button btn_clear;
+        private ListBox listBox1;
     }
 }
