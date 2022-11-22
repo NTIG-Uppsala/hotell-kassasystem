@@ -14,10 +14,8 @@ namespace kassasystem
 
             ApplicationConfiguration.Initialize();
             Console.WriteLine("GHEELO");
-            while (true)
-            {
-                Application.Run(new Form1());
-            }
+
+            Application.Run(new Form1());
             
         }
     }

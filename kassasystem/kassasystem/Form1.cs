@@ -14,5 +14,21 @@ namespace kassasystem
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
             player.PlayLooping();
         }
+
+        private void btn_room_Click(object sender, EventArgs e)
+        {
+            lbl_button_val.Text = "room";
+        }
+
+        private void btn_person_Click(object sender, EventArgs e)
+        {
+            lbl_button_val.Text = "person";
+
+        }
+
+        private void btn_clear_Click(object sender, EventArgs e)
+        {
+            lbl_button_val.Text = "";
+        }
     }
 }
