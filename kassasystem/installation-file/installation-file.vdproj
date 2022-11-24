@@ -70,6 +70,16 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_16300841FC7C45F0A6C2741044076DBA"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
             }
         }
         "File"
@@ -130,15 +140,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:installation-file"
-        "ProductCode" = "8:{2F85F86A-64B9-4D92-85BF-88A802BEA492}"
-        "PackageCode" = "8:{22879C7B-7D5D-4976-BA80-C196E4F8CACA}"
+        "ProductCode" = "8:{1207AFB2-F235-4D7B-97CF-2F8F944BBAED}"
+        "PackageCode" = "8:{F686589A-DE1B-4DDE-97C6-9C7DDF12F42D}"
         "UpgradeCode" = "8:{A35091BF-AF00-4C51-8E91-5F9A9378DD18}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:NEO_MUMIN"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -680,7 +690,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B92037ABDD634123A0AAC064444358EF"
             {
-            "SourcePath" = "8:..\\kassasystem\\obj\\Release\\net7.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\kassasystem\\obj\\Debug\\net7.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_83A03022C8E64E4DA90E4F8F22EEF3BD"

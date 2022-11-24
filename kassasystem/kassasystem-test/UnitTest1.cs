@@ -7,6 +7,8 @@ namespace kassasystem_test
     public class Tests
     {
         Form1 _form;
+        int person_price = 500;
+        int room_price = 1000;
 
         [SetUp]
         public void Setup()
@@ -24,6 +26,8 @@ namespace kassasystem_test
                 _form.btn_person.PerformClick();
 
                 Assert.That(_form.listBox1.Items.Contains(_form.btn_person.Text), Is.True);
+                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", person_price)));
+
             }
             else
             {
@@ -39,6 +43,7 @@ namespace kassasystem_test
                 _form.btn_room.PerformClick();
 
                 Assert.That(_form.listBox1.Items.Contains(_form.btn_room.Text), Is.True);
+                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", room_price)));
             }
             else
             {
@@ -51,9 +56,12 @@ namespace kassasystem_test
         {
             if (_form.btn_clear.Visible)
             {
+                _form.btn_room.PerformClick();
+
                 _form.btn_clear.PerformClick();
 
                 Assert.That((_form.listBox1.Items.Count == 0), Is.True);
+                Assert.That(_form.lbl_total.Text, Is.EqualTo("Total: 0kr"));
             }
             else
             {
