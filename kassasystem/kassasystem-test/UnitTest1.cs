@@ -17,7 +17,7 @@ namespace kassasystem_test
 
             _form.btn_person.PerformClick();
 
-            Assert.That(_form.listBox1.Items.Contains(_form.btn_person.Text<StringComparer<List<string<char>>>>), Is.True);
+            Assert.That(_form.listBox1.Items.Contains(_form.btn_person.Text), Is.True);
         }
     }
 }
