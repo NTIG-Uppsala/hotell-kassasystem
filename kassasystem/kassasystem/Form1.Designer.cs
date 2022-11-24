@@ -35,6 +35,7 @@
             this.lbl_button_val = new System.Windows.Forms.Label();
             this.btn_clear = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbl_total = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_person
@@ -46,7 +47,6 @@
             this.btn_person.Text = "person";
             this.btn_person.UseVisualStyleBackColor = true;
             this.btn_person.Click += new System.EventHandler(this.btn_person_Click);
-            this.btn_person.Visible = true;
             // 
             // btn_room
             // 
@@ -57,7 +57,6 @@
             this.btn_room.Text = "room";
             this.btn_room.UseVisualStyleBackColor = true;
             this.btn_room.Click += new System.EventHandler(this.btn_room_Click);
-            this.btn_room.Visible = true;
             // 
             // lbl_button_val
             // 
@@ -77,7 +76,6 @@
             this.btn_clear.Text = "clear";
             this.btn_clear.UseVisualStyleBackColor = true;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
-            this.btn_clear.Visible = true;
             // 
             // listBox1
             // 
@@ -89,11 +87,21 @@
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 0;
             // 
+            // lbl_total
+            // 
+            this.lbl_total.AutoSize = true;
+            this.lbl_total.Location = new System.Drawing.Point(1013, 529);
+            this.lbl_total.Name = "lbl_total";
+            this.lbl_total.Size = new System.Drawing.Size(54, 15);
+            this.lbl_total.TabIndex = 4;
+            this.lbl_total.Text = "Total: 0kr";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.Controls.Add(this.lbl_total);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btn_clear);
             this.Controls.Add(this.lbl_button_val);
@@ -114,5 +122,6 @@
         public Label lbl_button_val;
         public Button btn_clear;
         public ListBox listBox1;
+        public Label lbl_total;
     }
 }
