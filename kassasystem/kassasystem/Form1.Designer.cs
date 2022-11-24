@@ -46,6 +46,7 @@
             this.btn_person.Text = "person";
             this.btn_person.UseVisualStyleBackColor = true;
             this.btn_person.Click += new System.EventHandler(this.btn_person_Click);
+            this.btn_person.Visible = true;
             // 
             // btn_room
             // 
@@ -56,6 +57,7 @@
             this.btn_room.Text = "room";
             this.btn_room.UseVisualStyleBackColor = true;
             this.btn_room.Click += new System.EventHandler(this.btn_room_Click);
+            this.btn_room.Visible = true;
             // 
             // lbl_button_val
             // 
@@ -75,6 +77,7 @@
             this.btn_clear.Text = "clear";
             this.btn_clear.UseVisualStyleBackColor = true;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
+            this.btn_clear.Visible = true;
             // 
             // listBox1
             // 
