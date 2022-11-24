@@ -18,10 +18,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
-      - name: Go to directory
-        run: cd kassasystem/kassasystem-test
+          dotnet-version: 7.0.x
       - name: Restore dependencies
-        run: dotnet restore
-      - name: Test
-        run: dotnet test --verbosity normal
+        run: dotnet restore kassasystem/kassasystem-test
+      - name: Run Test
+        run: dotnet test --verbosity normal kassasystem/kassasystem-test
