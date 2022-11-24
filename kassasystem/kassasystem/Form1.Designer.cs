@@ -85,7 +85,6 @@
             this.listBox1.Size = new System.Drawing.Size(267, 544);
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -107,10 +106,10 @@
 
         #endregion
 
-        private Button btn_person;
-        private Button btn_room;
-        private Label lbl_button_val;
-        private Button btn_clear;
-        private ListBox listBox1;
+        public Button btn_person;
+        public Button btn_room;
+        public Label lbl_button_val;
+        public Button btn_clear;
+        public ListBox listBox1;
     }
 }
