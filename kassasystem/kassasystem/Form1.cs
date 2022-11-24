@@ -29,17 +29,5 @@ namespace kassasystem
             listBox1.Items.Clear();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
     }
 }
