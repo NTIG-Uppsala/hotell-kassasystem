@@ -11,14 +11,15 @@ namespace kassasystem_test
         [SetUp]
         public void Setup()
         {
-            _form = new kassasystem.Form1();
+            _form = new Form1();
+            _form.Show();
         }
 
         [Test]
         public void test_clickpersonbutton()
         {
 
-            if (_form.btn_person.Visible == true)
+            if (_form.btn_person.Visible)
             {
                 _form.btn_person.PerformClick();
 
@@ -33,7 +34,7 @@ namespace kassasystem_test
         [Test]
         public void test_clickroombutton()
         {
-            if (_form.btn_room.Visible == true)
+            if (_form.btn_room.Visible)
             {
                 _form.btn_room.PerformClick();
 
@@ -48,7 +49,7 @@ namespace kassasystem_test
         [Test]
         public void test_clickclearbutton()
         {
-            if (_form.btn_clear.Visible == true)
+            if (_form.btn_clear.Visible)
             {
                 _form.btn_clear.PerformClick();
 
@@ -59,6 +60,15 @@ namespace kassasystem_test
                 Assert.Fail("Clear button not visible");
             }
 
+        }
+
+        [Test]
+        public void addition()
+        {
+            int firstValue = 1;
+            int secondValue = 1;
+
+            Assert.That(firstValue + secondValue, Is.EqualTo(2));
         }
     }
 }
