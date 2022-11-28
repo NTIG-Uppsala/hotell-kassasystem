@@ -21,11 +21,11 @@ namespace kassasystem_test
         public void test_clickpersonbutton()
         {
 
-            if (_form.btn_person.Visible)
+            if (_form.btn_two_single_beds.Visible)
             {
-                _form.btn_person.PerformClick();
+                _form.btn_two_single_beds.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains(_form.btn_person.Text), Is.True);
+                Assert.That(_form.listBox1.Items.Contains(_form.btn_two_single_beds.Text), Is.True);
                 Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", person_price)));
 
             }
@@ -38,11 +38,11 @@ namespace kassasystem_test
         [Test]
         public void test_clickroombutton()
         {
-            if (_form.btn_room.Visible)
+            if (_form.btn_double_bed.Visible)
             {
-                _form.btn_room.PerformClick();
+                _form.btn_double_bed.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains(_form.btn_room.Text), Is.True);
+                Assert.That(_form.listBox1.Items.Contains(_form.btn_double_bed.Text), Is.True);
                 Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", room_price)));
             }
             else
@@ -56,7 +56,7 @@ namespace kassasystem_test
         {
             if (_form.btn_clear.Visible)
             {
-                _form.btn_room.PerformClick();
+                _form.btn_double_bed.PerformClick();
 
                 _form.btn_clear.PerformClick();
 
