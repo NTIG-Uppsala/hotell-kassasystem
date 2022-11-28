@@ -23,7 +23,7 @@ namespace kassasystem
             //player.PlayLooping();
         }
 
-        private void updateCartView()
+        private void UpdateCartView()
         {
             listBox1.Items.Clear();
             foreach(KeyValuePair<string , int> product in cartDictionary) 
@@ -41,7 +41,7 @@ namespace kassasystem
             {
                 cartDictionary.Add(productName, 1);
             }
-            updateCartView();
+            UpdateCartView();
         }
 
         private void btn_Click(object sender, EventArgs e)
@@ -52,6 +52,26 @@ namespace kassasystem
             
             this.total_price += this.priceList[buttonText];
             this.lbl_total.Text = $"Total: {this.total_price}kr";
+        }
+
+        private void BtnRemove1xClick(object sender, EventArgs e)
+        {
+            string input = listBox1.SelectedItem.ToString();
+            foreach (KeyValuePair<string, int> product in cartDictionary)
+            {
+                if(input.Contains(product.Key))
+                {
+                    int currentValue = product.Value;
+                    cartDictionary[product.Key] = currentValue - 1;
+                    if (cartDictionary[product.Key] == 0)
+                    {
+                        cartDictionary.Remove(product.Key);
+                    }
+                }
+
+            }
+            UpdateCartView();
+
         }
 
         private void btn_clear_Click(object sender, EventArgs e)

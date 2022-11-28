@@ -136,6 +136,7 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "Remove 1x Product";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.BtnRemove1xClick);
             // 
             // button3
             // 
