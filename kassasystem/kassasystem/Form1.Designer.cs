@@ -46,6 +46,7 @@
             // btn_two_single_beds
             // 
             this.btn_two_single_beds.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_two_single_beds.Enabled = false;
             this.btn_two_single_beds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btn_two_single_beds.Location = new System.Drawing.Point(12, 105);
             this.btn_two_single_beds.Name = "btn_two_single_beds";
@@ -58,6 +59,7 @@
             // btn_double_bed
             // 
             this.btn_double_bed.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_double_bed.Enabled = false;
             this.btn_double_bed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btn_double_bed.Location = new System.Drawing.Point(215, 105);
             this.btn_double_bed.Name = "btn_double_bed";
@@ -165,6 +167,7 @@
             this.CheckOutDayPicker.Name = "CheckOutDayPicker";
             this.CheckOutDayPicker.Size = new System.Drawing.Size(200, 23);
             this.CheckOutDayPicker.TabIndex = 8;
+            this.CheckOutDayPicker.ValueChanged += new System.EventHandler(this.CheckOutDayPicker_ValueChanged);
             // 
             // Form1
             // 

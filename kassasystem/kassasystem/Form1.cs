@@ -6,7 +6,8 @@ namespace kassasystem
     {
         internal Dictionary<string, int> priceList = new Dictionary<string, int>();
         internal Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
-        public int total_price = 0;
+        private Double bookedDays = 0;
+        public Double total_price = 0;
         public Form1()
         {
             InitializeComponent();
@@ -26,9 +27,17 @@ namespace kassasystem
         private void UpdateCartView()
         {
             listBox1.Items.Clear();
+            string dayFormat;
             foreach(KeyValuePair<string , int> product in cartDictionary) 
             {
-                listBox1.Items.Add($"{product.Key} \t x{product.Value} \t {product.Value * priceList[product.Key]}kr");
+                if (bookedDays == 1)
+                {
+                    dayFormat = "day";
+                } else
+                {
+                    dayFormat = "days";
+                }
+                listBox1.Items.Add($"{product.Value}x {product.Key} {bookedDays} {dayFormat} {product.Value * priceList[product.Key] + bookedDays * 500.0f}kr");
             }
         }
 
@@ -40,7 +49,7 @@ namespace kassasystem
             {
                 foreach (KeyValuePair<string, int> product in cartDictionary)
                 {
-                    this.total_price += product.Value * priceList[product.Key];
+                    this.total_price += product.Value * priceList[product.Key] + bookedDays * 500.0f;
                 }
             }
 
@@ -59,10 +68,10 @@ namespace kassasystem
             UpdateCartView();
         }
 
-        private Double GetDateDifference()
+        private Double GetDateDifference(DateTime dateCheck)
         {
             DateTime today = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
-            DateTime theDate = Convert.ToDateTime(CheckOutDayPicker.Value.ToString().Split()[0]);
+            DateTime theDate = Convert.ToDateTime(dateCheck.ToString().Split()[0]);
             Double difference = (theDate - today).TotalDays;
             return difference;
         }
@@ -71,7 +80,6 @@ namespace kassasystem
         {
             string buttonText = (sender as Button).Text;
             AddToCart(buttonText);
-
             UpdateTotal();
             
         }
@@ -121,6 +129,7 @@ namespace kassasystem
         {
             cartDictionary.Clear();
             listBox1.Items.Clear();
+            bookedDays = 0;
             UpdateTotal();
         }
 
@@ -128,7 +137,23 @@ namespace kassasystem
         {
             cartDictionary.Clear();
             listBox1.Items.Clear();
+            bookedDays = 0;
             UpdateTotal();
+        }
+
+        private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)
+        {
+            Double nogontingvadsomhelst = GetDateDifference(CheckOutDayPicker.Value);
+            bookedDays = nogontingvadsomhelst;
+            if (bookedDays >= 1) 
+            { 
+                btn_two_single_beds.Enabled = true;
+                btn_double_bed.Enabled = true;
+            } else
+            {
+                btn_two_single_beds.Enabled = false;
+                btn_double_bed.Enabled = false;
+            }
         }
     }
 }
