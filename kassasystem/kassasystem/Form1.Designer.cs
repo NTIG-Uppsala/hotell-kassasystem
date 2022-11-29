@@ -41,14 +41,14 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_two_single_beds
             // 
             this.btn_two_single_beds.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btn_two_single_beds.Enabled = false;
             this.btn_two_single_beds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_two_single_beds.Location = new System.Drawing.Point(12, 105);
+            this.btn_two_single_beds.Location = new System.Drawing.Point(15, 144);
             this.btn_two_single_beds.Name = "btn_two_single_beds";
             this.btn_two_single_beds.Size = new System.Drawing.Size(197, 91);
             this.btn_two_single_beds.TabIndex = 0;
@@ -59,9 +59,8 @@
             // btn_double_bed
             // 
             this.btn_double_bed.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btn_double_bed.Enabled = false;
             this.btn_double_bed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_double_bed.Location = new System.Drawing.Point(215, 105);
+            this.btn_double_bed.Location = new System.Drawing.Point(218, 144);
             this.btn_double_bed.Name = "btn_double_bed";
             this.btn_double_bed.Size = new System.Drawing.Size(182, 91);
             this.btn_double_bed.TabIndex = 1;
@@ -73,7 +72,7 @@
             // 
             this.lbl_button_val.AutoSize = true;
             this.lbl_button_val.Font = new System.Drawing.Font("Segoe UI", 64F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_button_val.Location = new System.Drawing.Point(78, 145);
+            this.lbl_button_val.Location = new System.Drawing.Point(88, 123);
             this.lbl_button_val.Name = "lbl_button_val";
             this.lbl_button_val.Size = new System.Drawing.Size(0, 114);
             this.lbl_button_val.TabIndex = 2;
@@ -155,7 +154,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(169, 32);
             this.label1.TabIndex = 9;
@@ -164,10 +163,22 @@
             // CheckOutDayPicker
             // 
             this.CheckOutDayPicker.Location = new System.Drawing.Point(12, 53);
+            this.CheckOutDayPicker.MinDate = new System.DateTime(2022, 11, 29, 0, 0, 0, 0);
             this.CheckOutDayPicker.Name = "CheckOutDayPicker";
             this.CheckOutDayPicker.Size = new System.Drawing.Size(200, 23);
             this.CheckOutDayPicker.TabIndex = 8;
+            this.CheckOutDayPicker.Value = new System.DateTime(2022, 11, 29, 12, 30, 0, 0);
             this.CheckOutDayPicker.ValueChanged += new System.EventHandler(this.CheckOutDayPicker_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(15, 109);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 32);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Room types";
             // 
             // Form1
             // 
@@ -175,6 +186,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckOutDayPicker);
             this.Controls.Add(this.button3);
@@ -207,5 +219,6 @@
         private Button button3;
         private Label label1;
         private DateTimePicker CheckOutDayPicker;
+        private Label label2;
     }
 }
