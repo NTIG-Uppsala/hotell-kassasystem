@@ -59,17 +59,19 @@ namespace kassasystem
             UpdateCartView();
         }
 
+        private void GetDateDifference()
+        {
+            DateTime today = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
+            DateTime theDate = Convert.ToDateTime(CheckOutDayPicker.Value.ToString().Split()[0]);
+            var difference = (theDate - today).TotalDays;
+            System.Diagnostics.Debug.WriteLine(difference);
+            System.Diagnostics.Debug.WriteLine(today, theDate.ToString());
+        }
+
         private void btn_Click(object sender, EventArgs e)
         {
             string buttonText = (sender as Button).Text;
             AddToCart(buttonText);
-
-            var today = DateTime.Now.Date.ToString().Split(" ")[0];
-            var theDate = CheckOutDayPicker.Value.ToString("yyyy-MM-dd");
-            System.Diagnostics.Debug.WriteLine(theDate);
-            System.Diagnostics.Debug.WriteLine(today);
-
-
 
             UpdateTotal();
             

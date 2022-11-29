@@ -47,7 +47,7 @@
             // 
             this.btn_two_single_beds.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btn_two_single_beds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_two_single_beds.Location = new System.Drawing.Point(12, 12);
+            this.btn_two_single_beds.Location = new System.Drawing.Point(12, 105);
             this.btn_two_single_beds.Name = "btn_two_single_beds";
             this.btn_two_single_beds.Size = new System.Drawing.Size(197, 91);
             this.btn_two_single_beds.TabIndex = 0;
@@ -59,7 +59,7 @@
             // 
             this.btn_double_bed.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btn_double_bed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_double_bed.Location = new System.Drawing.Point(215, 12);
+            this.btn_double_bed.Location = new System.Drawing.Point(215, 105);
             this.btn_double_bed.Name = "btn_double_bed";
             this.btn_double_bed.Size = new System.Drawing.Size(182, 91);
             this.btn_double_bed.TabIndex = 1;
@@ -153,7 +153,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(692, 21);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(169, 32);
             this.label1.TabIndex = 9;
@@ -161,7 +161,7 @@
             // 
             // CheckOutDayPicker
             // 
-            this.CheckOutDayPicker.Location = new System.Drawing.Point(692, 56);
+            this.CheckOutDayPicker.Location = new System.Drawing.Point(12, 53);
             this.CheckOutDayPicker.Name = "CheckOutDayPicker";
             this.CheckOutDayPicker.Size = new System.Drawing.Size(200, 23);
             this.CheckOutDayPicker.TabIndex = 8;
