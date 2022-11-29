@@ -10,6 +10,7 @@ namespace kassasystem
         public Form1()
         {
             InitializeComponent();
+            PDFGenerator test = new PDFGenerator();
             this.priceList = new Dictionary<string, int>()
             {
                 { "room 1 double bed", 1000 },
