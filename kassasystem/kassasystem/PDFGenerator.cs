@@ -1,12 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using System;
-using System.Diagnostics;
-using System.IO;
-using PdfSharp;
-using PdfSharp.Drawing;
+﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
+using System.Diagnostics;
+using System.Text;
+
 
 namespace kassasystem
 {
@@ -14,37 +10,52 @@ namespace kassasystem
     {
         public PDFGenerator()
         {
+
+        }
+
+        public void savePDF(ListBox inputData)
+        {
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
+            string currentTimePeriod = ((int)t.TotalSeconds).ToString();
+
             try
             {
-                // Create a new PDF document
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+                //Create PDF Document
                 PdfDocument document = new PdfDocument();
-                document.Info.Title = "Created with PDFsharp";
-
-                // Create an empty page
+                //You will have to add Page in PDF Document
                 PdfPage page = document.AddPage();
-
-                // Get an XGraphics object for drawing
+                //For drawing in PDF Page you will nedd XGraphics Object
                 XGraphics gfx = XGraphics.FromPdfPage(page);
+                //For Test you will have to define font to be used
+                XFont font = new XFont("Verdana", 20, XFontStyle.Bold);
+                //Finally use XGraphics & font object to draw text in PDF Page
+                int offset = 0;
+                string outString = "";
+                for (int i = inputData.Items.Count; i > 0; i--)
+                {
 
-                // Create a font
-                XFont font = new XFont("Verdana", 20, (PdfSharp.Drawing.XFontStyle)XFontStyle.BoldItalic);
+                    outString += inputData.Items[i].ToString() + "\n";
+                    
+                    System.Diagnostics.Debug.WriteLine(inputData.Items[i].ToString());
+                    System.Diagnostics.Debug.WriteLine(outString);
 
-                // Draw the text
-                gfx.DrawString("Hello, World!", font, XBrushes.Black,
-                    new XRect(0, 0, page.Width, page.Height),
-                    XStringFormats.Center);
+                }
+                gfx.DrawString($"Here is your receipt:\n{outString}", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopLeft);
 
-                // Save the document...
-                const string filename = "HelloWorld.pdf";
+                //Specify file name of the PDF file
+                string filename = String.Format(@"C:\Users\{0}\Documents\hotell-kvitton\kvitto_{1}.pdf", userName, currentTimePeriod);
+                //Save PDF File
                 document.Save(filename);
-                // ...and start a viewer.
-                Process.Start(filename);
+                ////Load PDF File for viewing
+                //Process.Start(filename);
             }
             catch
             {
+                System.Diagnostics.Debug.WriteLine("Could not save PDF!");
 
             }
-
         }
     }
 }

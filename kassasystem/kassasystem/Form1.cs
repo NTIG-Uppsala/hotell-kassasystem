@@ -6,11 +6,12 @@ namespace kassasystem
     {
         internal Dictionary<string, int> priceList = new Dictionary<string, int>();
         internal Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
+        PDFGenerator pdfGenerator = new PDFGenerator();
+
         public Double total_price = 0;
         public Form1()
         {
             InitializeComponent();
-            PDFGenerator test = new PDFGenerator();
             this.priceList = new Dictionary<string, int>()
             {
                 { "room 1 double bed", 1000 },
@@ -147,6 +148,7 @@ namespace kassasystem
         private void btn_pay_Click(object sender, EventArgs e)
         {
             ResetValues();
+            pdfGenerator.savePDF(listBox1);
         }
 
         private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)
