@@ -37,10 +37,10 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.lbl_total = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.BtnRemove1x = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
+            this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btn_two_single_beds
@@ -127,16 +127,16 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.btn_pay_Click);
             // 
-            // button2
+            // BtnRemove1x
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(898, 521);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(163, 35);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Remove 1x Product";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.BtnRemove1xClick);
+            this.BtnRemove1x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnRemove1x.Location = new System.Drawing.Point(898, 521);
+            this.BtnRemove1x.Name = "BtnRemove1x";
+            this.BtnRemove1x.Size = new System.Drawing.Size(163, 35);
+            this.BtnRemove1x.TabIndex = 6;
+            this.BtnRemove1x.Text = "Remove 1x Product";
+            this.BtnRemove1x.UseVisualStyleBackColor = true;
+            this.BtnRemove1x.Click += new System.EventHandler(this.BtnRemove1xClick);
             // 
             // button3
             // 
@@ -147,13 +147,7 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "Remove Product";
             this.button3.UseVisualStyleBackColor = true;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(692, 56);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 8;
+            this.button3.Click += new System.EventHandler(this.BtnRemoveClick);
             // 
             // label1
             // 
@@ -165,6 +159,13 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Checkout date";
             // 
+            // CheckOutDayPicker
+            // 
+            this.CheckOutDayPicker.Location = new System.Drawing.Point(692, 56);
+            this.CheckOutDayPicker.Name = "CheckOutDayPicker";
+            this.CheckOutDayPicker.Size = new System.Drawing.Size(200, 23);
+            this.CheckOutDayPicker.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -172,9 +173,9 @@
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1284, 697);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.CheckOutDayPicker);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.BtnRemove1x);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_total);
             this.Controls.Add(this.listBox1);
@@ -199,9 +200,9 @@
         public ListBox listBox1;
         public Label lbl_total;
         public Button button1;
-        private Button button2;
+        private Button BtnRemove1x;
         private Button button3;
-        private DateTimePicker dateTimePicker1;
         private Label label1;
+        private DateTimePicker CheckOutDayPicker;
     }
 }

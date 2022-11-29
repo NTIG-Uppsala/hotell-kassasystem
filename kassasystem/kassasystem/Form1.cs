@@ -32,6 +32,21 @@ namespace kassasystem
             }
         }
 
+        private void UpdateTotal()
+        {
+            this.total_price = 0;
+            
+            if( cartDictionary.Count > 0)
+            {
+                foreach (KeyValuePair<string, int> product in cartDictionary)
+                {
+                    this.total_price += product.Value * priceList[product.Key];
+                }
+            }
+
+            this.lbl_total.Text = $"Total: {this.total_price}kr";
+        }
+
         private void AddToCart(string productName)
         {
             if (cartDictionary.ContainsKey(productName))
@@ -49,45 +64,70 @@ namespace kassasystem
             string buttonText = (sender as Button).Text;
             AddToCart(buttonText);
 
+            var today = DateTime.Now.Date.ToString().Split(" ")[0];
+            var theDate = CheckOutDayPicker.Value.ToString("yyyy-MM-dd");
+            System.Diagnostics.Debug.WriteLine(theDate);
+            System.Diagnostics.Debug.WriteLine(today);
+
+
+
+            UpdateTotal();
             
-            this.total_price += this.priceList[buttonText];
-            this.lbl_total.Text = $"Total: {this.total_price}kr";
         }
 
         private void BtnRemove1xClick(object sender, EventArgs e)
         {
-            string input = listBox1.SelectedItem.ToString();
-            foreach (KeyValuePair<string, int> product in cartDictionary)
+            if (listBox1.SelectedItems.Count == 1)
             {
-                if(input.Contains(product.Key))
+                string input = listBox1.SelectedItem.ToString();
+                foreach (KeyValuePair<string, int> product in cartDictionary)
                 {
-                    int currentValue = product.Value;
-                    cartDictionary[product.Key] = currentValue - 1;
-                    if (cartDictionary[product.Key] == 0)
+                    if(input.Contains(product.Key))
+                    {
+                        int currentValue = product.Value;
+                        cartDictionary[product.Key] = currentValue - 1;
+
+                        if (cartDictionary[product.Key] == 0)
+                        {
+                            cartDictionary.Remove(product.Key);
+                        }
+                    }
+                }
+            }
+            UpdateCartView();
+            UpdateTotal();
+
+        }
+
+        private void BtnRemoveClick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItems.Count == 1)
+            {
+                string input = listBox1.SelectedItem.ToString();
+                foreach (KeyValuePair<string, int> product in cartDictionary)
+                {
+                    if (input.Contains(product.Key))
                     {
                         cartDictionary.Remove(product.Key);
                     }
                 }
-
             }
             UpdateCartView();
-
+            UpdateTotal();
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
         {
-            this.total_price = 0;
-            this.lbl_total.Text = $"Total: {this.total_price}kr";
             cartDictionary.Clear();
             listBox1.Items.Clear();
+            UpdateTotal();
         }
 
         private void btn_pay_Click(object sender, EventArgs e)
         {
-            this.total_price = 0;
-            this.lbl_total.Text = $"Total: {this.total_price}kr";
             cartDictionary.Clear();
             listBox1.Items.Clear();
+            UpdateTotal();
         }
     }
 }
