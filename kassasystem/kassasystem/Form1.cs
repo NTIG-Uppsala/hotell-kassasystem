@@ -59,13 +59,12 @@ namespace kassasystem
             UpdateCartView();
         }
 
-        private void GetDateDifference()
+        private Double GetDateDifference()
         {
             DateTime today = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
             DateTime theDate = Convert.ToDateTime(CheckOutDayPicker.Value.ToString().Split()[0]);
-            var difference = (theDate - today).TotalDays;
-            System.Diagnostics.Debug.WriteLine(difference);
-            System.Diagnostics.Debug.WriteLine(today, theDate.ToString());
+            Double difference = (theDate - today).TotalDays;
+            return difference;
         }
 
         private void btn_Click(object sender, EventArgs e)
