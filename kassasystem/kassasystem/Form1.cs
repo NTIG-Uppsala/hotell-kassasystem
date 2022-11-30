@@ -147,8 +147,8 @@ namespace kassasystem
 
         private void btn_pay_Click(object sender, EventArgs e)
         {
-            ResetValues();
             pdfGenerator.savePDF(listBox1);
+            ResetValues();
         }
 
         private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)
