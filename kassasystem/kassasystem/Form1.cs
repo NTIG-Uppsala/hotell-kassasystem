@@ -147,7 +147,7 @@ namespace kassasystem
 
         private void btn_pay_Click(object sender, EventArgs e)
         {
-            pdfGenerator.savePDF(listBox1);
+            pdfGenerator.savePDF(listBox1, total_price);
             ResetValues();
         }
 
