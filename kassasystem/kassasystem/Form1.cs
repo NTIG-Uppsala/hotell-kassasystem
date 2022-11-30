@@ -147,8 +147,14 @@ namespace kassasystem
 
         private void btn_pay_Click(object sender, EventArgs e)
         {
-            pdfGenerator.savePDF(listBox1, total_price);
-            ResetValues();
+            if (listBox1.Items.Count > 0)
+            {
+                pdfGenerator.savePDF(listBox1, total_price);
+                ResetValues();
+            } else
+            {
+                // TODO: show message cart empty
+            }
         }
 
         private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)

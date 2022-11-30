@@ -7,8 +7,8 @@ namespace kassasystem_test
     public class Tests
     {
         Form1 _form;
-        int person_price = 500;
-        int room_price = 1000;
+        int two_single_beds_price = 1000;
+        int one_double_bed_price = 1000;
 
         [SetUp]
         public void Setup()
@@ -18,15 +18,15 @@ namespace kassasystem_test
         }
 
         [Test]
-        public void test_clickpersonbutton()
+        public void test_click_btn_two_single_beds()
         {
 
             if (_form.btn_two_single_beds.Visible)
             {
                 _form.btn_two_single_beds.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains(_form.btn_two_single_beds.Text), Is.True);
-                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", person_price)));
+                Assert.That(_form.listBox1.Items.Contains($"{_form.btn_two_single_beds.Text} 1x 0 days {two_single_beds_price}kr"), Is.True);
+                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", two_single_beds_price)));
 
             }
             else
@@ -36,14 +36,14 @@ namespace kassasystem_test
         }
 
         [Test]
-        public void test_clickroombutton()
+        public void test_click_two_single_beds()
         {
-            if (_form.btn_double_bed.Visible)
+            if (_form.btn_two_single_beds.Visible)
             {
-                _form.btn_double_bed.PerformClick();
+                _form.btn_two_single_beds.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains(_form.btn_double_bed.Text), Is.True);
-                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", room_price)));
+                Assert.That(_form.listBox1.Items.Contains($"{_form.btn_two_single_beds.Text} 1x 0 days {one_double_bed_price}kr"), Is.True);
+                Assert.That(_form.lbl_total.Text, Is.EqualTo(String.Format("Total: {0}kr", one_double_bed_price)));
             }
             else
             {
@@ -52,7 +52,7 @@ namespace kassasystem_test
         }
 
         [Test]
-        public void test_clickclearbutton()
+        public void test_click_clear_button()
         {
             if (_form.btn_clear.Visible)
             {

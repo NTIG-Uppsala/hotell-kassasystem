@@ -2,6 +2,7 @@
 using PdfSharp.Pdf;
 using System.Diagnostics;
 using System.Text;
+using System.IO;
 using System.ComponentModel;
 using PdfSharp.Drawing.Layout;
 using PdfSharp;
@@ -12,6 +13,7 @@ namespace kassasystem
 {
     internal class PDFGenerator
     {
+        double taxAmount = 0.12;
         public PDFGenerator()
         {
             
@@ -35,34 +37,62 @@ namespace kassasystem
             //For Test you will have to define font to be used
             XFont titleFont = new XFont("Verdana", 20, XFontStyle.Bold);
             XFont descriptionFont = new XFont("Verdana", 10);
+            XFont productFont = new XFont("Verdana", 15);
             //Finally use XGraphics & font object to draw text in PDF Page
-            int offset = 80;
+
             string outString = "";
             System.Diagnostics.Debug.WriteLine(inputData.Items.Count);
             string currentDate = DateTime.Now.ToString().Split(" ")[0];
             string currentTime = DateTime.Now.ToString().Split(" ")[1];
 
-            gfx.DrawRectangle(XPens.Gray, XBrushes.Gray, 10, 75, 100, 80);
-            gfx.DrawString($"Hotell kassasystem", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
+            XPen DividerColor = new XPen(XColors.LightSkyBlue, 3);
+            XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
+
+
+            gfx.DrawString("Hotell kassasystem", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Kvitto", titleFont, XBrushes.Black, new XRect(-15, 15, page.Width, page.Height), XStringFormats.TopRight);
+
+            // Divider
+            gfx.DrawLine(DividerColor, 15, 60, page.Width - 15, 60);
+
+            /* Info box (date of purchase, order number etc..)  */
+            gfx.DrawRectangle(XPens.WhiteSmoke, XBrushes.WhiteSmoke, 10, 75, 160, 80);
             gfx.DrawString($"Adress: 123", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Date: {currentDate}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Time: {currentTime}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Order number: {currentTimePeriod}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
 
-            XPen lineRed = new XPen(XColors.Blue, 3);
-            gfx.DrawLine(lineRed, 0, 60, page.Width, 60);
+            // Divider
+            gfx.DrawLine(DividerColor, 15, 200, page.Width - 15, 200);
 
-            //for (int i = 0; i < inputData.Items.Count; i++)
-            //{
-            //    gfx.DrawString($"{inputData.Items[i].ToString()}", font, XBrushes.Black, new XRect(0, offset, page.Width, page.Height), XStringFormats.TopLeft);
-            //    //outString += inputData.Items[i].ToString();
-            //    offset += 20;
-                    
-            //    System.Diagnostics.Debug.WriteLine(inputData.Items[i].ToString());
-            //    System.Diagnostics.Debug.WriteLine(outString);
-            //}
-            gfx.DrawString($"Total: {totalPrice} kr (12% tax)", descriptionFont, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.BottomLeft);
+
+            int offset = 220;
+            for (int i = 0; i < inputData.Items.Count; i++)
+            {
+                gfx.DrawString($"{inputData.Items[i].ToString()}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+                //outString += inputData.Items[i].ToString();
+                gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
+                offset += 45;
+
+                System.Diagnostics.Debug.WriteLine(inputData.Items[i].ToString());
+                System.Diagnostics.Debug.WriteLine(outString);
+            }
+
+            // Tax and total amount
+            gfx.DrawString($"Total without tax: {totalPrice * (1 - taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax ({taxAmount * 100}%): {totalPrice - (totalPrice * (1 - taxAmount))} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {totalPrice} kr", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+
+
+
             //Specify file name of the PDF file
             string filename = String.Format(@"C:\Users\{0}\Documents\hotell-kvitton\kvitto_{1}.pdf", userName, currentTimePeriod);
+            
+            //if (!Directory.Exists(@"C:\Users\{0}\Documents\hotell-kvitton\"))
+            //{
+            //    Directory.CreateDirectory(@"C:\Users\{0}\Documents\hotell-kvitton\");
+            //}
+            
             //Save PDF File
             document.Save(filename);
             ////Load PDF File for viewing
