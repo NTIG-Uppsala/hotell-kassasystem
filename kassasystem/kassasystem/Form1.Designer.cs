@@ -1,6 +1,6 @@
 ﻿namespace kassasystem
 {
-    partial class Form1
+    partial class hotelPaymentAndBookingSystem
     {
         /// <summary>
         ///  Required designer variable.
@@ -180,7 +180,7 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Room types";
             // 
-            // Form1
+            // hotelPaymentAndBookingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -198,8 +198,8 @@
             this.Controls.Add(this.lbl_button_val);
             this.Controls.Add(this.btn_double_bed);
             this.Controls.Add(this.btn_two_single_beds);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "hotelPaymentAndBookingSystem";
+            this.Text = "Hotel Payment And Booking System";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -49,15 +49,15 @@ namespace kassasystem
             XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
 
 
-            gfx.DrawString("Hotell kassasystem", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString("Kvitto", titleFont, XBrushes.Black, new XRect(-15, 15, page.Width, page.Height), XStringFormats.TopRight);
+            gfx.DrawString("Hotel name", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString("Receipt", titleFont, XBrushes.Black, new XRect(-15, 15, page.Width, page.Height), XStringFormats.TopRight);
 
             // Divider
             gfx.DrawLine(DividerColor, 15, 60, page.Width - 15, 60);
 
             /* Info box (date of purchase, order number etc..)  */
             gfx.DrawRectangle(XPens.WhiteSmoke, XBrushes.WhiteSmoke, 10, 75, 160, 80);
-            gfx.DrawString($"Adress: 123", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Adress: some address", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Date: {currentDate}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Time: {currentTime}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Order number: {currentTimePeriod}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);

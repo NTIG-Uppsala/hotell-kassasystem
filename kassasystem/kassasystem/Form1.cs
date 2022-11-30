@@ -2,14 +2,14 @@ using Microsoft.Win32;
 
 namespace kassasystem
 {
-    public partial class Form1 : Form
+    public partial class hotelPaymentAndBookingSystem : Form
     {
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
         public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
         PDFGenerator pdfGenerator = new PDFGenerator();
 
         public Double total_price = 0;
-        public Form1()
+        public hotelPaymentAndBookingSystem()
         {
             InitializeComponent();
             this.priceList = new Dictionary<string, int>()

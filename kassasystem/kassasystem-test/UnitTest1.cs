@@ -6,14 +6,14 @@ namespace kassasystem_test
 {
     public class Tests
     {
-        Form1 _form;
+        hotelPaymentAndBookingSystem _form;
         int two_single_beds_price = 1000;
         int one_double_bed_price = 1000;
 
         [SetUp]
         public void Setup()
         {
-            _form = new Form1();
+            _form = new hotelPaymentAndBookingSystem();
             _form.Show();
         }
 
