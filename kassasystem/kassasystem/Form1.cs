@@ -4,8 +4,8 @@ namespace kassasystem
 {
     public partial class Form1 : Form
     {
-        internal Dictionary<string, int> priceList = new Dictionary<string, int>();
-        internal Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
+        public Dictionary<string, int> priceList = new Dictionary<string, int>();
+        public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
         PDFGenerator pdfGenerator = new PDFGenerator();
 
         public Double total_price = 0;
@@ -23,6 +23,7 @@ namespace kassasystem
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
             //player.PlayLooping();
+            CheckOutDayPicker.Value = DateTime.Now; 
         }
 
         private Double CalculateRoomPrice(int roomAmount, int roomPrice, int days)

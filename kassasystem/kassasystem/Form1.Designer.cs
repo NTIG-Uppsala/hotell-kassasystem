@@ -38,7 +38,7 @@
             this.lbl_total = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.BtnRemove1x = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BtnRemoveAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -139,16 +139,16 @@
             this.BtnRemove1x.UseVisualStyleBackColor = true;
             this.BtnRemove1x.Click += new System.EventHandler(this.BtnRemove1xClick);
             // 
-            // button3
+            // BtnRemoveAll
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(1111, 521);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(161, 35);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Remove Product";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.BtnRemoveClick);
+            this.BtnRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnRemoveAll.Location = new System.Drawing.Point(1111, 521);
+            this.BtnRemoveAll.Name = "BtnRemoveAll";
+            this.BtnRemoveAll.Size = new System.Drawing.Size(161, 35);
+            this.BtnRemoveAll.TabIndex = 7;
+            this.BtnRemoveAll.Text = "Remove Product";
+            this.BtnRemoveAll.UseVisualStyleBackColor = true;
+            this.BtnRemoveAll.Click += new System.EventHandler(this.BtnRemoveClick);
             // 
             // label1
             // 
@@ -189,7 +189,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckOutDayPicker);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.BtnRemoveAll);
             this.Controls.Add(this.BtnRemove1x);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lbl_total);
@@ -215,8 +215,8 @@
         public ListBox listBox1;
         public Label lbl_total;
         public Button button1;
-        private Button BtnRemove1x;
-        private Button button3;
+        public Button BtnRemove1x;
+        public Button BtnRemoveAll;
         private Label label1;
         private DateTimePicker CheckOutDayPicker;
         private Label label2;

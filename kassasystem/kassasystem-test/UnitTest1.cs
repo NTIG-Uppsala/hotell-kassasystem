@@ -71,6 +71,48 @@ namespace kassasystem_test
         }
 
         [Test]
+        public void test_remove_1x()
+        {
+            if (_form.BtnRemove1x.Visible)
+            {
+                _form.btn_double_bed.PerformClick();
+                _form.btn_double_bed.PerformClick();
+
+                _form.listBox1.SelectedItem = _form.listBox1.Items[0];
+
+                _form.BtnRemove1x.PerformClick();
+
+                Assert.That(_form.cartDictionary[_form.btn_double_bed.Text], Is.EqualTo(1));
+            }
+            else
+            {
+                Assert.Fail("Remove 1x not visible");
+            }
+        }
+
+        [Test]
+        public void test_remove_all()
+        {
+            if (_form.BtnRemoveAll.Visible)
+            {
+                _form.btn_double_bed.PerformClick();
+                _form.btn_two_single_beds.PerformClick();
+
+                Assert.That(_form.cartDictionary[_form.btn_double_bed.Text], Is.EqualTo(1));
+
+                _form.listBox1.SelectedItem = _form.listBox1.Items[0];
+
+                _form.BtnRemoveAll.PerformClick();
+
+                Assert.That(_form.cartDictionary.ContainsKey(_form.btn_double_bed.Text), Is.False);
+            }
+            else
+            {
+                Assert.Fail("Remove all not visible");
+            }
+        }
+
+        [Test]
         public void addition()
         {
             int firstValue = 1;
