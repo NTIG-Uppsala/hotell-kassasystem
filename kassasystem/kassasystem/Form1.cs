@@ -16,8 +16,8 @@ namespace kassasystem
             this.priceList = new Dictionary<string, int>()
             {
                 { "Standard Single", 500 },
-                { "Standard Double", 1000 },
-                { "Standard Double Single", 1000 }
+                { "Standard Double Single", 1000 },
+                { "Deluxe Double", 1500 }
             };
         }
 
@@ -118,6 +118,7 @@ namespace kassasystem
                     // Removes one instance, and clears the product if the amount reults as zero
                     if(input.Contains(product.Key))
                     {
+                        System.Diagnostics.Debug.WriteLine("the key " + product.Key +" exists in input " + input);
                         int currentValue = product.Value;
                         cartDictionary[product.Key] = currentValue - 1;
 
@@ -143,7 +144,7 @@ namespace kassasystem
                 {
                     if (input.Contains(product.Key))
                     {
-                        System.Diagnostics.Debug.WriteLine(product.Key);
+                        System.Diagnostics.Debug.WriteLine("the key" + product.Key + "exists in input");
                         cartDictionary.Remove(product.Key);
                     }
                 }

@@ -65,7 +65,7 @@
             this.btnDoubleBed.Name = "btnDoubleBed";
             this.btnDoubleBed.Size = new System.Drawing.Size(182, 91);
             this.btnDoubleBed.TabIndex = 1;
-            this.btnDoubleBed.Text = "Standard Double";
+            this.btnDoubleBed.Text = "Deluxe Double";
             this.btnDoubleBed.UseVisualStyleBackColor = false;
             this.btnDoubleBed.Click += new System.EventHandler(this.BtnClick);
             // 
