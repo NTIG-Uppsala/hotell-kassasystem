@@ -30,43 +30,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_two_single_beds = new System.Windows.Forms.Button();
-            this.btn_double_bed = new System.Windows.Forms.Button();
+            this.btnTwoSingleBeds = new System.Windows.Forms.Button();
+            this.btnDoubleBed = new System.Windows.Forms.Button();
             this.lbl_button_val = new System.Windows.Forms.Label();
-            this.btn_clear = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.lbl_total = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.btnPay = new System.Windows.Forms.Button();
             this.BtnRemove1x = new System.Windows.Forms.Button();
             this.BtnRemoveAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnSingleBed = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_two_single_beds
+            // btnTwoSingleBeds
             // 
-            this.btn_two_single_beds.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btn_two_single_beds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_two_single_beds.Location = new System.Drawing.Point(15, 144);
-            this.btn_two_single_beds.Name = "btn_two_single_beds";
-            this.btn_two_single_beds.Size = new System.Drawing.Size(197, 91);
-            this.btn_two_single_beds.TabIndex = 0;
-            this.btn_two_single_beds.Text = "room 2 single beds";
-            this.btn_two_single_beds.UseVisualStyleBackColor = false;
-            this.btn_two_single_beds.Click += new System.EventHandler(this.btn_Click);
+            this.btnTwoSingleBeds.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnTwoSingleBeds.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnTwoSingleBeds.Location = new System.Drawing.Point(215, 144);
+            this.btnTwoSingleBeds.Name = "btnTwoSingleBeds";
+            this.btnTwoSingleBeds.Size = new System.Drawing.Size(197, 91);
+            this.btnTwoSingleBeds.TabIndex = 0;
+            this.btnTwoSingleBeds.Text = "Standard Double Single";
+            this.btnTwoSingleBeds.UseVisualStyleBackColor = false;
+            this.btnTwoSingleBeds.Click += new System.EventHandler(this.BtnClick);
             // 
-            // btn_double_bed
+            // btnDoubleBed
             // 
-            this.btn_double_bed.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btn_double_bed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_double_bed.Location = new System.Drawing.Point(218, 144);
-            this.btn_double_bed.Name = "btn_double_bed";
-            this.btn_double_bed.Size = new System.Drawing.Size(182, 91);
-            this.btn_double_bed.TabIndex = 1;
-            this.btn_double_bed.Text = "room 1 double bed";
-            this.btn_double_bed.UseVisualStyleBackColor = false;
-            this.btn_double_bed.Click += new System.EventHandler(this.btn_Click);
+            this.btnDoubleBed.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnDoubleBed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnDoubleBed.Location = new System.Drawing.Point(418, 144);
+            this.btnDoubleBed.Name = "btnDoubleBed";
+            this.btnDoubleBed.Size = new System.Drawing.Size(182, 91);
+            this.btnDoubleBed.TabIndex = 1;
+            this.btnDoubleBed.Text = "Standard Double";
+            this.btnDoubleBed.UseVisualStyleBackColor = false;
+            this.btnDoubleBed.Click += new System.EventHandler(this.BtnClick);
             // 
             // lbl_button_val
             // 
@@ -77,18 +78,18 @@
             this.lbl_button_val.Size = new System.Drawing.Size(0, 114);
             this.lbl_button_val.TabIndex = 2;
             // 
-            // btn_clear
+            // btnClear
             // 
-            this.btn_clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_clear.BackColor = System.Drawing.Color.Red;
-            this.btn_clear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_clear.Location = new System.Drawing.Point(898, 589);
-            this.btn_clear.Name = "btn_clear";
-            this.btn_clear.Size = new System.Drawing.Size(168, 96);
-            this.btn_clear.TabIndex = 3;
-            this.btn_clear.Text = "CLEAR";
-            this.btn_clear.UseVisualStyleBackColor = false;
-            this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.BackColor = System.Drawing.Color.Red;
+            this.btnClear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnClear.Location = new System.Drawing.Point(898, 589);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(168, 96);
+            this.btnClear.TabIndex = 3;
+            this.btnClear.Text = "CLEAR";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.BtnClearClick);
             // 
             // listBox1
             // 
@@ -103,30 +104,30 @@
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 0;
             // 
-            // lbl_total
+            // lblTotal
             // 
-            this.lbl_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_total.AutoSize = true;
-            this.lbl_total.BackColor = System.Drawing.Color.White;
-            this.lbl_total.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_total.Location = new System.Drawing.Point(908, 468);
-            this.lbl_total.Name = "lbl_total";
-            this.lbl_total.Size = new System.Drawing.Size(124, 37);
-            this.lbl_total.TabIndex = 4;
-            this.lbl_total.Text = "Total: 0kr";
+            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.White;
+            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTotal.Location = new System.Drawing.Point(908, 468);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(124, 37);
+            this.lblTotal.TabIndex = 4;
+            this.lblTotal.Text = "Total: 0kr";
             // 
-            // button1
+            // btnPay
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Lime;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(1109, 589);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(163, 96);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "PAY";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btn_pay_Click);
+            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPay.BackColor = System.Drawing.Color.Lime;
+            this.btnPay.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnPay.Location = new System.Drawing.Point(1109, 589);
+            this.btnPay.Name = "btnPay";
+            this.btnPay.Size = new System.Drawing.Size(163, 96);
+            this.btnPay.TabIndex = 5;
+            this.btnPay.Text = "PAY";
+            this.btnPay.UseVisualStyleBackColor = false;
+            this.btnPay.Click += new System.EventHandler(this.BtnPayClick);
             // 
             // BtnRemove1x
             // 
@@ -180,27 +181,40 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Room types";
             // 
+            // btnSingleBed
+            // 
+            this.btnSingleBed.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnSingleBed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnSingleBed.Location = new System.Drawing.Point(12, 144);
+            this.btnSingleBed.Name = "btnSingleBed";
+            this.btnSingleBed.Size = new System.Drawing.Size(197, 91);
+            this.btnSingleBed.TabIndex = 11;
+            this.btnSingleBed.Text = "Standard Single";
+            this.btnSingleBed.UseVisualStyleBackColor = false;
+            this.btnSingleBed.Click += new System.EventHandler(this.BtnClick);
+            // 
             // hotelPaymentAndBookingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.Controls.Add(this.btnSingleBed);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckOutDayPicker);
             this.Controls.Add(this.BtnRemoveAll);
             this.Controls.Add(this.BtnRemove1x);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.lbl_total);
+            this.Controls.Add(this.btnPay);
+            this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.btn_clear);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lbl_button_val);
-            this.Controls.Add(this.btn_double_bed);
-            this.Controls.Add(this.btn_two_single_beds);
+            this.Controls.Add(this.btnDoubleBed);
+            this.Controls.Add(this.btnTwoSingleBeds);
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Form1Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,17 +222,18 @@
 
         #endregion
 
-        public Button btn_two_single_beds;
-        public Button btn_double_bed;
+        public Button btnTwoSingleBeds;
+        public Button btnDoubleBed;
         public Label lbl_button_val;
-        public Button btn_clear;
+        public Button btnClear;
         public ListBox listBox1;
-        public Label lbl_total;
-        public Button button1;
+        public Label lblTotal;
+        public Button btnPay;
         public Button BtnRemove1x;
         public Button BtnRemoveAll;
         private Label label1;
         private DateTimePicker CheckOutDayPicker;
         private Label label2;
+        public Button btnSingleBed;
     }
 }

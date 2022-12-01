@@ -8,18 +8,19 @@ namespace kassasystem
         public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
         PDFGenerator pdfGenerator = new PDFGenerator();
 
-        public Double total_price = 0;
+        public Double totalPrice = 0;
         public hotelPaymentAndBookingSystem()
         {
             InitializeComponent();
             this.priceList = new Dictionary<string, int>()
             {
-                { "room 1 double bed", 1000 },
-                { "room 2 single beds", 1000 },
+                { "Standard Single", 500 },
+                { "Standard Double", 1000 },
+                { "Standard Double Single", 1000 }
             };
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1Load(object sender, EventArgs e)
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
             //player.PlayLooping();
@@ -55,18 +56,18 @@ namespace kassasystem
 
         private void UpdateTotal()
         {
-            this.total_price = 0;
+            this.totalPrice = 0;
             
             if( cartDictionary.Count > 0)
             {
                 foreach (KeyValuePair<string, int> product in cartDictionary)
                 {
                    
-                    this.total_price += CalculateRoomPrice(product.Value, priceList[product.Key], GetDateDifference(CheckOutDayPicker.Value));
+                    this.totalPrice += CalculateRoomPrice(product.Value, priceList[product.Key], GetDateDifference(CheckOutDayPicker.Value));
                 }
             }
 
-            this.lbl_total.Text = $"Total: {this.total_price}kr";
+            this.lblTotal.Text = $"Total: {this.totalPrice}kr";
         }
 
         private void AddToCart(string productName)
@@ -89,7 +90,7 @@ namespace kassasystem
             return difference;
         }
 
-        private void btn_Click(object sender, EventArgs e)
+        private void BtnClick(object sender, EventArgs e)
         {
             string buttonText = (sender as Button).Text;
             AddToCart(buttonText);
@@ -141,20 +142,21 @@ namespace kassasystem
             CheckOutDayPicker.Value = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
             UpdateTotal();
         }
-        private void btn_clear_Click(object sender, EventArgs e)
+        private void BtnClearClick(object sender, EventArgs e)
         {
             ResetValues();
         }
 
-        private void btn_pay_Click(object sender, EventArgs e)
+        private void BtnPayClick(object sender, EventArgs e)
         {
             if (listBox1.Items.Count > 0)
             {
-                pdfGenerator.savePDF(listBox1, total_price);
+                pdfGenerator.savePDF(listBox1, totalPrice);
                 ResetValues();
             } else
             {
                 // TODO: show message cart empty
+
             }
         }
 
