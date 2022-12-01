@@ -127,8 +127,8 @@ namespace kassasystem
                         }
                     }
                 }
+                UpdateCartView();
             }
-            UpdateCartView();
 
         }
 
@@ -143,11 +143,12 @@ namespace kassasystem
                 {
                     if (input.Contains(product.Key))
                     {
+                        System.Diagnostics.Debug.WriteLine(product.Key);
                         cartDictionary.Remove(product.Key);
                     }
                 }
+                UpdateCartView();
             }
-            UpdateCartView();
         }
 
         // Resets the entire list box
