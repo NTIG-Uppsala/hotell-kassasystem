@@ -86,13 +86,13 @@ namespace kassasystem
 
 
             //Specify file name of the PDF file
-            string filename = String.Format(@"C:\Users\{0}\Documents\hotell-kvitton\kvitto_{1}.pdf", userName, currentTimePeriod);
-            
-            //if (!Directory.Exists(@"C:\Users\{0}\Documents\hotell-kvitton\"))
-            //{
-            //    Directory.CreateDirectory(@"C:\Users\{0}\Documents\hotell-kvitton\");
-            //}
-            
+            string filename = String.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, currentTimePeriod);
+
+            if (!Directory.Exists(String.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName)))
+            {
+                Directory.CreateDirectory(String.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName));
+            }
+
             //Save PDF File
             document.Save(filename);
             ////Load PDF File for viewing

@@ -25,7 +25,7 @@ namespace kassasystem
         {   
             // Plays motivating music
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
-            player.PlayLooping();
+            // player.PlayLooping();
             // Gets current date
             CheckOutDayPicker.Value = DateTime.Now; 
         }
