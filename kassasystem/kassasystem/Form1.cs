@@ -8,6 +8,7 @@ namespace kassasystem
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
         public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
         PDFGenerator pdfGenerator = new PDFGenerator();
+        Database db = new Database();
 
         public Double totalPrice = 0;
         public hotelPaymentAndBookingSystem()
