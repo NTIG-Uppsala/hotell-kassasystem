@@ -85,6 +85,16 @@
                     "Name" = "8:.NET Runtime 7.0.0 (x86)"
                     "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.7.0.x86"
                     }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.7.0.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 7.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.7.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.7.0.x86"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 7.0.0 (x86)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.7.0.x86"
+                    }
                 }
             }
         }
@@ -175,7 +185,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:installation-file"
         "ProductCode" = "8:{1207AFB2-F235-4D7B-97CF-2F8F944BBAED}"
-        "PackageCode" = "8:{F686589A-DE1B-4DDE-97C6-9C7DDF12F42D}"
+        "PackageCode" = "8:{A2C5E1F2-8AF3-46B4-981B-D78E7BDA74D9}"
         "UpgradeCode" = "8:{A35091BF-AF00-4C51-8E91-5F9A9378DD18}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
