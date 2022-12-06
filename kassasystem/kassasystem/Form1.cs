@@ -1,4 +1,6 @@
 using Microsoft.Win32;
+using System.Data;
+using System.Data.SQLite;
 
 namespace kassasystem
 {
@@ -8,7 +10,7 @@ namespace kassasystem
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
         public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
         PDFGenerator pdfGenerator = new PDFGenerator();
-        Database db = new Database();
+        // Database db = new Database();
 
         public Double totalPrice = 0;
         public hotelPaymentAndBookingSystem()
@@ -186,6 +188,20 @@ namespace kassasystem
         private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)
         {
             UpdateCartView();
+        }
+
+        private void DBTestButton_Click(object sender, EventArgs e)
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
+            con.Open();
+            string query = "SELECT * FROM test_table";
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
+            adapter.Fill(dt);
+
+            dataGridView1.DataSource = dt;
         }
     }
 }

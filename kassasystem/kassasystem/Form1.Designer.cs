@@ -43,6 +43,9 @@
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSingleBed = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DBTestButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnTwoSingleBeds
@@ -193,12 +196,33 @@
             this.btnSingleBed.UseVisualStyleBackColor = false;
             this.btnSingleBed.Click += new System.EventHandler(this.BtnClick);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(1, 535);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 12;
+            // 
+            // DBTestButton
+            // 
+            this.DBTestButton.Location = new System.Drawing.Point(90, 475);
+            this.DBTestButton.Name = "DBTestButton";
+            this.DBTestButton.Size = new System.Drawing.Size(75, 23);
+            this.DBTestButton.TabIndex = 13;
+            this.DBTestButton.Text = "button1";
+            this.DBTestButton.UseVisualStyleBackColor = true;
+            this.DBTestButton.Click += new System.EventHandler(this.DBTestButton_Click);
+            // 
             // hotelPaymentAndBookingSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.Controls.Add(this.DBTestButton);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnSingleBed);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -215,6 +239,7 @@
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
             this.Load += new System.EventHandler(this.Form1Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,5 +260,7 @@
         private DateTimePicker CheckOutDayPicker;
         private Label label2;
         public Button btnSingleBed;
+        private DataGridView dataGridView1;
+        private Button DBTestButton;
     }
 }
