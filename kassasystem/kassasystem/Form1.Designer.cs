@@ -70,14 +70,21 @@ namespace kassasystem
                 string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
                 SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
                 con.Open();
+                var roomTypes = new List<string>();
                 for (int j = 0; j < 5; j++)
                 {
-                    string query = "SELECT * FROM roomTypes";
+                    string query = "SELECT type FROM roomTypes";
                     SQLiteCommand cmd = new SQLiteCommand(query, con);
                     using SQLiteDataReader rdr = cmd.ExecuteReader();
-                    while(rdr.Read())
+                    while (rdr.Read())
                     {
-                        System.Diagnostics.Debug.WriteLine($"{rdr.GetInt32(0)} {rdr.GetString(1)}");
+                        //System.Diagnostics.Debug.WriteLine($"{rdr.GetInt32(0)} {rdr.GetString(1)}");
+                        roomTypes.Add($"{rdr.GetString(0)}");
+
+                    }
+                    for (int x = 0; x < roomTypes.Count; x++)
+                    {
+                        System.Diagnostics.Debug.WriteLine(roomTypes[x]);
                     }
                     
                 }                
