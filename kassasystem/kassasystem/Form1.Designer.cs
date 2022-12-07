@@ -1,4 +1,8 @@
-﻿namespace kassasystem
+﻿using System.Data.SQLite;
+using System.Data;
+using Microsoft.Data.Sqlite;
+
+namespace kassasystem
 {
     partial class hotelPaymentAndBookingSystem
     {
@@ -53,6 +57,7 @@
 
 
 
+
             //
             //genereatening rtest :)
             //
@@ -62,6 +67,20 @@
                 newThingy.BackColor = System.Drawing.Color.LightSkyBlue;
                 newThingy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
                 newThingy.Location = new System.Drawing.Point(215 + 200*i, 144);
+                string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+                SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
+                con.Open();
+                for (int j = 0; j < 5; j++)
+                {
+                    string query = "SELECT * FROM roomTypes";
+                    SQLiteCommand cmd = new SQLiteCommand(query, con);
+                    using SQLiteDataReader rdr = cmd.ExecuteReader();
+                    while(rdr.Read())
+                    {
+                        System.Diagnostics.Debug.WriteLine($"{rdr.GetInt32(0)} {rdr.GetString(1)}");
+                    }
+                    
+                }                
                 newThingy.Name = "btnTwoSingleBeds";
                 newThingy.Size = new System.Drawing.Size(197, 91);
                 newThingy.TabIndex = 0;

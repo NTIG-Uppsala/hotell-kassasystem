@@ -192,16 +192,7 @@ namespace kassasystem
 
         private void DBTestButton_Click(object sender, EventArgs e)
         {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
-            con.Open();
-            string query = "SELECT * FROM guests";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            DataTable dt = new DataTable();
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-            adapter.Fill(dt);
-
-            dataGridView1.DataSource = dt;
+            
         }
     }
 }
