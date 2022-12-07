@@ -57,7 +57,7 @@ namespace kassasystem
 
             /* Info box (date of purchase, order number etc..)  */
             gfx.DrawRectangle(XPens.WhiteSmoke, XBrushes.WhiteSmoke, 10, 75, 160, 80);
-            gfx.DrawString($"Adress: some address", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Address: some address", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Date: {currentDate}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Time: {currentTime}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Order number: {currentTimePeriod}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
@@ -79,8 +79,8 @@ namespace kassasystem
             }
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {totalPrice * (1 - taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax ({taxAmount * 100}%): {totalPrice - (totalPrice * (1 - taxAmount))} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {totalPrice - (totalPrice * taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax ({taxAmount * 100}%): {(totalPrice * taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Total: {totalPrice} kr", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
