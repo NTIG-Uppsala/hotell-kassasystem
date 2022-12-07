@@ -47,6 +47,30 @@
             this.DBTestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
+
+
+
+
+
+
+            //
+            //genereatening rtest :)
+            //
+            for (int i = 0; i < 5; i++)
+            {
+                var newThingy = new System.Windows.Forms.Button();
+                newThingy.BackColor = System.Drawing.Color.LightSkyBlue;
+                newThingy.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+                newThingy.Location = new System.Drawing.Point(215 + 200*i, 144);
+                newThingy.Name = "btnTwoSingleBeds";
+                newThingy.Size = new System.Drawing.Size(197, 91);
+                newThingy.TabIndex = 0;
+                newThingy.Text = "Standard Double Single";
+                newThingy.UseVisualStyleBackColor = false;
+                newThingy.Click += new System.EventHandler(this.BtnClick);
+                this.Controls.Add(newThingy);
+            }
+
             // 
             // btnTwoSingleBeds
             // 
@@ -86,7 +110,7 @@
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.BackColor = System.Drawing.Color.Red;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(898, 589);
+            this.btnClear.Location = new System.Drawing.Point(1518, 933);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(168, 96);
             this.btnClear.TabIndex = 3;
@@ -101,9 +125,9 @@
             this.listBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(898, 11);
+            this.listBox1.Location = new System.Drawing.Point(1518, 11);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(374, 504);
+            this.listBox1.Size = new System.Drawing.Size(374, 829);
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 0;
             // 
@@ -113,7 +137,7 @@
             this.lblTotal.AutoSize = true;
             this.lblTotal.BackColor = System.Drawing.Color.White;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTotal.Location = new System.Drawing.Point(908, 468);
+            this.lblTotal.Location = new System.Drawing.Point(1527, 794);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(124, 37);
             this.lblTotal.TabIndex = 4;
@@ -124,7 +148,7 @@
             this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPay.BackColor = System.Drawing.Color.Lime;
             this.btnPay.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPay.Location = new System.Drawing.Point(1109, 589);
+            this.btnPay.Location = new System.Drawing.Point(1729, 933);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(163, 96);
             this.btnPay.TabIndex = 5;
@@ -135,7 +159,7 @@
             // BtnRemove1x
             // 
             this.BtnRemove1x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnRemove1x.Location = new System.Drawing.Point(898, 521);
+            this.BtnRemove1x.Location = new System.Drawing.Point(1518, 865);
             this.BtnRemove1x.Name = "BtnRemove1x";
             this.BtnRemove1x.Size = new System.Drawing.Size(163, 35);
             this.BtnRemove1x.TabIndex = 6;
@@ -146,7 +170,7 @@
             // BtnRemoveAll
             // 
             this.BtnRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnRemoveAll.Location = new System.Drawing.Point(1111, 521);
+            this.BtnRemoveAll.Location = new System.Drawing.Point(1731, 865);
             this.BtnRemoveAll.Name = "BtnRemoveAll";
             this.BtnRemoveAll.Size = new System.Drawing.Size(161, 35);
             this.BtnRemoveAll.TabIndex = 7;
@@ -220,7 +244,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1284, 697);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.DBTestButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnSingleBed);
