@@ -16,12 +16,6 @@ namespace kassasystem
         public hotelPaymentAndBookingSystem()
         {
             InitializeComponent();
-            this.priceList = new Dictionary<string, int>()
-            {
-                { "Standard Single", 500 },
-                { "Standard Double Single", 1000 },
-                { "Deluxe Double", 1500 }
-            };
         }
 
         private void Form1Load(object sender, EventArgs e)
