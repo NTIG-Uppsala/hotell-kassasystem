@@ -68,18 +68,25 @@ namespace kassasystem
             this.SuspendLayout();
 
             // Generate room buttons
+            // Finds database in path
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
             SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
+            // Connects to database
             con.Open();
+            // Creates list for room types
             var roomTypes = new List<string>();
 
+            // Setup to get data from the database 
             string query = "SELECT type FROM roomTypes";
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             using SQLiteDataReader rdr = cmd.ExecuteReader();
+
+            // Setup for button positions
             int x = 15;
             int y = 144;
             int offset = 0;
 
+            // Adds a button for each room type data found in the database
             while (rdr.Read())
             {
                 

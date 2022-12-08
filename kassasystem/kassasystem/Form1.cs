@@ -184,9 +184,5 @@ namespace kassasystem
             UpdateCartView();
         }
 
-        private void DBTestButton_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }
