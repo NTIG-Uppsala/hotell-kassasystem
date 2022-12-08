@@ -63,6 +63,7 @@ namespace kassasystem
             this.label1 = new System.Windows.Forms.Label();
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
 
             this.SuspendLayout();
 
@@ -81,11 +82,11 @@ namespace kassasystem
 
             while (rdr.Read())
             {
-                //System.Diagnostics.Debug.WriteLine($"{rdr.GetInt32(0)} {rdr.GetString(1)}");
-
+                
                 roomTypes.Add($"{rdr.GetString(0)}");
                 string roomType = rdr.GetString(0);
-                this.priceList.Add(roomType, 2000);
+                System.Diagnostics.Debug.WriteLine(roomType);
+                this.priceList.Add(roomType, 2000); // Todo: Add price from database
                 Button newButton = CreateButton(roomType, roomType, x+offset, y);
                 offset += 200;
                 newButton.Click += new System.EventHandler(this.BtnClick);
@@ -163,6 +164,21 @@ namespace kassasystem
             this.btnPay.UseVisualStyleBackColor = false;
             this.btnPay.Click += new System.EventHandler(this.BtnPayClick);
 
+            //
+            // Test
+            //
+            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTest.BackColor = System.Drawing.Color.Lime;
+            this.btnTest.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTest.Location = new System.Drawing.Point(0, 600);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(163, 96);
+            this.btnTest.TabIndex = 5;
+            this.btnTest.Text = "Test Do Not Delete";
+            this.btnTest.UseVisualStyleBackColor = false;
+            this.btnTest.Click += new System.EventHandler(this.BtnClick);
+            this.btnTest.Visible = false;
+
             // 
             // BtnRemove1x
             // 
@@ -237,6 +253,7 @@ namespace kassasystem
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lbl_button_val);
+            this.Controls.Add(this.btnTest);
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
             this.Load += new System.EventHandler(this.Form1Load);
@@ -254,6 +271,7 @@ namespace kassasystem
         public Button btnPay;
         public Button BtnRemove1x;
         public Button BtnRemoveAll;
+        public Button btnTest;
         private Label label1;
         private DateTimePicker CheckOutDayPicker;
         private Label label2;

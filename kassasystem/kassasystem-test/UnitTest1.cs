@@ -7,84 +7,36 @@ namespace kassasystem_test
     public class Tests
     {
         hotelPaymentAndBookingSystem _form;
-        int twoSingleBedsPrice = 1000;
-        int oneDoubleBedPrice = 1000;
-        int btnSingleBedPrice = 500;
+        int roomPrice = 2000;
 
         [SetUp]
         public void Setup()
         {
             _form = new hotelPaymentAndBookingSystem();
+            _form.btnTest.Visible = true;
             _form.Show();
+            _form.priceList.Add(_form.btnTest.Text, 2000);
         }
         
         [Test]
-        public void test_click_single_bed()
+        public void testRoomButton()
         {
-            if (_form.btnSingleBed.Visible)
-            {
-                _form.btnSingleBed.PerformClick();
+            _form.btnTest.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains($"{_form.btnSingleBed.Text} 1x 0 days {btnSingleBedPrice}kr"), Is.True);
-                Assert.That(_form.lblTotal.Text, Is.EqualTo(String.Format("Total: {0}kr", btnSingleBedPrice)));
-            }
-            else
-            {
-                Assert.Fail("Person button is not visible");
-            }
+            Assert.That(_form.listBox1.Items.Contains($"{_form.btnTest.Text} 1x 0 days {roomPrice}kr"), Is.True);
+            Assert.That(_form.lblTotal.Text, Is.EqualTo(String.Format("Total: {0}kr", roomPrice)));
         }
-
+        
         [Test]
-        public void test_click_btn_two_single_beds()
+        public void testClickClearButton()
         {
 
-            if (_form.btnTwoSingleBeds.Visible)
-            {
-                _form.btnTwoSingleBeds.PerformClick();
+            _form.btnTest.PerformClick();
 
-                Assert.That(_form.listBox1.Items.Contains($"{_form.btnTwoSingleBeds.Text} 1x 0 days {twoSingleBedsPrice}kr"), Is.True);
-                Assert.That(_form.lblTotal.Text, Is.EqualTo(String.Format("Total: {0}kr", twoSingleBedsPrice)));
+            _form.btnClear.PerformClick();
 
-            }
-            else
-            {
-                Assert.Fail("Person button is not visible");
-            }
-        }
-
-        [Test]
-        public void test_click_two_single_beds()
-        {
-            if (_form.btnTwoSingleBeds.Visible)
-            {
-                _form.btnTwoSingleBeds.PerformClick();
-
-                Assert.That(_form.listBox1.Items.Contains($"{_form.btnTwoSingleBeds.Text} 1x 0 days {oneDoubleBedPrice}kr"), Is.True);
-                Assert.That(_form.lblTotal.Text, Is.EqualTo(String.Format("Total: {0}kr", oneDoubleBedPrice)));
-            }
-            else
-            {
-                Assert.Fail("Room button is not visible");
-            }
-        }
-
-        [Test]
-        public void test_click_clear_button()
-        {
-            if (_form.btnClear.Visible)
-            {
-                _form.btnDoubleBed.PerformClick();
-
-                _form.btnClear.PerformClick();
-
-                Assert.That((_form.listBox1.Items.Count == 0), Is.True);
-                Assert.That(_form.lblTotal.Text, Is.EqualTo("Total: 0kr"));
-            }
-            else
-            {
-                Assert.Fail("Clear button not visible");
-            }
-
+            Assert.That((_form.listBox1.Items.Count == 0), Is.True);
+            Assert.That(_form.lblTotal.Text, Is.EqualTo("Total: 0kr"));
         }
 
         [Test]
@@ -92,14 +44,14 @@ namespace kassasystem_test
         {
             if (_form.BtnRemove1x.Visible)
             {
-                _form.btnDoubleBed.PerformClick();
-                _form.btnDoubleBed.PerformClick();
+                _form.btnTest.PerformClick();
+                _form.btnTest.PerformClick();
 
                 _form.listBox1.SelectedItem = _form.listBox1.Items[0];
 
                 _form.BtnRemove1x.PerformClick();
 
-                Assert.That(_form.cartDictionary[_form.btnDoubleBed.Text], Is.EqualTo(1));
+                Assert.That(_form.cartDictionary[_form.btnTest.Text], Is.EqualTo(1));
             }
             else
             {
@@ -112,16 +64,16 @@ namespace kassasystem_test
         {
             if (_form.BtnRemoveAll.Visible)
             {
-                _form.btnDoubleBed.PerformClick();
-                _form.btnTwoSingleBeds.PerformClick();
+                _form.btnTest.PerformClick();
+                _form.btnTest.PerformClick();
 
-                Assert.That(_form.cartDictionary[_form.btnDoubleBed.Text], Is.EqualTo(1));
+                Assert.That(_form.cartDictionary[_form.btnTest.Text], Is.EqualTo(2));
 
                 _form.listBox1.SelectedItem = _form.listBox1.Items[0];
 
                 _form.BtnRemoveAll.PerformClick();
 
-                Assert.That(_form.cartDictionary.ContainsKey(_form.btnDoubleBed.Text), Is.False);
+                Assert.That(_form.cartDictionary.ContainsKey(_form.btnTest.Text), Is.False);
             }
             else
             {
