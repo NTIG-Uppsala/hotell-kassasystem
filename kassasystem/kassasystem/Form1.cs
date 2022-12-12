@@ -15,7 +15,62 @@ namespace kassasystem
         public Double totalPrice = 0;
         public hotelPaymentAndBookingSystem()
         {
+            Button CreateButton(string Name, string Text, int x, int y)
+            {
+                var button = new System.Windows.Forms.Button();
+
+                button.Text = Text;
+                button.Name = Name;
+                button.BackColor = System.Drawing.Color.LightSkyBlue;
+                button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+                button.Location = new System.Drawing.Point(x, y);
+
+                button.Size = new System.Drawing.Size(200, 90);
+                button.TabIndex = 0;
+                button.UseVisualStyleBackColor = false;
+
+                return button;
+
+            }
             InitializeComponent();
+            // Generate room buttons
+            // Finds database in path
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
+            // Connects to database
+            con.Open();
+            // Creates list for room types
+            var roomTypes = new List<string>();
+
+            // Setup to get data from the database 
+            string query = "SELECT type FROM roomTypes";
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            using SQLiteDataReader rdr = cmd.ExecuteReader();
+
+            // Setup for button positions
+            int x = 15;
+            int y = 144;
+            int offset = 0;
+
+            // Adds a button for each room type data found in the database
+            while (rdr.Read())
+            {
+
+                roomTypes.Add($"{rdr.GetString(0)}");
+                string roomType = rdr.GetString(0);
+                System.Diagnostics.Debug.WriteLine(roomType);
+                this.priceList.Add(roomType, 2000); // Todo: Add price from database
+                Button newButton = CreateButton(roomType, roomType, x + offset, y);
+                offset += 200;
+                newButton.Click += new System.EventHandler(this.BtnClick);
+                this.Controls.Add(newButton);
+
+            }
+            //for (int xyz = 0; xyz < roomTypes.Count; xyz++)
+            //{
+            //    System.Diagnostics.Debug.WriteLine(roomTypes[x]);
+            //}
+            con.Close();
         }
 
         private void Form1Load(object sender, EventArgs e)
