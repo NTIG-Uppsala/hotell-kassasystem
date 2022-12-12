@@ -34,23 +34,6 @@ namespace kassasystem
         /// </summary>
         /// 
 
-        private Button CreateButton(string Name, string Text, int x, int y)
-        {
-            var button = new System.Windows.Forms.Button();
-
-            button.Text = Text;
-            button.Name = Name;
-            button.BackColor = System.Drawing.Color.LightSkyBlue;
-            button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            button.Location = new System.Drawing.Point(x, y);
-
-            button.Size = new System.Drawing.Size(200, 90);
-            button.TabIndex = 0;
-            button.UseVisualStyleBackColor = false;
-
-            return button;
-
-        }
         private void InitializeComponent()
         {
             this.lbl_button_val = new System.Windows.Forms.Label();
@@ -64,48 +47,8 @@ namespace kassasystem
             this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
-
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
-
-            // Generate room buttons
-            // Finds database in path
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
-            // Connects to database
-            con.Open();
-            // Creates list for room types
-            var roomTypes = new List<string>();
-
-            // Setup to get data from the database 
-            string query = "SELECT type FROM roomTypes";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            using SQLiteDataReader rdr = cmd.ExecuteReader();
-
-            // Setup for button positions
-            int x = 15;
-            int y = 144;
-            int offset = 0;
-
-            // Adds a button for each room type data found in the database
-            while (rdr.Read())
-            {
-                
-                roomTypes.Add($"{rdr.GetString(0)}");
-                string roomType = rdr.GetString(0);
-                System.Diagnostics.Debug.WriteLine(roomType);
-                this.priceList.Add(roomType, 2000); // Todo: Add price from database
-                Button newButton = CreateButton(roomType, roomType, x+offset, y);
-                offset += 200;
-                newButton.Click += new System.EventHandler(this.BtnClick);
-                this.Controls.Add(newButton);
-
-            }
-            //for (int xyz = 0; xyz < roomTypes.Count; xyz++)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(roomTypes[x]);
-            //}
-            con.Close();
-
             // 
             // lbl_button_val
             // 
@@ -115,7 +58,6 @@ namespace kassasystem
             this.lbl_button_val.Name = "lbl_button_val";
             this.lbl_button_val.Size = new System.Drawing.Size(0, 114);
             this.lbl_button_val.TabIndex = 2;
-
             // 
             // btnClear
             // 
@@ -129,7 +71,6 @@ namespace kassasystem
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.BtnClearClick);
-
             // 
             // listBox1
             // 
@@ -143,7 +84,6 @@ namespace kassasystem
             this.listBox1.Size = new System.Drawing.Size(374, 829);
             this.listBox1.Sorted = true;
             this.listBox1.TabIndex = 0;
-
             // 
             // lblTotal
             // 
@@ -156,7 +96,6 @@ namespace kassasystem
             this.lblTotal.Size = new System.Drawing.Size(124, 37);
             this.lblTotal.TabIndex = 4;
             this.lblTotal.Text = "Total: 0kr";
-
             // 
             // btnPay
             // 
@@ -170,22 +109,6 @@ namespace kassasystem
             this.btnPay.Text = "PAY";
             this.btnPay.UseVisualStyleBackColor = false;
             this.btnPay.Click += new System.EventHandler(this.BtnPayClick);
-
-            //
-            // Test
-            //
-            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTest.BackColor = System.Drawing.Color.Lime;
-            this.btnTest.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTest.Location = new System.Drawing.Point(0, 600);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(163, 96);
-            this.btnTest.TabIndex = 5;
-            this.btnTest.Text = "Test Do Not Delete";
-            this.btnTest.UseVisualStyleBackColor = false;
-            this.btnTest.Click += new System.EventHandler(this.BtnClick);
-            this.btnTest.Visible = false;
-
             // 
             // BtnRemove1x
             // 
@@ -197,7 +120,6 @@ namespace kassasystem
             this.BtnRemove1x.Text = "Remove 1x Product";
             this.BtnRemove1x.UseVisualStyleBackColor = true;
             this.BtnRemove1x.Click += new System.EventHandler(this.BtnRemove1xClick);
-
             // 
             // BtnRemoveAll
             // 
@@ -209,7 +131,6 @@ namespace kassasystem
             this.BtnRemoveAll.Text = "Remove Product";
             this.BtnRemoveAll.UseVisualStyleBackColor = true;
             this.BtnRemoveAll.Click += new System.EventHandler(this.BtnRemoveClick);
-
             // 
             // label1
             // 
@@ -220,7 +141,6 @@ namespace kassasystem
             this.label1.Size = new System.Drawing.Size(169, 32);
             this.label1.TabIndex = 9;
             this.label1.Text = "Checkout date";
-
             // 
             // CheckOutDayPicker
             // 
@@ -231,18 +151,38 @@ namespace kassasystem
             this.CheckOutDayPicker.TabIndex = 8;
             this.CheckOutDayPicker.Value = new System.DateTime(2022, 11, 29, 12, 30, 0, 0);
             this.CheckOutDayPicker.ValueChanged += new System.EventHandler(this.CheckOutDayPicker_ValueChanged);
-
             // 
-            // Room type label
+            // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(15, 109);
-            this.label2.Name = "Room type label";
+            this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 32);
             this.label2.TabIndex = 10;
             this.label2.Text = "Room types";
-            
+            // 
+            // btnTest
+            // 
+            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTest.BackColor = System.Drawing.Color.Lime;
+            this.btnTest.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTest.Location = new System.Drawing.Point(0, 600);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(163, 96);
+            this.btnTest.TabIndex = 5;
+            this.btnTest.Text = "Test Do Not Delete";
+            this.btnTest.UseVisualStyleBackColor = false;
+            this.btnTest.Visible = false;
+            this.btnTest.Click += new System.EventHandler(this.BtnClick);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dateTimePicker1.Location = new System.Drawing.Point(420, 61);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker1.TabIndex = 11;
             // 
             // hotelPaymentAndBookingSystem
             // 
@@ -250,6 +190,7 @@ namespace kassasystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CheckOutDayPicker);
@@ -282,5 +223,6 @@ namespace kassasystem
         private Label label1;
         private DateTimePicker CheckOutDayPicker;
         private Label label2;
+        private DateTimePicker dateTimePicker1;
     }
 }
