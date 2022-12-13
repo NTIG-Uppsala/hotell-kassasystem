@@ -85,13 +85,18 @@ namespace kassasystem
 
         }
 
-        public List<Dictionary<String, Object>> QueryExecuter(string query)
+        public List<Dictionary<String, Object>> QueryExecutor(string query, params object[] queryArguments)
         {
             /* 
              * Returns a list of dictonaroies with result from db
              * REF: https://www.daniweb.com/programming/software-development/threads/234938/get-the-column-values-from-the-sqlite-database
              * 
             */
+            if (queryArguments.Length > 0)
+            {
+                query = string.Format(query, queryArguments);
+            }
+
             List<Dictionary<String, Object>> output = new List<Dictionary<String, Object>>();
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
@@ -139,7 +144,7 @@ namespace kassasystem
         }
         public void testGetSomething()
         {
-            var data = QueryExecuter("SELECT * FROM roomTypes");
+            var data = QueryExecutor("SELECT * FROM roomTypes");
 
             for (int i = 0; i < data.Count;i++)
             {
@@ -149,6 +154,12 @@ namespace kassasystem
                     System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value.ToString());
                 }
             }
+        }
+
+        public void GetAvailableRooms(int epochStartDate, int epochEndDate)
+        {
+            var data = QueryExecutor("SELECT * FROM rooms WHERE (SELECT * FROM roomsBooked WHERE (SELECT * FROM bookings WHERE dateFrom > ? AND dateTo > ?)) AND NOT EXISTS (SELECT * FROM roomsBooked WHERE rooms.roomID = roomsBooked.roomID)");
+
         }
 
         //public List<SToff> getRoomTypes()
