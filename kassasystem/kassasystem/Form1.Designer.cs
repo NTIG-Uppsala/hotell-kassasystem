@@ -37,15 +37,10 @@ namespace kassasystem
         private void InitializeComponent()
         {
             this.lbl_button_val = new System.Windows.Forms.Label();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.btnPay = new System.Windows.Forms.Button();
-            this.BtnRemove1x = new System.Windows.Forms.Button();
-            this.BtnRemoveAll = new System.Windows.Forms.Button();
-            this.LblBooking = new System.Windows.Forms.Label();
-            this.btnTest = new System.Windows.Forms.Button();
             this.BtnBooking = new System.Windows.Forms.Button();
+            this.btnPayment = new System.Windows.Forms.Button();
+            this.userControlBooking1 = new kassasystem.UserControlBooking();
+            this.userControlPayment1 = new kassasystem.UserControlPayment();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -57,112 +52,52 @@ namespace kassasystem
             this.lbl_button_val.Size = new System.Drawing.Size(0, 114);
             this.lbl_button_val.TabIndex = 2;
             // 
-            // btnClear
-            // 
-            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.BackColor = System.Drawing.Color.Red;
-            this.btnClear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(1518, 933);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(168, 96);
-            this.btnClear.TabIndex = 3;
-            this.btnClear.Text = "CLEAR";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.BtnClearClick);
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(1518, 11);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(374, 829);
-            this.listBox1.Sorted = true;
-            this.listBox1.TabIndex = 0;
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.BackColor = System.Drawing.Color.White;
-            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTotal.Location = new System.Drawing.Point(1527, 794);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(124, 37);
-            this.lblTotal.TabIndex = 4;
-            this.lblTotal.Text = "Total: 0kr";
-            // 
-            // btnPay
-            // 
-            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPay.BackColor = System.Drawing.Color.Lime;
-            this.btnPay.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPay.Location = new System.Drawing.Point(1729, 933);
-            this.btnPay.Name = "btnPay";
-            this.btnPay.Size = new System.Drawing.Size(163, 96);
-            this.btnPay.TabIndex = 5;
-            this.btnPay.Text = "PAY";
-            this.btnPay.UseVisualStyleBackColor = false;
-            this.btnPay.Click += new System.EventHandler(this.BtnPayClick);
-            // 
-            // BtnRemove1x
-            // 
-            this.BtnRemove1x.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnRemove1x.Location = new System.Drawing.Point(1518, 865);
-            this.BtnRemove1x.Name = "BtnRemove1x";
-            this.BtnRemove1x.Size = new System.Drawing.Size(163, 35);
-            this.BtnRemove1x.TabIndex = 6;
-            this.BtnRemove1x.Text = "Remove 1x Product";
-            this.BtnRemove1x.UseVisualStyleBackColor = true;
-            this.BtnRemove1x.Click += new System.EventHandler(this.BtnRemove1xClick);
-            // 
-            // BtnRemoveAll
-            // 
-            this.BtnRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnRemoveAll.Location = new System.Drawing.Point(1731, 865);
-            this.BtnRemoveAll.Name = "BtnRemoveAll";
-            this.BtnRemoveAll.Size = new System.Drawing.Size(161, 35);
-            this.BtnRemoveAll.TabIndex = 7;
-            this.BtnRemoveAll.Text = "Remove Product";
-            this.BtnRemoveAll.UseVisualStyleBackColor = true;
-            this.BtnRemoveAll.Click += new System.EventHandler(this.BtnRemoveClick);
-            // 
-            // LblBooking
-            // 
-            this.LblBooking.AutoSize = true;
-            this.LblBooking.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LblBooking.Location = new System.Drawing.Point(12, 91);
-            this.LblBooking.Name = "LblBooking";
-            this.LblBooking.Size = new System.Drawing.Size(117, 32);
-            this.LblBooking.TabIndex = 10;
-            this.LblBooking.Text = "Bookings:";
-            // 
-            // btnTest
-            // 
-            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTest.BackColor = System.Drawing.Color.Lime;
-            this.btnTest.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnTest.Location = new System.Drawing.Point(0, 600);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(163, 96);
-            this.btnTest.TabIndex = 5;
-            this.btnTest.Text = "Test Do Not Delete";
-            this.btnTest.UseVisualStyleBackColor = false;
-            this.btnTest.Visible = false;
-            this.btnTest.Click += new System.EventHandler(this.BtnClick);
-            // 
             // BtnBooking
             // 
+            this.BtnBooking.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.BtnBooking.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnBooking.Location = new System.Drawing.Point(12, 12);
             this.BtnBooking.Name = "BtnBooking";
             this.BtnBooking.Size = new System.Drawing.Size(175, 62);
             this.BtnBooking.TabIndex = 13;
             this.BtnBooking.Text = "Booking";
-            this.BtnBooking.UseVisualStyleBackColor = true;
-            this.BtnBooking.Click += new System.EventHandler(this.button1_Click);
+            this.BtnBooking.UseVisualStyleBackColor = false;
+            this.BtnBooking.Click += new System.EventHandler(this.btnBooking_Click);
+            // 
+            // btnPayment
+            // 
+            this.btnPayment.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnPayment.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnPayment.Location = new System.Drawing.Point(12, 123);
+            this.btnPayment.Name = "btnPayment";
+            this.btnPayment.Size = new System.Drawing.Size(175, 62);
+            this.btnPayment.TabIndex = 15;
+            this.btnPayment.Text = "Payment";
+            this.btnPayment.UseVisualStyleBackColor = false;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
+            // 
+            // userControlBooking1
+            // 
+            this.userControlBooking1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userControlBooking1.BackColor = System.Drawing.Color.DarkGray;
+            this.userControlBooking1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.userControlBooking1.Location = new System.Drawing.Point(238, -1);
+            this.userControlBooking1.Name = "userControlBooking1";
+            this.userControlBooking1.Size = new System.Drawing.Size(1668, 1041);
+            this.userControlBooking1.TabIndex = 17;
+            // 
+            // userControlPayment1
+            // 
+            this.userControlPayment1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userControlPayment1.BackColor = System.Drawing.Color.DarkGray;
+            this.userControlPayment1.Location = new System.Drawing.Point(238, -1);
+            this.userControlPayment1.Name = "userControlPayment1";
+            this.userControlPayment1.Size = new System.Drawing.Size(1668, 1041);
+            this.userControlPayment1.TabIndex = 18;
             // 
             // hotelPaymentAndBookingSystem
             // 
@@ -170,16 +105,11 @@ namespace kassasystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.btnPayment);
             this.Controls.Add(this.BtnBooking);
-            this.Controls.Add(this.LblBooking);
-            this.Controls.Add(this.BtnRemoveAll);
-            this.Controls.Add(this.BtnRemove1x);
-            this.Controls.Add(this.btnPay);
-            this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lbl_button_val);
-            this.Controls.Add(this.btnTest);
+            this.Controls.Add(this.userControlBooking1);
+            this.Controls.Add(this.userControlPayment1);
             this.IsMdiContainer = true;
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
@@ -193,14 +123,9 @@ namespace kassasystem
         #endregion
 
         public Label lbl_button_val;
-        public Button btnClear;
-        public ListBox listBox1;
-        public Label lblTotal;
-        public Button btnPay;
-        public Button BtnRemove1x;
-        public Button BtnRemoveAll;
-        public Button btnTest;
-        private Label LblBooking;
         private Button BtnBooking;
+        private Button btnPayment;
+        private UserControlBooking userControlBooking1;
+        private UserControlPayment userControlPayment1;
     }
 }
