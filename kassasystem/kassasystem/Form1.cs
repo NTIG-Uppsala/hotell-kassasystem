@@ -43,7 +43,7 @@ namespace kassasystem
             var roomTypes = new List<string>();
 
             // Setup to get data from the database 
-            string query = "SELECT type FROM roomTypes";
+            string query = "SELECT firstName, lastName FROM guests";
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             using SQLiteDataReader rdr = cmd.ExecuteReader();
 
@@ -52,11 +52,11 @@ namespace kassasystem
             int y = 144;
             int offset = 0;
 
-            // Adds a button for each room type data found in the database
+            // Adds a button for each each booking found in the database
             while (rdr.Read())
             {
 
-                roomTypes.Add($"{rdr.GetString(0)}");
+                roomTypes.Add($"{rdr.GetString(0)} {rdr.GetString(1)}");
                 string roomType = rdr.GetString(0);
                 System.Diagnostics.Debug.WriteLine(roomType);
                 this.priceList.Add(roomType, 2000); // Todo: Add price from database
@@ -79,34 +79,34 @@ namespace kassasystem
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
             // player.PlayLooping();
             // Gets current date
-            CheckOutDayPicker.Value = DateTime.Now; 
+            // CheckOutDayPicker.Value = DateTime.Now; 
         }
 
         // Calculates price of room
-        private Double CalculateRoomPrice(int roomAmount, int roomPrice, int days)
+        private Double CalculateRoomPrice(int roomAmount, int roomPrice)
         {
             int pricePerNight = 200;
-            var formula = (roomPrice * roomAmount) + (days * roomAmount * pricePerNight);
+            var formula = (roomPrice * roomAmount) + (roomAmount * pricePerNight);
             return (int)Math.Round((decimal)formula);
         }
 
         private void UpdateCartView()
         {
-            int bookingDays = GetDateDifference(CheckOutDayPicker.Value);
+            //int bookingDays = GetDateDifference(CheckOutDayPicker.Value);
 
             listBox1.Items.Clear();
             string dayFormat;
             foreach(KeyValuePair<string , int> product in cartDictionary) 
             {
-                if (bookingDays == 1)
-                {
-                    dayFormat = "day";
-                } else
-                {
-                    dayFormat = "days";
-                }
+                //if (bookingDays == 1)
+                //{
+                //    dayFormat = "day";
+                //} else
+                //{
+                //    dayFormat = "days";
+                //}
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {product.Value}x {Convert.ToInt64(bookingDays)} {dayFormat} {CalculateRoomPrice(product.Value, priceList[product.Key], bookingDays)}kr");
+                listBox1.Items.Add($"{product.Key} {product.Value}x {CalculateRoomPrice(product.Value, priceList[product.Key])}kr");
             }
             UpdateTotal();
         }
@@ -121,7 +121,7 @@ namespace kassasystem
                 foreach (KeyValuePair<string, int> product in cartDictionary)
                 {
                    
-                    this.totalPrice += CalculateRoomPrice(product.Value, priceList[product.Key], GetDateDifference(CheckOutDayPicker.Value));
+                    this.totalPrice += CalculateRoomPrice(product.Value, priceList[product.Key]);
                 }
             }
 
@@ -209,7 +209,7 @@ namespace kassasystem
         {
             cartDictionary.Clear();
             listBox1.Items.Clear();
-            CheckOutDayPicker.Value = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
+            //CheckOutDayPicker.Value = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
             UpdateTotal();
         }
 
@@ -239,5 +239,9 @@ namespace kassasystem
             UpdateCartView();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

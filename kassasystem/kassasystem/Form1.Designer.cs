@@ -43,11 +43,9 @@ namespace kassasystem
             this.btnPay = new System.Windows.Forms.Button();
             this.BtnRemove1x = new System.Windows.Forms.Button();
             this.BtnRemoveAll = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CheckOutDayPicker = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LblBooking = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.BtnBooking = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -132,35 +130,15 @@ namespace kassasystem
             this.BtnRemoveAll.UseVisualStyleBackColor = true;
             this.BtnRemoveAll.Click += new System.EventHandler(this.BtnRemoveClick);
             // 
-            // label1
+            // LblBooking
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(12, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 32);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Checkout date";
-            // 
-            // CheckOutDayPicker
-            // 
-            this.CheckOutDayPicker.Location = new System.Drawing.Point(12, 53);
-            this.CheckOutDayPicker.MinDate = new System.DateTime(2022, 11, 29, 0, 0, 0, 0);
-            this.CheckOutDayPicker.Name = "CheckOutDayPicker";
-            this.CheckOutDayPicker.Size = new System.Drawing.Size(200, 23);
-            this.CheckOutDayPicker.TabIndex = 8;
-            this.CheckOutDayPicker.Value = new System.DateTime(2022, 11, 29, 12, 30, 0, 0);
-            this.CheckOutDayPicker.ValueChanged += new System.EventHandler(this.CheckOutDayPicker_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(15, 109);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 32);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Room types";
+            this.LblBooking.AutoSize = true;
+            this.LblBooking.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LblBooking.Location = new System.Drawing.Point(12, 91);
+            this.LblBooking.Name = "LblBooking";
+            this.LblBooking.Size = new System.Drawing.Size(117, 32);
+            this.LblBooking.TabIndex = 10;
+            this.LblBooking.Text = "Bookings:";
             // 
             // btnTest
             // 
@@ -176,13 +154,15 @@ namespace kassasystem
             this.btnTest.Visible = false;
             this.btnTest.Click += new System.EventHandler(this.BtnClick);
             // 
-            // dateTimePicker1
+            // BtnBooking
             // 
-            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateTimePicker1.Location = new System.Drawing.Point(420, 61);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 11;
+            this.BtnBooking.Location = new System.Drawing.Point(12, 12);
+            this.BtnBooking.Name = "BtnBooking";
+            this.BtnBooking.Size = new System.Drawing.Size(175, 62);
+            this.BtnBooking.TabIndex = 13;
+            this.BtnBooking.Text = "Booking";
+            this.BtnBooking.UseVisualStyleBackColor = true;
+            this.BtnBooking.Click += new System.EventHandler(this.button1_Click);
             // 
             // hotelPaymentAndBookingSystem
             // 
@@ -190,10 +170,8 @@ namespace kassasystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.CheckOutDayPicker);
+            this.Controls.Add(this.BtnBooking);
+            this.Controls.Add(this.LblBooking);
             this.Controls.Add(this.BtnRemoveAll);
             this.Controls.Add(this.BtnRemove1x);
             this.Controls.Add(this.btnPay);
@@ -202,8 +180,10 @@ namespace kassasystem
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lbl_button_val);
             this.Controls.Add(this.btnTest);
+            this.IsMdiContainer = true;
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -220,9 +200,7 @@ namespace kassasystem
         public Button BtnRemove1x;
         public Button BtnRemoveAll;
         public Button btnTest;
-        private Label label1;
-        private DateTimePicker CheckOutDayPicker;
-        private Label label2;
-        private DateTimePicker dateTimePicker1;
+        private Label LblBooking;
+        private Button BtnBooking;
     }
 }
