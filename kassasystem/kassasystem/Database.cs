@@ -85,10 +85,10 @@ namespace kassasystem
 
         }
 
-        public List<Dictionary<String, String>> QueryExecuter(string query)
+        public List<Dictionary<String, Object>> QueryExecuter(string query)
         {
             /* Returns a dict with result from db*/
-            List<Dictionary<String, String>> output = new List<Dictionary<String, String>>();
+            List<Dictionary<String, Object>> output = new List<Dictionary<String, Object>>();
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
             this.con.Open();
@@ -103,13 +103,13 @@ namespace kassasystem
                     {
 
                         DataRow currentRow = dataTable.Rows[i1];
-                        Dictionary<String, String> temporaryDictionary = new Dictionary<String, String>();
+                        Dictionary<String, Object> temporaryDictionary = new Dictionary<String, Object>();
 
                         // For each row loop over each column in row
                         for (int i2 = 0; i2 < dataTable.Columns.Count; i2++)
                         {
                             var currentColumnName = dataTable.Columns[i2].ToString();
-                            var currentColumnValue = currentRow[currentColumnName].ToString();
+                            var currentColumnValue = currentRow[currentColumnName];
 
                             System.Diagnostics.Debug.Write($" {currentColumnName}: ");
                             System.Diagnostics.Debug.Write($" {currentColumnValue} ");
@@ -139,10 +139,10 @@ namespace kassasystem
 
             for (int i = 0; i < data.Count;i++)
             {
-                foreach(KeyValuePair<string, string> nogot in data[i])
+                foreach(KeyValuePair<String, Object> nogot in data[i])
                 {
                     System.Diagnostics.Debug.WriteLine("Dict rad ");
-                    System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value);
+                    System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value.ToString());
                 }
             }
         }
