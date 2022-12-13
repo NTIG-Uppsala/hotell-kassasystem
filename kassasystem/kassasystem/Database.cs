@@ -4,17 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Microsoft.Data.Sqlite;
 using System.Drawing.Imaging;
 using System.Data.Common;
 using System.Data;
+using System.Data.SQLite;
+using System.Drawing;
+using System.Runtime.Intrinsics.Arm;
+using System.Runtime.CompilerServices;
 
 namespace kassasystem
 {
 
 
+    internal class SToff
+    {
+        
+        public SToff() 
+        { 
+
+        }
+    }
+
+    internal class Bookings
+    {
+        public int bookingId { get; set; }
+        
+
+        public Bookings() 
+        { 
+        }
+
+    }
+
     internal class Database
     {
+        public SQLiteConnection con { get; set; }
+
         public Database()
         {
 
@@ -41,7 +66,7 @@ namespace kassasystem
 
             if (!File.Exists(filePath))
             {
-                var db = new SqliteConnection($"Data Source={filePath};");
+                var db = new SQLiteConnection($"Data Source={filePath};");
                 db.Open();
                 using (DbCommand cmd = db.CreateCommand())
                 {   
@@ -54,6 +79,41 @@ namespace kassasystem
 
                 db.Close();
             }
+
+            this.con = new SQLiteConnection($"Data Source={filePath};");
+
+        }
+        private List<SToff> QueryExecuter(string query)
+        {
+            /* Returns a 3d list with result from db*/
+            List<SToff> output = new List<SToff>();
+
+            SQLiteCommand cmd = new SQLiteCommand(query, this.con);
+            var rdr = cmd.ExecuteReader();
+            if (rdr.HasRows) // only read if it has something to read
+            {
+                while (rdr.Read())
+                {
+                }
+            }
+
+            return output;
+        }
+
+        public List<SToff> getBookings()
+        {
+            return QueryExecuter("SELECT * FROM bookings");
+        }
+
+        public List<SToff> getRoomTypes()
+        {
+            return QueryExecuter("SELECT * FROM roomTypes");
+
+        }
+
+        public List<SToff> getRooms()
+        {
+            return QueryExecuter("SELECT * FROM rooms");
 
         }
 
