@@ -42,6 +42,8 @@ namespace kassasystem
             // Creates list for room types
             var roomTypes = new List<string>();
 
+            db.testGetSomething();
+
             // Setup to get data from the database 
             string query = "SELECT firstName, lastName FROM guests";
             SQLiteCommand cmd = new SQLiteCommand(query, con);

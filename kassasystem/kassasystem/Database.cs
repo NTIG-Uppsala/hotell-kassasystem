@@ -11,6 +11,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.CompilerServices;
+using System.Data.SqlClient;
 
 namespace kassasystem
 {
@@ -83,39 +84,110 @@ namespace kassasystem
             this.con = new SQLiteConnection($"Data Source={filePath};");
 
         }
-        private List<SToff> QueryExecuter(string query)
+        //private List<SToff> QueryExecuter(string query)
+        //{
+        //    /* Returns a 3d list with result from db*/
+        //    List<SToff> output = new List<SToff>();
+
+        //    SQLiteCommand cmd = new SQLiteCommand(query, this.con);
+        //    var rdr = cmd.ExecuteReader();
+        //    if (rdr.HasRows) // only read if it has something to read
+        //    {
+        //        //while (rdr.Read())
+        //        //{
+        //        //}
+        //        using (DataTable datatable = new DataTable())
+        //        {
+        //            datatable.Load(rdr);
+        //            for (int i1 = 0; i1 < datatable.Rows.Count; i1++)
+        //            {
+                        
+        //                DataRow row = datatable.Rows[i1];
+        //                System.Diagnostics.Debug.Write(row["roomTypeID"]);
+        //            }
+        //        }
+
+        //    return output;
+        //}
+        public List<Dictionary<String, String>> QueryExecuter(string query)
         {
-            /* Returns a 3d list with result from db*/
-            List<SToff> output = new List<SToff>();
+            /* Returns a dict with result from db*/
+            List<Dictionary<String, String>> output = new List<Dictionary<String, String>>();
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
-            var rdr = cmd.ExecuteReader();
-            if (rdr.HasRows) // only read if it has something to read
+            this.con.Open();
+            using (SQLiteDataReader dataReader = cmd.ExecuteReader())
             {
-                while (rdr.Read())
+                using (DataTable dataTable = new DataTable())
                 {
+                    dataTable.Load(dataReader);
+
+                    // loop over each row
+                    for (int i1 = 0; i1 < dataTable.Rows.Count; i1++)
+                    {
+
+                        DataRow currentRow = dataTable.Rows[i1];
+                        Dictionary<String, String> temporaryDictionary = new Dictionary<String, String>();
+
+                        // For each row loop over each column in row
+                        for (int i2 = 0; i2 < dataTable.Columns.Count; i2++)
+                        {
+                            var currentColumnName = dataTable.Columns[i2].ToString();
+                            var currentColumnValue = currentRow[currentColumnName].ToString();
+
+                            System.Diagnostics.Debug.Write($" {currentColumnName}: ");
+                            System.Diagnostics.Debug.Write($" {currentColumnValue} ");
+
+                            // Add row columns to dictionary with column name as key and column value as dictionary value
+                            temporaryDictionary.Add(currentColumnName, currentColumnValue);
+
+                        }
+
+                        System.Diagnostics.Debug.WriteLine("");
+
+                        // add row dictionary to output list
+                        output.Add(temporaryDictionary);
+                    }
                 }
+
+
             }
+            this.con.Close();
 
             return output;
+
         }
 
-        public List<SToff> getBookings()
+        //public List<SToff> getBookings()
+        //{
+        //    return QueryExecuter("SELECT * FROM bookings");
+        //}
+
+        public void testGetSomething()
         {
-            return QueryExecuter("SELECT * FROM bookings");
+            var data = QueryExecuter("SELECT * FROM roomTypes");
+
+            for (int i = 0; i < data.Count;i++)
+            {
+                foreach(KeyValuePair<string, string> nogot in data[i])
+                {
+                    System.Diagnostics.Debug.Write("Dict rad");
+                    System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value);
+                }
+            }
         }
 
-        public List<SToff> getRoomTypes()
-        {
-            return QueryExecuter("SELECT * FROM roomTypes");
+        //public List<SToff> getRoomTypes()
+        //{
+        //    return QueryExecuter("SELECT * FROM roomTypes");
 
-        }
+        //}
 
-        public List<SToff> getRooms()
-        {
-            return QueryExecuter("SELECT * FROM rooms");
+        //public List<SToff> getRooms()
+        //{
+        //    return QueryExecuter("SELECT * FROM rooms");
 
-        }
+        //}
 
     }
 }
