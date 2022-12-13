@@ -84,31 +84,7 @@ namespace kassasystem
             this.con = new SQLiteConnection($"Data Source={filePath};");
 
         }
-        //private List<SToff> QueryExecuter(string query)
-        //{
-        //    /* Returns a 3d list with result from db*/
-        //    List<SToff> output = new List<SToff>();
 
-        //    SQLiteCommand cmd = new SQLiteCommand(query, this.con);
-        //    var rdr = cmd.ExecuteReader();
-        //    if (rdr.HasRows) // only read if it has something to read
-        //    {
-        //        //while (rdr.Read())
-        //        //{
-        //        //}
-        //        using (DataTable datatable = new DataTable())
-        //        {
-        //            datatable.Load(rdr);
-        //            for (int i1 = 0; i1 < datatable.Rows.Count; i1++)
-        //            {
-                        
-        //                DataRow row = datatable.Rows[i1];
-        //                System.Diagnostics.Debug.Write(row["roomTypeID"]);
-        //            }
-        //        }
-
-        //    return output;
-        //}
         public List<Dictionary<String, String>> QueryExecuter(string query)
         {
             /* Returns a dict with result from db*/
@@ -157,12 +133,6 @@ namespace kassasystem
             return output;
 
         }
-
-        //public List<SToff> getBookings()
-        //{
-        //    return QueryExecuter("SELECT * FROM bookings");
-        //}
-
         public void testGetSomething()
         {
             var data = QueryExecuter("SELECT * FROM roomTypes");
@@ -171,7 +141,7 @@ namespace kassasystem
             {
                 foreach(KeyValuePair<string, string> nogot in data[i])
                 {
-                    System.Diagnostics.Debug.Write("Dict rad");
+                    System.Diagnostics.Debug.WriteLine("Dict rad ");
                     System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value);
                 }
             }
