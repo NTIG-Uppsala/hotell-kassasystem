@@ -87,7 +87,11 @@ namespace kassasystem
 
         public List<Dictionary<String, Object>> QueryExecuter(string query)
         {
-            /* Returns a dict with result from db*/
+            /* 
+             * Returns a list of dictonaroies with result from db
+             * REF: https://www.daniweb.com/programming/software-development/threads/234938/get-the-column-values-from-the-sqlite-database
+             * 
+            */
             List<Dictionary<String, Object>> output = new List<Dictionary<String, Object>>();
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
