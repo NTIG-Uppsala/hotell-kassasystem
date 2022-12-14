@@ -17,33 +17,17 @@ namespace kassasystem
 {
 
 
-    internal class SToff
-    {
-        
-        public SToff() 
-        { 
-
-        }
-    }
-
-    internal class Bookings
-    {
-        public int bookingId { get; set; }
-        
-
-        public Bookings() 
-        { 
-        }
-
-    }
-
     internal class Database
     {
         public SQLiteConnection con { get; set; }
 
         public Database()
         {
+            initDatabase();
+        }
 
+        private void initDatabase()
+        {
             string[] tables = {
                 "CREATE TABLE \"bookings\" (\r\n\t\"bookingID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"dateFrom\"\tNUMERIC,\r\n\t\"dateTo\"\tNUMERIC,\r\n\t\"roomCount\"\tINTEGER,\r\n\t\"isBreakfastIncluded\"\tNUMERIC,\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tPRIMARY KEY(\"bookingID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\")\r\n);",
                 "CREATE TABLE \"externalCosts\" (\r\n\t\"externalCostsID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"externalCost\"\tTEXT,\r\n\t\"costDescription\"\tTEXT,\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tPRIMARY KEY(\"externalCostsID\" AUTOINCREMENT)\r\n);",
@@ -70,7 +54,7 @@ namespace kassasystem
                 var db = new SQLiteConnection($"Data Source={filePath};");
                 db.Open();
                 using (DbCommand cmd = db.CreateCommand())
-                {   
+                {
                     foreach (string query in tables)
                     {
                         cmd.CommandText += query;
@@ -82,20 +66,15 @@ namespace kassasystem
             }
 
             this.con = new SQLiteConnection($"Data Source={filePath};");
-
         }
 
-        public List<Dictionary<String, Object>> QueryExecutor(string query, params object[] queryArguments)
+        public List<Dictionary<String, Object>> QueryExecutor(string query)
         {
             /* 
              * Returns a list of dictonaroies with result from db
              * REF: https://www.daniweb.com/programming/software-development/threads/234938/get-the-column-values-from-the-sqlite-database
              * 
             */
-            if (queryArguments.Length > 0)
-            {
-                query = string.Format(query, queryArguments);
-            }
 
             List<Dictionary<String, Object>> output = new List<Dictionary<String, Object>>();
 
@@ -158,21 +137,9 @@ namespace kassasystem
 
         public void GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var data = QueryExecutor("SELECT * FROM rooms WHERE (SELECT * FROM roomsBooked WHERE (SELECT * FROM bookings WHERE dateFrom > ? AND dateTo > ?)) AND NOT EXISTS (SELECT * FROM roomsBooked WHERE rooms.roomID = roomsBooked.roomID)");
+            var data = QueryExecutor($"SELECT * FROM rooms WHERE (SELECT * FROM roomsBooked WHERE (SELECT * FROM bookings WHERE dateFrom > {epochStartDate} AND dateTo > {epochEndDate})) AND NOT EXISTS (SELECT * FROM roomsBooked WHERE rooms.roomID = roomsBooked.roomID)");
 
         }
-
-        //public List<SToff> getRoomTypes()
-        //{
-        //    return QueryExecuter("SELECT * FROM roomTypes");
-
-        //}
-
-        //public List<SToff> getRooms()
-        //{
-        //    return QueryExecuter("SELECT * FROM rooms");
-
-        //}
 
     }
 }
