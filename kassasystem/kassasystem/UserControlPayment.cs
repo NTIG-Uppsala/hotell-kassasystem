@@ -50,6 +50,7 @@ namespace kassasystem
             var roomTypes = new List<string>();
 
             db.testGetSomething();
+            db.GetAvailableRooms(0, 0);
 
             // Setup to get data from the database 
             string query = "SELECT firstName, lastName FROM guests";
