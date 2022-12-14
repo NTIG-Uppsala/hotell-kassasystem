@@ -134,7 +134,7 @@ namespace kassasystem
 
         public void GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var data = QueryExecutor($"SELECT r.floor, r.roomNumber, r.rate, rT.\"type\"\r\nFROM rooms r\r\n    INNER JOIN roomsBooked rB ON (rB.roomID = r.roomID)\r\n    INNER JOIN bookings b ON ( b.bookingID = rB.bookingID  )\r\n    INNER JOIN roomTypes rT ON ( rT.roomTypesID = r.roomTypesID  )\r\nWHERE NOT(b.dateFrom>{epochStartDate} AND b.dateTo<{epochStartDate}) \r\n        OR NOT(b.dateFrom<{epochEndDate} AND b.dateTo>{epochEndDate})");
+            var data = QueryExecutor($"SELECT r.floor, r.roomNumber, r.rate, b.dateFrom, b.dateTo, r2.type FROM rooms r LEFT JOIN roomsBooked r1 ON ( r1.roomID = r.roomID  ) LEFT JOIN bookings b ON ( b.bookingID = r1.bookingID  ) LEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r.roomTypesID  ) WHERE (r.roomID NOT IN (SELECT roomID FROM roomsBooked)) OR NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom);");
             for (int i = 0; i < data.Count; i++)
             {
                 foreach (KeyValuePair<String, Object> column in data[i])
@@ -145,5 +145,6 @@ namespace kassasystem
             }
         }
 
+        public void CreateNewBooking() { }
     }
 }
