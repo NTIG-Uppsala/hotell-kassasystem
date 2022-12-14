@@ -80,44 +80,52 @@ namespace kassasystem
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
             this.con.Open();
-            using (SQLiteDataReader dataReader = cmd.ExecuteReader())
+            try
             {
-                using (DataTable dataTable = new DataTable())
+                using (SQLiteDataReader dataReader = cmd.ExecuteReader())
                 {
-                    dataTable.Load(dataReader);
-
-                    // loop over each row
-                    for (int i1 = 0; i1 < dataTable.Rows.Count; i1++)
+                    using (DataTable dataTable = new DataTable())
                     {
+                        dataTable.Load(dataReader);
 
-                        DataRow currentRow = dataTable.Rows[i1];
-                        Dictionary<String, Object> temporaryDictionary = new Dictionary<String, Object>();
-
-                        // For each row loop over each column in row
-                        for (int i2 = 0; i2 < dataTable.Columns.Count; i2++)
+                        // loop over each row
+                        for (int i1 = 0; i1 < dataTable.Rows.Count; i1++)
                         {
-                            var currentColumnName = dataTable.Columns[i2].ToString();
-                            var currentColumnValue = currentRow[currentColumnName];
 
-                            System.Diagnostics.Debug.Write($" {currentColumnName}: ");
-                            System.Diagnostics.Debug.Write($" {currentColumnValue} ");
+                            DataRow currentRow = dataTable.Rows[i1];
+                            Dictionary<String, Object> temporaryDictionary = new Dictionary<String, Object>();
 
-                            // Add row columns to dictionary with column name as key and column value as dictionary value
-                            temporaryDictionary.Add(currentColumnName, currentColumnValue);
+                            // For each row loop over each column in row
+                            for (int i2 = 0; i2 < dataTable.Columns.Count; i2++)
+                            {
+                                var currentColumnName = dataTable.Columns[i2].ToString();
+                                var currentColumnValue = currentRow[currentColumnName];
 
+                                System.Diagnostics.Debug.Write($" {currentColumnName}: ");
+                                System.Diagnostics.Debug.Write($" {currentColumnValue} ");
+
+                                // Add row columns to dictionary with column name as key and column value as dictionary value
+                                temporaryDictionary.Add(currentColumnName, currentColumnValue);
+
+                            }
+
+                            System.Diagnostics.Debug.WriteLine("");
+
+                            // add row dictionary to output list
+                            output.Add(temporaryDictionary);
                         }
-
-                        System.Diagnostics.Debug.WriteLine("");
-
-                        // add row dictionary to output list
-                        output.Add(temporaryDictionary);
                     }
+
+
                 }
-
-
+                this.con.Close();
+                
             }
-            this.con.Close();
-
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            
             return output;
 
         }
@@ -138,7 +146,14 @@ namespace kassasystem
         public void GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
             var data = QueryExecutor($"SELECT * FROM rooms WHERE (SELECT * FROM roomsBooked WHERE (SELECT * FROM bookings WHERE dateFrom > {epochStartDate} AND dateTo > {epochEndDate})) AND NOT EXISTS (SELECT * FROM roomsBooked WHERE rooms.roomID = roomsBooked.roomID)");
-
+            for (int i = 0; i < data.Count; i++)
+            {
+                foreach(KeyValuePair<String, Object> column in data[i])
+                {
+                    System.Diagnostics.Debug.WriteLine("Some data");
+                    System.Diagnostics.Debug.WriteLine(column.Key, column.Value.ToString());
+                }
+            }
         }
 
     }
