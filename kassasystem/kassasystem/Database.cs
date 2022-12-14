@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Drawing.Imaging;
+﻿using System.Data;
 using System.Data.Common;
-using System.Data;
 using System.Data.SQLite;
-using System.Drawing;
-using System.Runtime.Intrinsics.Arm;
-using System.Runtime.CompilerServices;
-using System.Data.SqlClient;
 
 namespace kassasystem
 {
@@ -119,13 +108,13 @@ namespace kassasystem
 
                 }
                 this.con.Close();
-                
+
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
-            
+
             return output;
 
         }
@@ -133,9 +122,9 @@ namespace kassasystem
         {
             var data = QueryExecutor("SELECT * FROM roomTypes");
 
-            for (int i = 0; i < data.Count;i++)
+            for (int i = 0; i < data.Count; i++)
             {
-                foreach(KeyValuePair<String, Object> nogot in data[i])
+                foreach (KeyValuePair<String, Object> nogot in data[i])
                 {
                     System.Diagnostics.Debug.WriteLine("Dict rad ");
                     System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value.ToString());
@@ -145,10 +134,10 @@ namespace kassasystem
 
         public void GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var data = QueryExecutor($"SELECT * FROM rooms WHERE (SELECT * FROM roomsBooked WHERE (SELECT * FROM bookings WHERE dateFrom > {epochStartDate} AND dateTo > {epochEndDate})) AND NOT EXISTS (SELECT * FROM roomsBooked WHERE rooms.roomID = roomsBooked.roomID)");
+            var data = QueryExecutor($"SELECT r.floor, r.roomNumber, r.rate, rT.\"type\"\r\nFROM rooms r\r\n    INNER JOIN roomsBooked rB ON (rB.roomID = r.roomID)\r\n    INNER JOIN bookings b ON ( b.bookingID = rB.bookingID  )\r\n    INNER JOIN roomTypes rT ON ( rT.roomTypesID = r.roomTypesID  )\r\nWHERE NOT(b.dateFrom>{epochStartDate} AND b.dateTo<{epochStartDate}) \r\n        OR NOT(b.dateFrom<{epochEndDate} AND b.dateTo>{epochEndDate})");
             for (int i = 0; i < data.Count; i++)
             {
-                foreach(KeyValuePair<String, Object> column in data[i])
+                foreach (KeyValuePair<String, Object> column in data[i])
                 {
                     System.Diagnostics.Debug.WriteLine("Some data");
                     System.Diagnostics.Debug.WriteLine(column.Key, column.Value.ToString());
