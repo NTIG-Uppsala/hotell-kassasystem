@@ -58,6 +58,7 @@
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.BtnClearClick);
             // 
             // listBox1
             // 
@@ -95,6 +96,7 @@
             this.btnPay.TabIndex = 5;
             this.btnPay.Text = "PAY";
             this.btnPay.UseVisualStyleBackColor = false;
+            this.btnPay.Click += new System.EventHandler(this.BtnPayClick);
             // 
             // BtnRemove1x
             // 
@@ -105,6 +107,7 @@
             this.BtnRemove1x.TabIndex = 6;
             this.BtnRemove1x.Text = "Remove 1x Product";
             this.BtnRemove1x.UseVisualStyleBackColor = true;
+            this.BtnRemove1x.Click += new System.EventHandler(this.BtnRemove1xClick);
             // 
             // BtnRemoveAll
             // 
@@ -115,6 +118,7 @@
             this.BtnRemoveAll.TabIndex = 7;
             this.BtnRemoveAll.Text = "Remove Product";
             this.BtnRemoveAll.UseVisualStyleBackColor = true;
+            this.BtnRemoveAll.Click += new System.EventHandler(this.BtnRemoveClick);
             // 
             // LblBooking
             // 
