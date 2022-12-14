@@ -51,36 +51,7 @@ namespace kassasystem
 
             db.testGetSomething();
             db.GetAvailableRooms(0, 0);
-
-            // Setup to get data from the database 
-            string query = "SELECT firstName, lastName FROM guests";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            using SQLiteDataReader rdr = cmd.ExecuteReader();
-
-            // Setup for button positions
-            int x = 15;
-            int y = 144;
-            int offset = 0;
-
-            // Adds a button for each each booking found in the database
-            while (rdr.Read())
-            {
-
-                roomTypes.Add($"{rdr.GetString(0)} {rdr.GetString(1)}");
-                string roomType = rdr.GetString(0);
-                System.Diagnostics.Debug.WriteLine(roomType);
-                this.priceList.Add(roomType, 2000); // Todo: Add price from database
-                Button newButton = CreateButton(roomType, roomType, x + offset, y);
-                offset += 200;
-                newButton.Click += new System.EventHandler(this.BtnClick);
-                this.Controls.Add(newButton);
-
-            }
-            //for (int xyz = 0; xyz < roomTypes.Count; xyz++)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(roomTypes[x]);
-            //}
-            con.Close();
+            db.CreateNewBooking(1, "Linus", "Jansson", 0, 1);
         }
 
         private void Form1Load(object sender, EventArgs e)

@@ -4,8 +4,6 @@ using System.Data.SQLite;
 
 namespace kassasystem
 {
-
-
     internal class Database
     {
         public SQLiteConnection con { get; set; }
@@ -107,15 +105,50 @@ namespace kassasystem
 
 
                 }
-                this.con.Close();
 
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
+            finally
+            {
+                this.con.Close();
+            }
 
             return output;
+
+        }
+
+        public Int64 QueryInsertExecutor(string query)
+        {
+            /* 
+             * Insert the the index the item was inserted in
+             * REF: https://stackoverflow.com/questions/4341178/getting-the-last-insert-id-with-sqlite-net-in-c-sharp
+            */
+
+            Int64 output_row_id = -1;
+
+            SQLiteCommand cmd = new SQLiteCommand(query, this.con);
+            this.con.Open();
+            try
+            { 
+                SQLiteTransaction transaction = null;
+                transaction = this.con.BeginTransaction();
+                
+                cmd.ExecuteNonQuery();
+
+                output_row_id = this.con.LastInsertRowId;
+
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            this.con.Close();
+
+            return output_row_id;
 
         }
         public void testGetSomething()
@@ -145,6 +178,16 @@ namespace kassasystem
             }
         }
 
-        public void CreateNewBooking() { }
+        public void CreateNewBooking(int roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate) 
+        {
+            var newPaymentID = QueryInsertExecutor($"INSERT INTO payment (paymentTypeId, date, amount, isPaid) VALUES ('1', '0', '99999', '1')");
+            var newGuestID = QueryInsertExecutor($"INSERT INTO guests (firstName, lastName) VALUES ('{GuestFirstName}', '{GuestLastName}')");
+            System.Diagnostics.Debug.WriteLine(newGuestID);
+
+            var newBookingID = QueryInsertExecutor($"INSERT INTO bookings (guestID, paymentID, dateFrom, dateTo, roomCount, isBreakfastIncluded) VALUES ('{newGuestID}', '{newPaymentID}', '{checkinDate}', '{checkoutDate}', '1', '1') ");
+
+            QueryInsertExecutor($"INSERT INTO roomsBooked (bookingID, roomID) VALUES ('{newBookingID}', '{roomID}')");
+
+        }
     }
 }
