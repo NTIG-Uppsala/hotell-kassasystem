@@ -146,6 +146,7 @@ namespace kassasystem
         {
             if (listBox1.Items.Count > 0)
             {
+                db.SetBookingPaid(SelectedBooking.paymentId);
                 pdfGenerator.savePDF(listBox1, totalPrice);
                 ResetValues();
             }

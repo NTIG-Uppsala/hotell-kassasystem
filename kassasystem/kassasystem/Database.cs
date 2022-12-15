@@ -252,5 +252,10 @@ namespace kassasystem
 
         }
 
+        public void SetBookingPaid(Int64 paymentID)
+        {
+            QueryInsertExecutor($"UPDATE payment SET isPaid=1 WHERE paymentID={paymentID}");
+        }
+
     }
 }
