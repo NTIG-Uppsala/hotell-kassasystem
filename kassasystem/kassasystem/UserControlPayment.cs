@@ -64,19 +64,9 @@ namespace kassasystem
 
         private void UpdateCartView()
         {
-            //int bookingDays = GetDateDifference(CheckOutDayPicker.Value);
-
             listBox1.Items.Clear();
-            string dayFormat;
             foreach (KeyValuePair<string, decimal> product in cartDictionary)
             {
-                //if (bookingDays == 1)
-                //{
-                //    dayFormat = "day";
-                //} else
-                //{
-                //    dayFormat = "days";
-                //}
                 // Adds products in formated order to list box
                 listBox1.Items.Add($"{product.Key} {SelectedBooking.amountDue} SEK");
             }
@@ -131,50 +121,10 @@ namespace kassasystem
         }
 
         // Removes one instance of selected product amount
-        private void BtnRemove1xClick(object sender, EventArgs e)
-        {
-            // Button only functions if one product is selected
-            //if (listBox1.SelectedItems.Count == 1)
-            //{
-            //    string input = listBox1.SelectedItem.ToString();
-            //    foreach (KeyValuePair<string, decimal> product in cartDictionary)
-            //    {
-            //        // Removes one instance, and clears the product if the amount reults as zero
-            //        if (input.Contains(product.Key))
-            //        {
-            //            System.Diagnostics.Debug.WriteLine("the key " + product.Key + " exists in input " + input);
-            //            int currentValue = product.Value;
-            //            cartDictionary[product.Key] = currentValue - 1;
-
-            //            if (cartDictionary[product.Key] == 0)
-            //            {
-            //                cartDictionary.Remove(product.Key);
-            //            }
-            //        }
-            //    }
-            //    UpdateCartView();
-            //}
-
-        }
+        private void BtnRemove1xClick(object sender, EventArgs e) { }
 
         // Removes every instance of selected product
-        private void BtnRemoveClick(object sender, EventArgs e)
-        {
-            // Button only functions if one product is selected
-            //if (listBox1.SelectedItems.Count == 1)
-            //{
-            //    string input = listBox1.SelectedItem.ToString();
-            //    foreach (KeyValuePair<string, decimal> product in cartDictionary)
-            //    {
-            //        if (input.Contains(product.Key))
-            //        {
-            //            System.Diagnostics.Debug.WriteLine("the key" + product.Key + "exists in input");
-            //            cartDictionary.Remove(product.Key);
-            //        }
-            //    }
-            //    UpdateCartView();
-            //}
-        }
+        private void BtnRemoveClick(object sender, EventArgs e) { }
 
         // Resets the entire list box
         private void ResetValues()
