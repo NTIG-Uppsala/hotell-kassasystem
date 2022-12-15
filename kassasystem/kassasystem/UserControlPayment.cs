@@ -22,12 +22,7 @@ namespace kassasystem
         public Decimal totalPrice = 0;
         public UserControlPayment()
         {
-            
             InitializeComponent();
-
-            db.testGetSomething();
-            db.GetAvailableRooms(0, 0);
-            //db.CreateNewBooking(1, "Linus", "Jansson", 0, 1);
         }
 
         private void Form1Load(object sender, EventArgs e)

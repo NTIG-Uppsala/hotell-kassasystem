@@ -11,20 +11,13 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace kassasystem
 {
-    internal class Booking
-    {
-        public string BookerFirstName { get; set;}
-        public string BookerLastName { get; set; }
-        public int roomID { get; set; }
-        public int checkinDate { get; set; }
-        public int checkoutDate { get; set; }
 
-    }
 
     public partial class UserControlBooking : UserControl
     {
         Booking newbooking = new Booking();
         Database databaseConnection = new Database();
+        Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>();
 
         public UserControlBooking()
         {
@@ -45,12 +38,16 @@ namespace kassasystem
             dateTimePicker2.Value = DateTime.Today;
 
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
+            
 
             
             foreach (Room room in rooms)
             {
-                availableRooms.Items.Add("");                
-                System.Diagnostics.Debug.WriteLine($"{room.rate} {room.floor} {room.recommendedPeople} {room.number} {room.type}");
+                availableRooms.Items.Add($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");                
+                System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+
+                if (!avaliableRoomsList.ContainsKey(room.id)) { avaliableRoomsList.Add(room.id, room); }
+                
             }
         }
 
@@ -62,7 +59,42 @@ namespace kassasystem
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
-            
+            if (availableRooms.SelectedIndex == -1) throw new Exception("No room selected");
+            if (inputFirstName.Text == "") throw new Exception("No first name entered");
+            if (inputLastName.Text == "") throw new Exception("No last name entered");
+
+            var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0];
+            foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
+            {
+                if (selectedRoom == Convert.ToString(room.Value.id))
+                {
+                    databaseConnection.CreateNewBooking(room.Value.id, 
+                            inputFirstName.Text, 
+                            inputLastName.Text, 
+                            convertDateToEpoch(dateTimePicker2.Value), 
+                            convertDateToEpoch(dateTimePicker1.Value), 
+                            CalculateRoomPrice(room.Value.rate, 
+                            CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
+                        );
+
+                    return;
+                }
+
+            }
+  
+        }
+
+        private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
+        {
+            Decimal formula = roomPrice * nights;
+            return formula;
+        }
+
+        private int CalculateNights(DateTime startDate, DateTime endDate)
+        {
+            TimeSpan t = endDate - startDate;
+            int currentTimePeriod = ((int)t.TotalDays);
+            return currentTimePeriod;
         }
 
         private int convertDateToEpoch(DateTime date)
