@@ -11,6 +11,13 @@ using System.Data.SQLite;
 
 namespace kassasystem
 {
+
+    internal class BookingItem
+    {
+        public string displayName { get; set; }
+        public Booking booking { get; set; }
+    }
+
     public partial class UserControlPayment : UserControl
     {   
         // Dictionaries for prices and products
@@ -23,15 +30,29 @@ namespace kassasystem
         public UserControlPayment()
         {
             InitializeComponent();
-        }
+            bookingsList.DisplayMember = "displayName";
+            bookingsList.ValueMember = "booking";
 
-        private void Form1Load(object sender, EventArgs e)
-        {
             // Plays motivating music
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
             // player.PlayLooping();
             // Gets current date
             // CheckOutDayPicker.Value = DateTime.Now; 
+            var data = db.GetUnpaidBookings();
+
+            foreach (Booking booking in data)
+            {
+                bookingsList.Items.Add(new BookingItem
+                {
+                    displayName = Convert.ToString(booking.guestFirstName),
+                    booking = booking
+                });
+            }
+        }
+
+        private void Form1Load(object sender, EventArgs e)
+        {
+
         }
 
         // Calculates price of room

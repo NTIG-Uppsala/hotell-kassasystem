@@ -36,6 +36,7 @@
             this.BtnRemove1x = new System.Windows.Forms.Button();
             this.BtnRemoveAll = new System.Windows.Forms.Button();
             this.LblBooking = new System.Windows.Forms.Label();
+            this.bookingsList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -130,11 +131,23 @@
             this.LblBooking.TabIndex = 10;
             this.LblBooking.Text = "Bookings:";
             // 
+            // bookingsList
+            // 
+            this.bookingsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.bookingsList.FormattingEnabled = true;
+            this.bookingsList.ItemHeight = 15;
+            this.bookingsList.Location = new System.Drawing.Point(262, 11);
+            this.bookingsList.Name = "bookingsList";
+            this.bookingsList.Size = new System.Drawing.Size(499, 919);
+            this.bookingsList.TabIndex = 11;
+            // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.bookingsList);
             this.Controls.Add(this.LblBooking);
             this.Controls.Add(this.BtnRemoveAll);
             this.Controls.Add(this.BtnRemove1x);
@@ -160,6 +173,7 @@
         public Button BtnRemove1x;
         public Button BtnRemoveAll;
         private Label LblBooking;
+        private ListBox bookingsList;
     }
 
 }

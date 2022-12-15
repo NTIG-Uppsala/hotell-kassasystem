@@ -21,7 +21,7 @@ namespace kassasystem
         public Int64 id { get; set; }
         public Int64 paymentId { get; set; }
         public Int64 paymentDate { get; set; }
-        public Int64 amountDue { get; set; }
+        public decimal amountDue { get; set; }
         public string paymentType { get; set; }
         public string guestFirstName { get; set; }
         public string guestLastName { get; set; }
@@ -52,8 +52,8 @@ namespace kassasystem
             };
 
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            string path = String.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
-            string filePath = String.Format(@"C:\Users\{0}\Documents\hotel_database\database.db", userName);
+            string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
+            string filePath = string.Format(@"C:\Users\{0}\Documents\hotel_database\database.db", userName);
 
             if (!Directory.Exists(path))
             {
@@ -79,7 +79,7 @@ namespace kassasystem
             this.con = new SQLiteConnection($"Data Source={filePath};");
         }
 
-        public List<Dictionary<String, Object>> QueryExecutor(string query)
+        public List<Dictionary<string, object>> QueryExecutor(string query)
         {
             /* 
              * Returns a list of dictonaroies with result from db
@@ -87,7 +87,7 @@ namespace kassasystem
              * 
             */
 
-            List<Dictionary<String, Object>> output = new List<Dictionary<String, Object>>();
+            List<Dictionary<string, object>> output = new List<Dictionary<string, object>>();
 
             SQLiteCommand cmd = new SQLiteCommand(query, this.con);
             this.con.Open();
@@ -104,7 +104,7 @@ namespace kassasystem
                         {
 
                             DataRow currentRow = dataTable.Rows[i1];
-                            Dictionary<String, Object> temporaryDictionary = new Dictionary<String, Object>();
+                            Dictionary<string, object> temporaryDictionary = new Dictionary<string, object>();
 
                             // For each row loop over each column in row
                             for (int i2 = 0; i2 < dataTable.Columns.Count; i2++)
@@ -181,7 +181,7 @@ namespace kassasystem
 
             for (int i = 0; i < data.Count; i++)
             {
-                foreach (KeyValuePair<String, Object> nogot in data[i])
+                foreach (KeyValuePair<string, object> nogot in data[i])
                 {
                     System.Diagnostics.Debug.WriteLine("Dict rad ");
                     System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value.ToString());
@@ -235,7 +235,7 @@ namespace kassasystem
                 newBooking.id = (Int64)rows[i]["bookingID"];
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
                 newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = (Int64)rows[i]["amount"];
+                newBooking.amountDue = (decimal)rows[i]["amount"];
                 newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
