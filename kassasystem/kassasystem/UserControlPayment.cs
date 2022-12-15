@@ -19,35 +19,11 @@ namespace kassasystem
         PDFGenerator pdfGenerator = new PDFGenerator();
         Database db = new Database();
 
-        public Double totalPrice = 0;
+        public Decimal totalPrice = 0;
         public UserControlPayment()
         {
-            Button CreateButton(string Name, string Text, int x, int y)
-            {
-                var button = new System.Windows.Forms.Button();
-
-                button.Text = Text;
-                button.Name = Name;
-                button.BackColor = System.Drawing.Color.LightSkyBlue;
-                button.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-                button.Location = new System.Drawing.Point(x, y);
-
-                button.Size = new System.Drawing.Size(200, 90);
-                button.TabIndex = 0;
-                button.UseVisualStyleBackColor = false;
-
-                return button;
-
-            }
+            
             InitializeComponent();
-            // Generate room buttons
-            // Finds database in path
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            SQLiteConnection con = new SQLiteConnection(String.Format(@"Data Source=C:\Users\{0}\Documents\hotel_database\database.db", userName));
-            // Connects to database
-            con.Open();
-            // Creates list for room types
-            var roomTypes = new List<string>();
 
             db.testGetSomething();
             db.GetAvailableRooms(0, 0);
@@ -64,11 +40,10 @@ namespace kassasystem
         }
 
         // Calculates price of room
-        private Double CalculateRoomPrice(int roomAmount, int roomPrice)
+        private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
         {
-            int pricePerNight = 200;
-            var formula = (roomPrice * roomAmount) + (roomAmount * pricePerNight);
-            return (int)Math.Round((decimal)formula);
+            Decimal formula = roomPrice * nights;
+            return formula;
         }
 
         private void UpdateCartView()
@@ -87,7 +62,7 @@ namespace kassasystem
                 //    dayFormat = "days";
                 //}
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {product.Value}x {CalculateRoomPrice(product.Value, priceList[product.Key])}kr");
+                listBox1.Items.Add($"{product.Key} {product.Value}x {CalculateRoomPrice(product.Value, priceList[product.Key])} kr");
             }
             UpdateTotal();
         }
@@ -95,7 +70,7 @@ namespace kassasystem
         // Keeps the total price up to date
         private void UpdateTotal()
         {
-            this.totalPrice = 0;
+            this.totalPrice = 0.00M;
 
             if (cartDictionary.Count > 0)
             {
@@ -105,8 +80,7 @@ namespace kassasystem
                     this.totalPrice += CalculateRoomPrice(product.Value, priceList[product.Key]);
                 }
             }
-
-            this.lblTotal.Text = $"Total: {this.totalPrice}kr";
+            this.lblTotal.Text = $"Total: {this.totalPrice} kr";
         }
 
         // Adds to the of amount of products in list box when product is already present

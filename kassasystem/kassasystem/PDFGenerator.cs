@@ -13,13 +13,13 @@ namespace kassasystem
 {
     internal class PDFGenerator
     {
-        double taxAmount = 0.12;
+        float taxAmount = 0.12f;
         public PDFGenerator()
         {
             
         }
 
-        public void savePDF(ListBox inputData, Double totalPrice)
+        public void savePDF(ListBox inputData, Decimal totalPrice)
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
             string currentTimePeriod = ((int)t.TotalSeconds).ToString();
@@ -79,9 +79,9 @@ namespace kassasystem
             }
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {totalPrice - (totalPrice * taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax ({taxAmount * 100}%): {(totalPrice * taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Total: {totalPrice} kr", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {totalPrice - (totalPrice * (Decimal)taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax ({taxAmount * 100}%): {(totalPrice * (Decimal)taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {totalPrice * 1.00M} kr", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
 

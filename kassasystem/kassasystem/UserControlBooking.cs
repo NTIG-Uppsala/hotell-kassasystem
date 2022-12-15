@@ -47,14 +47,10 @@ namespace kassasystem
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
 
             
-            for (int i = 0; i < rooms.Count; i++)
+            foreach (Room room in rooms)
             {
-                foreach (KeyValuePair<string, object> column in rooms[i])
-                {
-                    availableRooms.Items.Add(column.Value);
-                    System.Diagnostics.Debug.WriteLine("Some data");
-                    System.Diagnostics.Debug.WriteLine(column.Key, column.Value.ToString());
-                }
+                availableRooms.Items.Add("");                
+                System.Diagnostics.Debug.WriteLine($"{room.rate} {room.floor} {room.recommendedPeople} {room.number} {room.type}");
             }
         }
 

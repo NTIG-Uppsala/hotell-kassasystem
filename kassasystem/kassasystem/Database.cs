@@ -4,6 +4,15 @@ using System.Data.SQLite;
 
 namespace kassasystem
 {
+    internal class Room
+    {
+        public decimal rate {get; set;}
+        public Int64 number {get; set;}
+        public Int64 floor {get; set;}
+        public string type {get; set;}
+        public Int64 recommendedPeople {get; set;}
+    }
+
     internal class Database
     {
         public SQLiteConnection con { get; set; }
@@ -106,7 +115,7 @@ namespace kassasystem
 
                 }
 
-            }
+             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
@@ -165,18 +174,23 @@ namespace kassasystem
             }
         }
 
-        public List<Dictionary<String, Object>> GetAvailableRooms(int epochStartDate, int epochEndDate)
+        public List<Room> GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var data = QueryExecutor($"SELECT r.floor, r.roomNumber, r.rate, b.dateFrom, b.dateTo, r2.type FROM rooms r LEFT JOIN roomsBooked r1 ON ( r1.roomID = r.roomID  ) LEFT JOIN bookings b ON ( b.bookingID = r1.bookingID  ) LEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r.roomTypesID  ) WHERE (r.roomID NOT IN (SELECT roomID FROM roomsBooked)) OR NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom);");
-            for (int i = 0; i < data.Count; i++)
+            var row = QueryExecutor($"SELECT r.floor,  r.roomNumber, r.rate, b.dateFrom, b.dateTo, r2.type, r2.totalPeople FROM rooms r LEFT JOIN roomsBooked r1 ON ( r1.roomID = r.roomID  ) LEFT JOIN bookings b ON ( b.bookingID = r1.bookingID  ) LEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r.roomTypesID  ) WHERE (r.roomID NOT IN (SELECT roomID FROM roomsBooked)) OR NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom);");
+
+            var output = new List<Room>();
+            for (int i = 0; i < row.Count; i++)
             {
-                foreach (KeyValuePair<String, Object> column in data[i])
-                {
-                    System.Diagnostics.Debug.WriteLine("Some data");
-                    System.Diagnostics.Debug.WriteLine(column.Key, column.Value.ToString());
-                }
+                Room newRoom = new Room();
+                newRoom.rate = (decimal)row[i]["rate"];
+                newRoom.number = (Int64)row[i]["roomNumber"];
+                newRoom.floor = (Int64)row[i]["floor"];
+                newRoom.type = (string)row[i]["type"];
+                newRoom.recommendedPeople = (Int64)row[i]["totalPeople"];
+
+                output.Add(newRoom);
             }
-            return data;
+            return output;
         }
 
         public void CreateNewBooking(int roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate) 
