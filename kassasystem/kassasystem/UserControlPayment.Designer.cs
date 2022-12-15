@@ -37,6 +37,7 @@
             this.BtnRemoveAll = new System.Windows.Forms.Button();
             this.LblBooking = new System.Windows.Forms.Label();
             this.bookingsList = new System.Windows.Forms.ListBox();
+            this.btnSendToPaymentList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -141,12 +142,28 @@
             this.bookingsList.Name = "bookingsList";
             this.bookingsList.Size = new System.Drawing.Size(499, 919);
             this.bookingsList.TabIndex = 11;
+            this.bookingsList.SelectedIndexChanged += new System.EventHandler(this.bookingsList_SelectedIndexChanged);
+            // 
+            // btnSendToPaymentList
+            // 
+            this.btnSendToPaymentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSendToPaymentList.Font = new System.Drawing.Font("Segoe UI", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSendToPaymentList.Location = new System.Drawing.Point(842, 225);
+            this.btnSendToPaymentList.Name = "btnSendToPaymentList";
+            this.btnSendToPaymentList.Size = new System.Drawing.Size(607, 509);
+            this.btnSendToPaymentList.TabIndex = 12;
+            this.btnSendToPaymentList.Text = "->";
+            this.btnSendToPaymentList.UseVisualStyleBackColor = true;
+            this.btnSendToPaymentList.Click += new System.EventHandler(this.btnSendToPaymentList_Click);
             // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.btnSendToPaymentList);
             this.Controls.Add(this.bookingsList);
             this.Controls.Add(this.LblBooking);
             this.Controls.Add(this.BtnRemoveAll);
@@ -174,6 +191,7 @@
         public Button BtnRemoveAll;
         private Label LblBooking;
         private ListBox bookingsList;
+        private Button btnSendToPaymentList;
     }
 
 }

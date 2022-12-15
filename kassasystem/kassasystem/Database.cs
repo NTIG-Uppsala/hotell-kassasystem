@@ -25,6 +25,8 @@ namespace kassasystem
         public string paymentType { get; set; }
         public string guestFirstName { get; set; }
         public string guestLastName { get; set; }
+        public string dateFrom { get; set; }
+        public string dateTo { get; set; }
 
     }
 
@@ -226,7 +228,7 @@ namespace kassasystem
 
         public List<Booking> GetUnpaidBookings()
         {
-            var rows = QueryExecutor("SELECT b.bookingID, b.paymentID, p.date, p.amount, p1.\"type\", g.firstName, g.lastName\r\nFROM bookings b \r\n\tINNER JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tINNER JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\n\tINNER JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT OUTER JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\nWHERE p.isPaid = 0");
+            var rows = QueryExecutor("SELECT b.bookingID, b.dateFrom, b.dateTo, b.paymentID, p.date, p.amount, p1.\"type\", g.firstName, g.lastName\r\nFROM bookings b \r\n\tINNER JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tINNER JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\n\tINNER JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT OUTER JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\nWHERE p.isPaid = 0");
 
             var output = new List<Booking>();
             for (int i = 0; i < rows.Count; i++)
@@ -239,6 +241,8 @@ namespace kassasystem
                 newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
+                //newBooking.dateFrom = (string)rows[i]["dateFrom"];
+                //newBooking.dateTo = (string)rows[i]["dateTo"];
 
 
                 output.Add(newBooking);

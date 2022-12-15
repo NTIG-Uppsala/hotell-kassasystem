@@ -8,30 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using static System.Net.Mime.MediaTypeNames;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace kassasystem
 {
 
-    internal class BookingItem
-    {
-        public string displayName { get; set; }
-        public Booking booking { get; set; }
-    }
+
 
     public partial class UserControlPayment : UserControl
     {   
         // Dictionaries for prices and products
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
-        public Dictionary<string, int> cartDictionary = new Dictionary<string, int>();
+        public Dictionary<string, decimal> cartDictionary = new Dictionary<string, decimal>();
         PDFGenerator pdfGenerator = new PDFGenerator();
         Database db = new Database();
+
+        Booking SelectedBooking;
 
         public Decimal totalPrice = 0;
         public UserControlPayment()
         {
             InitializeComponent();
             bookingsList.DisplayMember = "displayName";
-            bookingsList.ValueMember = "booking";
+            bookingsList.ValueMember = "bookingObject";
 
             // Plays motivating music
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
@@ -44,8 +44,8 @@ namespace kassasystem
             {
                 bookingsList.Items.Add(new BookingItem
                 {
-                    displayName = Convert.ToString(booking.guestFirstName),
-                    booking = booking
+                    displayName = Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
+                    bookingObject = booking
                 });
             }
         }
@@ -68,7 +68,7 @@ namespace kassasystem
 
             listBox1.Items.Clear();
             string dayFormat;
-            foreach (KeyValuePair<string, int> product in cartDictionary)
+            foreach (KeyValuePair<string, decimal> product in cartDictionary)
             {
                 //if (bookingDays == 1)
                 //{
@@ -78,7 +78,7 @@ namespace kassasystem
                 //    dayFormat = "days";
                 //}
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {product.Value}x {CalculateRoomPrice(product.Value, priceList[product.Key])} kr");
+                listBox1.Items.Add($"{product.Key} {SelectedBooking.amountDue} SEK");
             }
             UpdateTotal();
         }
@@ -90,13 +90,13 @@ namespace kassasystem
 
             if (cartDictionary.Count > 0)
             {
-                foreach (KeyValuePair<string, int> product in cartDictionary)
+                foreach (KeyValuePair<string, decimal> product in cartDictionary)
                 {
 
-                    this.totalPrice += CalculateRoomPrice(product.Value, priceList[product.Key]);
+                    this.totalPrice += SelectedBooking.amountDue;
                 }
             }
-            this.lblTotal.Text = $"Total: {this.totalPrice} kr";
+            this.lblTotal.Text = $"Total: {this.totalPrice} SEK";
         }
 
         // Adds to the of amount of products in list box when product is already present
@@ -134,26 +134,26 @@ namespace kassasystem
         private void BtnRemove1xClick(object sender, EventArgs e)
         {
             // Button only functions if one product is selected
-            if (listBox1.SelectedItems.Count == 1)
-            {
-                string input = listBox1.SelectedItem.ToString();
-                foreach (KeyValuePair<string, int> product in cartDictionary)
-                {
-                    // Removes one instance, and clears the product if the amount reults as zero
-                    if (input.Contains(product.Key))
-                    {
-                        System.Diagnostics.Debug.WriteLine("the key " + product.Key + " exists in input " + input);
-                        int currentValue = product.Value;
-                        cartDictionary[product.Key] = currentValue - 1;
+            //if (listBox1.SelectedItems.Count == 1)
+            //{
+            //    string input = listBox1.SelectedItem.ToString();
+            //    foreach (KeyValuePair<string, decimal> product in cartDictionary)
+            //    {
+            //        // Removes one instance, and clears the product if the amount reults as zero
+            //        if (input.Contains(product.Key))
+            //        {
+            //            System.Diagnostics.Debug.WriteLine("the key " + product.Key + " exists in input " + input);
+            //            int currentValue = product.Value;
+            //            cartDictionary[product.Key] = currentValue - 1;
 
-                        if (cartDictionary[product.Key] == 0)
-                        {
-                            cartDictionary.Remove(product.Key);
-                        }
-                    }
-                }
-                UpdateCartView();
-            }
+            //            if (cartDictionary[product.Key] == 0)
+            //            {
+            //                cartDictionary.Remove(product.Key);
+            //            }
+            //        }
+            //    }
+            //    UpdateCartView();
+            //}
 
         }
 
@@ -161,19 +161,19 @@ namespace kassasystem
         private void BtnRemoveClick(object sender, EventArgs e)
         {
             // Button only functions if one product is selected
-            if (listBox1.SelectedItems.Count == 1)
-            {
-                string input = listBox1.SelectedItem.ToString();
-                foreach (KeyValuePair<string, int> product in cartDictionary)
-                {
-                    if (input.Contains(product.Key))
-                    {
-                        System.Diagnostics.Debug.WriteLine("the key" + product.Key + "exists in input");
-                        cartDictionary.Remove(product.Key);
-                    }
-                }
-                UpdateCartView();
-            }
+            //if (listBox1.SelectedItems.Count == 1)
+            //{
+            //    string input = listBox1.SelectedItem.ToString();
+            //    foreach (KeyValuePair<string, decimal> product in cartDictionary)
+            //    {
+            //        if (input.Contains(product.Key))
+            //        {
+            //            System.Diagnostics.Debug.WriteLine("the key" + product.Key + "exists in input");
+            //            cartDictionary.Remove(product.Key);
+            //        }
+            //    }
+            //    UpdateCartView();
+            //}
         }
 
         // Resets the entire list box
@@ -211,5 +211,42 @@ namespace kassasystem
         {
             UpdateCartView();
         }
+
+        private void btnSendToPaymentList_Click(object sender, EventArgs e)
+        {
+            if (bookingsList.SelectedItems.Count == 1) 
+            {
+                System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
+                cartDictionary.Clear();
+                Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
+                System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
+
+
+                if (selectedBooking != null)
+                {
+                    System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
+                    cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
+                    this.SelectedBooking = selectedBooking;
+                    UpdateCartView();
+                }
+                else
+                {
+                    //
+                }
+            };
+
+        }
+
+        private void bookingsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+
+    }
+    class BookingItem
+    {
+        public string displayName { get; set; }
+        public Booking bookingObject { get; set; }
     }
 }

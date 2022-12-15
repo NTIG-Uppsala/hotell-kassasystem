@@ -108,8 +108,8 @@ namespace kassasystem
             this.Controls.Add(this.btnPayment);
             this.Controls.Add(this.BtnBooking);
             this.Controls.Add(this.lbl_button_val);
-            this.Controls.Add(this.userControlBooking1);
             this.Controls.Add(this.userControlPayment1);
+            this.Controls.Add(this.userControlBooking1);
             this.IsMdiContainer = true;
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
