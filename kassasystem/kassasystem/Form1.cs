@@ -26,15 +26,21 @@ namespace kassasystem
         private void btnPayment_Click(object sender, EventArgs e)
         {
             userControlPayment1.Show();
+            userControlPayment1.Refresh();
             userControlPayment1.BringToFront();
             userControlBooking1.Hide();
+            userControlPayment1.updateUnppaidBookings();
+
+
         }
 
         private void btnBooking_Click(object sender, EventArgs e)
         {
             userControlBooking1.Show();
+            userControlBooking1.Refresh();
             userControlBooking1.BringToFront();
             userControlPayment1.Hide();
+
         }
     }
 }

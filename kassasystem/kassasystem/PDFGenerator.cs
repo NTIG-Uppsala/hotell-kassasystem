@@ -19,7 +19,7 @@ namespace kassasystem
             
         }
 
-        public void savePDF(ListBox inputData, Decimal totalPrice)
+        public void savePDF(Booking bookingData, Decimal totalPrice)
         {
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
             string currentTimePeriod = ((int)t.TotalSeconds).ToString();
@@ -40,8 +40,7 @@ namespace kassasystem
             XFont productFont = new XFont("Verdana", 15);
             //Finally use XGraphics & font object to draw text in PDF Page
 
-            string outString = "";
-            System.Diagnostics.Debug.WriteLine(inputData.Items.Count);
+            //System.Diagnostics.Debug.WriteLine(inputData.Items.Count);
             string currentDate = DateTime.Now.ToString().Split(" ")[0];
             string currentTime = DateTime.Now.ToString().Split(" ")[1];
 
@@ -65,24 +64,16 @@ namespace kassasystem
             // Divider
             gfx.DrawLine(DividerColor, 15, 200, page.Width - 15, 200);
 
-
             int offset = 220;
-            for (int i = 0; i < inputData.Items.Count; i++)
-            {
-                gfx.DrawString($"{inputData.Items[i].ToString()}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
-                //outString += inputData.Items[i].ToString();
-                gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
-                offset += 45;
 
-                System.Diagnostics.Debug.WriteLine(inputData.Items[i].ToString());
-                System.Diagnostics.Debug.WriteLine(outString);
-            }
+            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
+            offset += 45;
 
             // Tax and total amount
             gfx.DrawString($"Total without tax: {totalPrice - (totalPrice * (Decimal)taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Tax ({taxAmount * 100}%): {(totalPrice * (Decimal)taxAmount)} kr", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Total: {totalPrice * 1.00M} kr", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
-
 
 
             //Specify file name of the PDF file
@@ -97,12 +88,7 @@ namespace kassasystem
             document.Save(filename);
             ////Load PDF File for viewing
             //Process.Start(filename);
-            //}
-            //catch
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Could not save PDF!");
 
-            //}
         }
     }
 }

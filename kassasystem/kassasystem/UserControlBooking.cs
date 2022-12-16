@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace kassasystem
 {
@@ -18,13 +17,31 @@ namespace kassasystem
         Booking newbooking = new Booking();
         Database databaseConnection = new Database();
         Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>();
-
         public UserControlBooking()
         {
             InitializeComponent();
             
+        }
+
+        private void getAvaliableRooms()
+        {
+
+            availableRooms.Items.Clear();
+
+            var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
+
+
+            foreach (Room room in rooms)
+            {
+                availableRooms.Items.Add($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+                System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+
+                if (!avaliableRoomsList.ContainsKey(room.id)) { avaliableRoomsList.Add(room.id, room); }
+
+            }
 
         }
+
         private void btnNewBooking_Click(object sender, EventArgs e)
         {
             btnSave.Show();
@@ -37,18 +54,8 @@ namespace kassasystem
             dateTimePicker1.Value = DateTime.Today;
             dateTimePicker2.Value = DateTime.Today;
 
-            var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
-            
+            getAvaliableRooms();
 
-            
-            foreach (Room room in rooms)
-            {
-                availableRooms.Items.Add($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");                
-                System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
-
-                if (!avaliableRoomsList.ContainsKey(room.id)) { avaliableRoomsList.Add(room.id, room); }
-                
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,34 +66,32 @@ namespace kassasystem
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
-            if (availableRooms.SelectedIndex == -1) throw new Exception("No room selected");
-            if (inputFirstName.Text == "") throw new Exception("No first name entered");
-            if (inputLastName.Text == "") throw new Exception("No last name entered");
+
+            if (inputFirstName.Text.Length <= 0) return;
+            if (inputLastName.Text.Length <= 0) return;
+            if (availableRooms.SelectedIndex == -1) return;
 
             var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0];
             foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
             {
                 if (selectedRoom == Convert.ToString(room.Value.id))
                 {
-                    databaseConnection.CreateNewBooking(room.Value.id, 
-                            inputFirstName.Text, 
-                            inputLastName.Text, 
-                            convertDateToEpoch(dateTimePicker2.Value), 
-                            convertDateToEpoch(dateTimePicker1.Value), 
-                            CalculateRoomPrice(room.Value.rate, 
-                            CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
+                    databaseConnection.CreateNewBooking(room.Value.id,
+                            inputFirstName.Text,
+                            inputLastName.Text,
+                            convertDateToEpoch(dateTimePicker2.Value),
+                            convertDateToEpoch(dateTimePicker1.Value),
+                            CalculateRoomPrice(room.Value.rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
                         );
-
-                    return;
                 }
 
             }
-  
+
         }
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
         {
-            Decimal formula = roomPrice * nights;
+            Decimal formula = roomPrice + (roomPrice * nights);
             return formula;
         }
 
@@ -103,5 +108,16 @@ namespace kassasystem
             int currentTimePeriod = ((int)t.TotalSeconds);
             return currentTimePeriod;
         }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            getAvaliableRooms();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            getAvaliableRooms();
+        }
     }
+
 }

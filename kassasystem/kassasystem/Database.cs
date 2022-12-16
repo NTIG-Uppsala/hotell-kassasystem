@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.SQLite;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace kassasystem
@@ -19,14 +20,40 @@ namespace kassasystem
     internal class Booking
     {
         public Int64 id { get; set; }
+        public Int64 guestId { get; set; }
+
+        public Int64 roomId { get; set; }
+
+        public Int64 roomsTypeid { get; set; }
+        public Int64 rate { get; set; }
+
+        public Int64 roomID { get; set; }
+        public Int64 roomsBookedID { get; set; }
+
+
+        public Int64 bookingID { get; set; }
+
+        public string dateFrom { get; set; }
+        public string dateTo { get; set; }
+        public Int64 roomCount { get; set; }
+
+        public Int64 roomNumber { get; set; }
+        public Int64 totalPeople { get; set; }
+        public Int64 isPaid { get; set; }
+        public bool isBreakfastIncluded { get; set; }
+        public Int64 floor { get; set; }
+
+        public Int64 guestID { get; set; }
+        public string guestFirstName { get; set; }
+        public string guestLastName { get; set; }
+
+
         public Int64 paymentId { get; set; }
         public Int64 paymentDate { get; set; }
         public decimal amountDue { get; set; }
+        public Int64 roomTypesID { get; set; }
         public string paymentType { get; set; }
-        public string guestFirstName { get; set; }
-        public string guestLastName { get; set; }
-        public string dateFrom { get; set; }
-        public string dateTo { get; set; }
+
 
     }
 
@@ -137,10 +164,8 @@ namespace kassasystem
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
-            finally
-            {
-                this.con.Close();
-            }
+
+            this.con.Close();
 
             return output;
 
@@ -177,23 +202,9 @@ namespace kassasystem
             return output_row_id;
 
         }
-        public void testGetSomething()
-        {
-            var data = QueryExecutor("SELECT * FROM roomTypes");
-
-            for (int i = 0; i < data.Count; i++)
-            {
-                foreach (KeyValuePair<string, object> nogot in data[i])
-                {
-                    System.Diagnostics.Debug.WriteLine("Dict rad ");
-                    System.Diagnostics.Debug.WriteLine(nogot.Key, nogot.Value.ToString());
-                }
-            }
-        }
-
         public List<Room> GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var row = QueryExecutor($"SELECT r.roomID, r.floor, r.roomNumber, r.rate, b.dateFrom, b.dateTo, r2.type, r2.totalPeople FROM rooms r LEFT JOIN roomsBooked r1 ON ( r1.roomID = r.roomID  ) LEFT JOIN bookings b ON ( b.bookingID = r1.bookingID  ) LEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r.roomTypesID  ) WHERE (r.roomID NOT IN (SELECT roomID FROM roomsBooked)) OR NOT (5 <= b.dateTo AND 10 >= b.dateFrom) GROUP BY r.roomID;");
+            var row = QueryExecutor($"SELECT r.roomID, r1.floor, r1.roomNumber, r1.rate, r2.type, r2.totalPeople\r\nFROM roomsBooked r \r\n\tINNER JOIN bookings b ON ( b.bookingID = r.bookingID  )  \r\n\tINNER JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tINNER JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\nWHERE NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom)\r\nGROUP BY r1.roomID;");
 
             var output = new List<Room>();
             for (int i = 0; i < row.Count; i++)
@@ -228,7 +239,12 @@ namespace kassasystem
 
         public List<Booking> GetUnpaidBookings()
         {
-            var rows = QueryExecutor("SELECT b.bookingID, b.dateFrom, b.dateTo, b.paymentID, p.date, p.amount, p1.\"type\", g.firstName, g.lastName\r\nFROM bookings b \r\n\tINNER JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tINNER JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\n\tINNER JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT OUTER JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\nWHERE p.isPaid = 0");
+            /*
+             * For each booking save it to a list of Booking objects to be used later (when creating PDF and updating cart view)
+             */
+            var rows = QueryExecutor("SELECT b.guestID, b.dateFrom, b.dateTo, b.roomCount, b.isBreakfastIncluded, r.roomsBookedID, r.bookingID, r.roomID, r1.roomID, r1.roomTypesID, r1.floor, r1.roomNumber, r1.rate, r2.totalPeople, g.firstName, g.lastName, p.paymentID, p.date, p.amount, p.isPaid, p1.\"type\"\r\nFROM bookings b \r\n\tLEFT JOIN roomsBooked r ON ( r.bookingID = b.bookingID  )  \r\n\tLEFT JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tLEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\n\tLEFT JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\n\tLEFT JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tLEFT JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\nWHERE p.isPaid = 0");
+
+           
 
             var output = new List<Booking>();
             for (int i = 0; i < rows.Count; i++)
@@ -255,6 +271,11 @@ namespace kassasystem
         public void SetBookingPaid(Int64 paymentID)
         {
             QueryInsertExecutor($"UPDATE payment SET isPaid=1 WHERE paymentID={paymentID}");
+        }
+
+        public void RemoveBooking(Int64 bookingId)
+        {
+            QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingId}; DELETE FROM roomsBooked WHERE bookingID = {bookingId};");
         }
 
     }

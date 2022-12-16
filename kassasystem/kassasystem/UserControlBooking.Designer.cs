@@ -48,6 +48,7 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(279, 27);
             this.dateTimePicker1.TabIndex = 0;
             this.dateTimePicker1.Visible = false;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // dateTimePicker2
             // 
@@ -58,6 +59,7 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(272, 27);
             this.dateTimePicker2.TabIndex = 1;
             this.dateTimePicker2.Visible = false;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // bookings
             // 
@@ -69,6 +71,7 @@
             this.bookings.Name = "bookings";
             this.bookings.Size = new System.Drawing.Size(406, 1009);
             this.bookings.TabIndex = 2;
+            this.bookings.Visible = false;
             // 
             // availableRooms
             // 
@@ -85,7 +88,7 @@
             // btnNewBooking
             // 
             this.btnNewBooking.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNewBooking.Location = new System.Drawing.Point(425, 92);
+            this.btnNewBooking.Location = new System.Drawing.Point(13, 14);
             this.btnNewBooking.Name = "btnNewBooking";
             this.btnNewBooking.Size = new System.Drawing.Size(152, 72);
             this.btnNewBooking.TabIndex = 4;

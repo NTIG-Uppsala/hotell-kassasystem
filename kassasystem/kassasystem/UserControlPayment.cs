@@ -14,8 +14,6 @@ using static System.ComponentModel.Design.ObjectSelectorEditor;
 namespace kassasystem
 {
 
-
-
     public partial class UserControlPayment : UserControl
     {   
         // Dictionaries for prices and products
@@ -33,21 +31,6 @@ namespace kassasystem
             bookingsList.DisplayMember = "displayName";
             bookingsList.ValueMember = "bookingObject";
 
-            // Plays motivating music
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.fish1);
-            // player.PlayLooping();
-            // Gets current date
-            // CheckOutDayPicker.Value = DateTime.Now; 
-            var data = db.GetUnpaidBookings();
-
-            foreach (Booking booking in data)
-            {
-                bookingsList.Items.Add(new BookingItem
-                {
-                    displayName = Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
-                    bookingObject = booking
-                });
-            }
         }
 
         private void Form1Load(object sender, EventArgs e)
@@ -58,7 +41,7 @@ namespace kassasystem
         // Calculates price of room
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
         {
-            Decimal formula = roomPrice * nights;
+            Decimal formula = roomPrice + (roomPrice * nights);
             return formula;
         }
 
@@ -147,8 +130,10 @@ namespace kassasystem
             if (listBox1.Items.Count > 0)
             {
                 db.SetBookingPaid(SelectedBooking.paymentId);
-                pdfGenerator.savePDF(listBox1, totalPrice);
+                pdfGenerator.savePDF(SelectedBooking, totalPrice);
                 ResetValues();
+
+                updateUnppaidBookings();
             }
             else
             {
@@ -188,12 +173,54 @@ namespace kassasystem
 
         }
 
-        private void bookingsList_SelectedIndexChanged(object sender, EventArgs e)
+        private void bookingsList_SelectedIndexChanged(object sender, EventArgs e) 
         {
-          
+            if (bookingsList.SelectedItems.Count == 1)
+            {
+                System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
+                cartDictionary.Clear();
+                Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
+                System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
+
+                if (selectedBooking != null)
+                {
+                    this.SelectedBooking = selectedBooking;
+                }
+                else
+                {
+                    //
+                }
+            };
         }
 
+        public void updateUnppaidBookings()
+        {
+            bookingsList.Items.Clear();
 
+            var data = db.GetUnpaidBookings();
+            
+            foreach (Booking booking in data)
+            {
+                bookingsList.Items.Add(new BookingItem
+                {
+                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
+                    bookingObject = booking
+                });
+            }
+        }
+
+        private void UserControlPayment_Load(object sender, EventArgs e)
+        {
+            updateUnppaidBookings();
+        }
+
+        private void btnRmBooking_click(object sender, EventArgs e)
+        {
+            if (SelectedBooking == null) return;
+
+            db.RemoveBooking(SelectedBooking.id);
+            updateUnppaidBookings();
+        }
     }
     class BookingItem
     {

@@ -123,9 +123,9 @@ namespace kassasystem
         #endregion
 
         public Label lbl_button_val;
-        private Button BtnBooking;
-        private Button btnPayment;
-        private UserControlBooking userControlBooking1;
-        private UserControlPayment userControlPayment1;
+        public Button BtnBooking;
+        public Button btnPayment;
+        public UserControlBooking userControlBooking1;
+        public UserControlPayment userControlPayment1;
     }
 }
