@@ -84,9 +84,9 @@
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotal.Location = new System.Drawing.Point(1533, 783);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(167, 37);
+            this.lblTotal.Size = new System.Drawing.Size(189, 37);
             this.lblTotal.TabIndex = 4;
-            this.lblTotal.Text = "Total: 0,00 kr";
+            this.lblTotal.Text = "Total: 0.00 SEK";
             // 
             // btnPay
             // 
