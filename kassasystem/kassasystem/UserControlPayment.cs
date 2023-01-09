@@ -104,7 +104,13 @@ namespace kassasystem
         }
 
         // Removes one instance of selected product amount
-        private void BtnRemove1xClick(object sender, EventArgs e) { }
+        private void BtnRemove1xClick(object sender, EventArgs e) 
+        { 
+            //while (true)
+            //{
+            //    MessageBox.Show("Fatal error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
 
         // Removes every instance of selected product
         private void BtnRemoveClick(object sender, EventArgs e) { }

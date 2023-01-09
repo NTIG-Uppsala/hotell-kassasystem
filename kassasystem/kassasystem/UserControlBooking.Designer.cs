@@ -166,14 +166,14 @@
 
         #endregion
 
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
-        private ListBox bookings;
-        private ListBox availableRooms;
-        private Button btnNewBooking;
-        private Button btnEditBooking;
-        private Button btnSave;
-        private TextBox inputFirstName;
-        private TextBox inputLastName;
+        public DateTimePicker dateTimePicker1;
+        public DateTimePicker dateTimePicker2;
+        public ListBox bookings;
+        public ListBox availableRooms;
+        public Button btnNewBooking;
+        public Button btnEditBooking;
+        public Button btnSave;
+        public TextBox inputFirstName;
+        public TextBox inputLastName;
     }
 }
