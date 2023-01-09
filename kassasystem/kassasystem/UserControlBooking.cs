@@ -14,9 +14,10 @@ namespace kassasystem
 
     public partial class UserControlBooking : UserControl
     {
-        Booking newbooking = new Booking();
+        Booking newbooking = new Booking(); // FIXME spelling
         Database databaseConnection = new Database();
-        Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>();
+        Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>(); // FIXME spelling
+                                                                                    // REFACTOR
         public UserControlBooking()
         {
             InitializeComponent();
@@ -59,7 +60,8 @@ namespace kassasystem
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        { 
+        {
+            // REFACTOR
             btnSave.Hide();
             inputFirstName.Hide();
             inputLastName.Hide();
@@ -67,11 +69,15 @@ namespace kassasystem
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
 
+            // REFACTOR
             if (inputFirstName.Text.Length <= 0) return;
             if (inputLastName.Text.Length <= 0) return;
             if (availableRooms.SelectedIndex == -1) return;
 
-            var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0];
+            //TODO error handling for date
+
+            var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0]; // TODO null check  
+                                                                                     // FIXME make selection persistant
             foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
             {
                 if (selectedRoom == Convert.ToString(room.Value.id))
@@ -91,24 +97,26 @@ namespace kassasystem
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
         {
-            Decimal formula = roomPrice + (roomPrice * nights);
+            Decimal formula = roomPrice + (roomPrice * nights); // TODO check price with PO
             return formula;
         }
 
         private int CalculateNights(DateTime startDate, DateTime endDate)
         {
             TimeSpan t = endDate - startDate;
-            int currentTimePeriod = ((int)t.TotalDays);
+            int currentTimePeriod = (int)t.TotalDays;
             return currentTimePeriod;
         }
 
         private int convertDateToEpoch(DateTime date)
         {
             TimeSpan t = date - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
-            int currentTimePeriod = ((int)t.TotalSeconds);
+                                                          // REFACTOR static/readonly
+            int currentTimePeriod = (int)t.TotalSeconds;
             return currentTimePeriod;
         }
 
+        // REFACTOR combine dateTimePicker2- and dateTimePicker1_ValueChanged
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
             getAvaliableRooms();

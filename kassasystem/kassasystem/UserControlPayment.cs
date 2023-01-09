@@ -127,7 +127,7 @@ namespace kassasystem
         // Makes PDF reciept when button is pressed, then calls reset function
         private void BtnPayClick(object sender, EventArgs e)
         {
-            if (listBox1.Items.Count > 0)
+            if (listBox1.Items.Count > 0) // REFACTOR invert
             {
                 db.SetBookingPaid(SelectedBooking.paymentId);
                 pdfGenerator.savePDF(SelectedBooking, totalPrice);
@@ -150,7 +150,7 @@ namespace kassasystem
 
         private void btnSendToPaymentList_Click(object sender, EventArgs e)
         {
-            if (bookingsList.SelectedItems.Count == 1) 
+            if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
@@ -158,7 +158,7 @@ namespace kassasystem
                 System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
 
-                if (selectedBooking != null)
+                if (selectedBooking != null) // REFACTOR invert
                 {
                     System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
                     cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
@@ -167,7 +167,7 @@ namespace kassasystem
                 }
                 else
                 {
-                    //
+                    // TODO error handling
                 }
             };
 
@@ -175,14 +175,14 @@ namespace kassasystem
 
         private void bookingsList_SelectedIndexChanged(object sender, EventArgs e) 
         {
-            if (bookingsList.SelectedItems.Count == 1)
+            if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
                 Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
                 System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
-                if (selectedBooking != null)
+                if (selectedBooking != null) // REFACTOR invert
                 {
                     this.SelectedBooking = selectedBooking;
                 }
@@ -193,7 +193,7 @@ namespace kassasystem
             };
         }
 
-        public void updateUnppaidBookings()
+        public void updateUnppaidBookings() // FIXME spelling
         {
             bookingsList.Items.Clear();
 
@@ -220,6 +220,7 @@ namespace kassasystem
 
             db.RemoveBooking(SelectedBooking.id);
             updateUnppaidBookings();
+            // TODO reset values
         }
     }
     class BookingItem
