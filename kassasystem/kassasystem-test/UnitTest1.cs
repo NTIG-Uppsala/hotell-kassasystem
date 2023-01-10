@@ -3,52 +3,101 @@ using System.Transactions;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using kassasystem;
+using System.Data.Common;
 
 namespace kassasystem_test
 {
     public class Tests
     {
         hotelPaymentAndBookingSystem _form;
-        UserControlBooking _formBooking;
-        UserControlPayment _formPayment;
 
+        private void QueryExecutor(string[] commands)
+        {
 
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
+            string filePath = string.Format(@"{0}{1}", path, "database.db");
+
+            var db = new SQLiteConnection($"Data Source={filePath};");
+            db.Open();
+            using (DbCommand cmd = db.CreateCommand())
+            {
+                foreach (string query in commands)
+                {
+                    cmd.CommandText += query;
+                    
+                }
+                cmd.ExecuteReader();
+            }
+            db.Close();
+        }
 
         [SetUp]
         public void Setup()
         {
             _form = new hotelPaymentAndBookingSystem();
             _form.Show();
-
-            _formBooking = new UserControlBooking();
-
-            _formPayment = new UserControlPayment();
         }
 
-
         [Test]
-        public void testBookRoom()
+        public void testBookAndRemoveBooking()
         {
             _form.BtnBooking.PerformClick();
-            _formBooking.btnNewBooking.PerformClick();
+            _form.userControlBooking1.btnNewBooking.PerformClick();
 
             string firstName = "bertil";
-            _formBooking.inputFirstName.Text = firstName;
-
             string secondName = "karlsson";
-            _formBooking.inputLastName.Text = secondName;
+            _form.userControlBooking1.inputFirstName.Text = firstName;
+            _form.userControlBooking1.inputLastName.Text = secondName;
 
             Random random = new Random();
-            int index = random.Next(0, _formBooking.availableRooms.Items.Count);
-            _formBooking.availableRooms.SelectedIndex = index;
+            int index = random.Next(0, _form.userControlBooking1.availableRooms.Items.Count);
+            _form.userControlBooking1.availableRooms.SelectedIndex = index;
 
-            _formBooking.btnSave.PerformClick();
+            _form.userControlBooking1.btnSave.PerformClick();
 
             _form.btnPayment.PerformClick();
-            _formPayment.bookingsList.SelectedIndex = -1;
+            _form.userControlPayment1.bookingsList.SelectedIndex = _form.userControlPayment1.bookingsList.Items.Count - 1;
+            _form.userControlPayment1.button1.PerformClick();
 
-            _formPayment.button1.PerformClick();
+            string[] commands =
+            {
+                "DELETE FROM guests WHERE guestID = (SELECT MAX(guestID) FROM guests);"
+            };
 
+            QueryExecutor(commands);
+        }
+
+        [Test]
+        public void testBookAndPayBooking()
+        {
+            _form.BtnBooking.PerformClick();
+            _form.userControlBooking1.btnNewBooking.PerformClick();
+
+            string firstName = "bertil";
+            string secondName = "karlsson";
+            _form.userControlBooking1.inputFirstName.Text = firstName;
+            _form.userControlBooking1.inputLastName.Text = secondName;
+
+            Random random = new Random();
+            int index = random.Next(0, _form.userControlBooking1.availableRooms.Items.Count);
+            _form.userControlBooking1.availableRooms.SelectedIndex = index;
+
+            _form.userControlBooking1.btnSave.PerformClick();
+
+            _form.btnPayment.PerformClick();
+            _form.userControlPayment1.bookingsList.SelectedIndex = _form.userControlPayment1.bookingsList.Items.Count - 1;
+            _form.userControlPayment1.btnSendToPaymentList.PerformClick();
+            _form.userControlPayment1.btnPay.PerformClick();
+
+            string[] commands =
+            {
+                "DELETE FROM roomsBooked WHERE roomsBookedID = (SELECT MAX(roomsBookedID) From roomsBooked);",
+                "DELETE FROM bookings WHERE guestID = (SELECT MAX(guestID) FROM bookings);",
+                "DELETE FROM guests ORDER BY guestID DESC limit 1"
+            };
+
+            QueryExecutor(commands);
         }
         
         //[Test]
