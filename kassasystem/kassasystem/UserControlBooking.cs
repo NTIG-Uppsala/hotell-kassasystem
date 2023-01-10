@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace kassasystem
 {
@@ -15,7 +16,9 @@ namespace kassasystem
     public partial class UserControlBooking : UserControl
     {
         Booking newbooking = new Booking(); // FIXME spelling
-        Database databaseConnection = new Database();
+        static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+        static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
+        Database databaseConnection = new Database(path, "database.db");
         Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>(); // FIXME spelling
                                                                                     // REFACTOR
         public UserControlBooking()

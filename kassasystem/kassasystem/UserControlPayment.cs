@@ -20,7 +20,10 @@ namespace kassasystem
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
         public Dictionary<string, decimal> cartDictionary = new Dictionary<string, decimal>();
         PDFGenerator pdfGenerator = new PDFGenerator();
-        Database db = new Database();
+
+        static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+        static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
+        public Database db = new Database(path, "database.db");
 
         Booking SelectedBooking;
 
@@ -105,11 +108,11 @@ namespace kassasystem
 
         // Removes one instance of selected product amount
         private void BtnRemove1xClick(object sender, EventArgs e) 
-        { 
-            //while (true)
-            //{
-            //    MessageBox.Show("Fatal error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+        {
+            while (true)
+            {
+                MessageBox.Show("Fatal error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Removes every instance of selected product

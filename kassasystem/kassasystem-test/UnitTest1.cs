@@ -10,41 +10,25 @@ namespace kassasystem_test
     {
         hotelPaymentAndBookingSystem _form;
         UserControlBooking _formBooking;
+        UserControlPayment _formPayment;
 
-        public SQLiteConnection con { get; set; }
 
-        private TransactionScope scope;
 
         [SetUp]
         public void Setup()
         {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
-            string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
-            string filePath = string.Format(@"C:\Users\{0}\Documents\hotel_database\database.db", userName);
-
-            var db = new SQLiteConnection($"Data Source={filePath};");
-            this.con = db;
-
-            scope = new TransactionScope();
-
             _form = new hotelPaymentAndBookingSystem();
             _form.Show();
 
             _formBooking = new UserControlBooking();
-            _formBooking.Show();
+
+            _formPayment = new UserControlPayment();
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            scope.Dispose();
-        }
 
         [Test]
         public void testBookRoom()
         {
-            // your test code here
-            this.con.Open();
             _form.BtnBooking.PerformClick();
             _formBooking.btnNewBooking.PerformClick();
 
@@ -59,7 +43,12 @@ namespace kassasystem_test
             _formBooking.availableRooms.SelectedIndex = index;
 
             _formBooking.btnSave.PerformClick();
-            this.con.Close();
+
+            _form.btnPayment.PerformClick();
+            _formPayment.bookingsList.SelectedIndex = -1;
+
+            _formPayment.button1.PerformClick();
+
         }
         
         //[Test]

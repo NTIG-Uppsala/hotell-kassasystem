@@ -203,7 +203,7 @@
         public Label LblBooking;
         public ListBox bookingsList;
         public Button btnSendToPaymentList;
-        private Button button1;
+        public Button button1;
     }
 
 }
