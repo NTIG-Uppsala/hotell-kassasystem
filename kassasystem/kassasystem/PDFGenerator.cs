@@ -7,7 +7,10 @@ using System.ComponentModel;
 using PdfSharp.Drawing.Layout;
 using PdfSharp;
 using PdfSharp.Pdf.Advanced;
+using System.Data.SQLite;
 using System.Drawing;
+using System.Data.Entity.Validation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace kassasystem
 {
@@ -16,18 +19,16 @@ namespace kassasystem
         float taxAmount = 0.12f;
         public PDFGenerator()
         {
-            
+
         }
 
         public void savePDF(Booking bookingData, Decimal totalPrice)
         {
-            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
-            string currentTimePeriod = ((int)t.TotalSeconds).ToString();
-
-            //try
-            //{
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
+            string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
+            Database db = new Database(path, "database.db");
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //Create PDF Document
             PdfDocument document = new PdfDocument();
             //You will have to add Page in PDF Document
@@ -40,13 +41,13 @@ namespace kassasystem
             XFont productFont = new XFont("Verdana", 15);
             //Finally use XGraphics & font object to draw text in PDF Page
 
-            //System.Diagnostics.Debug.WriteLine(inputData.Items.Count);
-            string currentDate = DateTime.Now.ToString().Split(" ")[0];
-            string currentTime = DateTime.Now.ToString().Split(" ")[1];
-
             XPen DividerColor = new XPen(XColors.LightSkyBlue, 3);
             XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
 
+            var data = db.GetReceiptData(bookingData.id);
+
+            
+            //System.Diagnostics.Debug.WriteLine(data[0].date);
 
             gfx.DrawString("Hotel name", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString("Receipt", titleFont, XBrushes.Black, new XRect(-15, 15, page.Width, page.Height), XStringFormats.TopRight);
@@ -57,9 +58,9 @@ namespace kassasystem
             /* Info box (date of purchase, order number etc..)  */
             gfx.DrawRectangle(XPens.WhiteSmoke, XBrushes.WhiteSmoke, 10, 75, 160, 80);
             gfx.DrawString($"Address: some address", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Date: {currentDate}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Time: {currentTime}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Order number: {currentTimePeriod}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Date: {data.date}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Time: {data.time}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Order number: {data.orderNumber}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
 
             // Divider
             gfx.DrawLine(DividerColor, 15, 200, page.Width - 15, 200);
@@ -71,17 +72,17 @@ namespace kassasystem
             offset += 45;
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {Math.Round((totalPrice / ((Decimal)taxAmount + 1)), 2)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax ({taxAmount * 100}%): {Math.Round(totalPrice - (totalPrice / ((Decimal)taxAmount + 1)), 2)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Total: {Math.Round(totalPrice * 1.00M, 2)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {data.totalNoTax} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax (%): {data.tax} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {data.total} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
             //Specify file name of the PDF file
-            string filename = String.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, currentTimePeriod);
+            string filename = string.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, "the time period", data.orderNumber);
 
-            if (!Directory.Exists(String.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName)))
+            if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName)))
             {
-                Directory.CreateDirectory(String.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName));
+                Directory.CreateDirectory(string.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName));
             }
 
             //Save PDF File

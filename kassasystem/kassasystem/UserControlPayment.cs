@@ -140,9 +140,10 @@ namespace kassasystem
             {
                 db.SaveReceiptData(SelectedBooking.id, totalPrice);
                 db.SetBookingPaid(SelectedBooking.paymentId);
-                pdfGenerator.savePDF(SelectedBooking, totalPrice);
-                ResetValues();
 
+                pdfGenerator.savePDF(SelectedBooking, totalPrice);
+
+                ResetValues();
                 updateUnppaidBookings();
             }
             else

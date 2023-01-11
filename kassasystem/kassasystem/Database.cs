@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.Common;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.SQLite;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -15,6 +16,18 @@ namespace kassasystem
         public Int64 floor { get; set; }
         public string type { get; set; }
         public Int64 recommendedPeople { get; set; }
+    }
+
+    public class Data
+    {
+        public Int64 id { get; set;}
+        public Int64 bookingID { get; set; }
+        public string date { get; set; }
+        public string time { get; set; }
+        public Int64 orderNumber { get; set; }
+        public Double totalNoTax { get; set; }
+        public Double tax { get; set; }
+        public Double total { get; set; }
     }
 
     public class Booking
@@ -69,7 +82,7 @@ namespace kassasystem
             "CREATE TABLE \"roomTypes\" (\r\n\t\"roomTypesID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tTEXT,\r\n\t\"totalPeople\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomTypesID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"rooms\" (\r\n\t\"roomID\"\tINTEGER NOT NULL,\r\n\t\"roomTypesID\"\tINTEGER,\r\n\t\"floor\"\tINTEGER,\r\n\t\"roomNumber\"\tINTEGER,\r\n\t\"rate\"\tNUMERIC,\r\n\tPRIMARY KEY(\"roomID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"roomTypesID\") REFERENCES \"roomTypes\"(\"roomTypesID\")\r\n);",
             "CREATE TABLE \"roomsBooked\" (\r\n\t\"roomsBookedID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"roomID\"\tINTEGER,\r\n\tFOREIGN KEY(\"roomID\") REFERENCES \"rooms\"(\"roomID\"),\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"roomsBookedID\" AUTOINCREMENT)\r\n);",
-            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tNUMERIC,\r\n\t\"totalNoTax\"\tREAL,\r\n\t\"tax\"\tREAL,\r\n\t\"total\"\tREAL,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
+            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"totalNoTax\"\tREAL,\r\n\t\"tax\"\tREAL,\r\n\t\"total\"\tREAL,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
         };
 
         public SQLiteConnection con { get; set; }
@@ -313,6 +326,27 @@ namespace kassasystem
 
             QueryInsertExecutor($"INSERT INTO receipt (bookingID, date, time, orderNumber, totalNoTax, tax, total) " +
                 $"VALUES ('{bookingID}', '{currentDate}', '{currentTime}', '{currentTimePeriod}', '{totalNoTax}', '{tax}', '{total}')");
+        }
+
+        public Data GetReceiptData(Int64 bookingID)
+        {
+            var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}");
+            var output = new Data();
+            for (int i = 0; i < data.Count; i++)
+            {
+                Data newdata = new Data();
+                newdata.id = (Int64)data[i]["receiptID"];
+                newdata.bookingID = (Int64)data[i]["bookingID"];
+                newdata.date = (string)data[i]["date"];
+                newdata.time = (string)data[i]["time"];
+                newdata.orderNumber = (Int64)data[i]["orderNumber"];
+                newdata.totalNoTax = (Double)data[i]["totalNoTax"];
+                newdata.tax = (Double)data[i]["tax"];
+                newdata.total = (Double)data[i]["total"];
+
+                System.Diagnostics.Debug.WriteLine($"importtant {newdata.id} {newdata.bookingID} {newdata.date} {newdata.total} {newdata.tax}");
+            }
+            return output;
         }
 
         public void RemoveBooking(Int64 bookingID)
