@@ -331,10 +331,9 @@ namespace kassasystem
         public Data GetReceiptData(Int64 bookingID)
         {
             var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}");
-            var output = new Data();
+            Data newdata = new Data();
             for (int i = 0; i < data.Count; i++)
             {
-                Data newdata = new Data();
                 newdata.id = (Int64)data[i]["receiptID"];
                 newdata.bookingID = (Int64)data[i]["bookingID"];
                 newdata.date = (string)data[i]["date"];
@@ -346,7 +345,7 @@ namespace kassasystem
 
                 System.Diagnostics.Debug.WriteLine($"importtant {newdata.id} {newdata.bookingID} {newdata.date} {newdata.total} {newdata.tax}");
             }
-            return output;
+            return newdata;
         }
 
         public void RemoveBooking(Int64 bookingID)

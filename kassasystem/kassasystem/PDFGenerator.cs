@@ -44,6 +44,7 @@ namespace kassasystem
             XPen DividerColor = new XPen(XColors.LightSkyBlue, 3);
             XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
 
+            System.Diagnostics.Debug.WriteLine($"thae id {bookingData.id}");
             var data = db.GetReceiptData(bookingData.id);
 
             
@@ -78,7 +79,7 @@ namespace kassasystem
 
 
             //Specify file name of the PDF file
-            string filename = string.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, "the time period", data.orderNumber);
+            string filename = string.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, data.orderNumber);
 
             if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName)))
             {
