@@ -201,18 +201,44 @@ namespace kassasystem
         }
         public List<Room> GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            var row = QueryExecutor($"SELECT r.roomID, r1.floor, r1.roomNumber, r1.rate, r2.type, r2.totalPeople\r\nFROM roomsBooked r \r\n\tINNER JOIN bookings b ON ( b.bookingID = r.bookingID  )  \r\n\tINNER JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tINNER JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\nWHERE NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom)\r\nGROUP BY r1.roomID;");
+            // var row = QueryExecutor($"SELECT r.roomID, r1.floor, r1.roomNumber, r1.rate, r2.type, r2.totalPeople\r\nFROM roomsBooked r \r\n\tINNER JOIN bookings b ON ( b.bookingID = r.bookingID  )  \r\n\tINNER JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tINNER JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\nWHERE NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom)\r\nGROUP BY r1.roomID;");
+
+            var rooms = QueryExecutor("SELECT * FROM rooms");
+            var roomTypes = QueryExecutor("SELECT * FROM roomTypes");
+
+            //for (int x = 0; x < rooms.Count; x++)
+            //{
+            //    var room = rooms[x]["roomNumber"];
+            //    MessageBox.Show(room.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+
+            for (int x = 0; x < rooms.Count; x++)
+            {
+                var typeID = rooms[x]["roomTypesID"];
+
+                for (int y = 0; y < roomTypes.Count; y++)
+                {
+                   
+                    if (typeID.ToString() == roomTypes[y]["roomTypesID"].ToString())
+                    {
+                        roomTypes[y].ToList().ForEach(z => rooms[x][z.Key] = z.Value);
+                        //rooms[x].ToList().ForEach(z => System.Diagnostics.Debug.WriteLine(z.Key, z.Value));
+                        //System.Diagnostics.Debug.WriteLine(rooms[x].Count);
+                    } 
+                    
+                }
+            }
 
             var output = new List<Room>();
-            for (int i = 0; i < row.Count; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
                 Room newRoom = new Room();
-                newRoom.id = (Int64)row[i]["roomID"];
-                newRoom.rate = (decimal)row[i]["rate"];
-                newRoom.number = (Int64)row[i]["roomNumber"];
-                newRoom.floor = (Int64)row[i]["floor"];
-                newRoom.type = (string)row[i]["type"];
-                newRoom.recommendedPeople = (Int64)row[i]["totalPeople"];
+                newRoom.id = (Int64)rooms[i]["roomID"];
+                newRoom.rate = (decimal)rooms[i]["rate"];
+                newRoom.number = (Int64)rooms[i]["roomNumber"];
+                newRoom.floor = (Int64)rooms[i]["floor"];
+                newRoom.type = (string)rooms[i]["type"];
+                newRoom.recommendedPeople = (Int64)rooms[i]["totalPeople"];
 
                 output.Add(newRoom);
             }
@@ -251,7 +277,8 @@ namespace kassasystem
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
                 newBooking.paymentDate = (Int64)rows[i]["date"];
                 newBooking.amountDue = (decimal)rows[i]["amount"];
-                newBooking.paymentType = (string)rows[i]["type"];
+
+                // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
                 //newBooking.dateFrom = (string)rows[i]["dateFrom"];
