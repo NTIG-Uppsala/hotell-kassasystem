@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,25 @@ namespace kassasystem
         public UserControlBooking()
         {
             InitializeComponent();
-            
+
+            bookings.DisplayMember = "displayName";
+            bookings.ValueMember = "bookingObject";
+        }
+
+        public void updateBookings()
+        {
+            bookings.Items.Clear();
+
+            var data = databaseConnection.GetBookings();
+
+            foreach (Booking booking in data)
+            {
+                bookings.Items.Add(new BookingItem
+                {
+                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
+                    bookingObject = booking
+                });
+            }
         }
 
         private void getAvaliableRooms()
@@ -77,7 +96,7 @@ namespace kassasystem
             if (inputLastName.Text.Length <= 0) return;
             if (availableRooms.SelectedIndex == -1) return;
 
-            //TODO error handling for date
+            // TODO error handling for date
 
             var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0]; // TODO null check  
                                                                                      // FIXME make selection persistant
@@ -96,6 +115,7 @@ namespace kassasystem
 
             }
 
+            updateBookings();
         }
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)

@@ -144,7 +144,7 @@ namespace kassasystem
                 pdfGenerator.savePDF(SelectedBooking, totalPrice);
 
                 ResetValues();
-                updateUnppaidBookings();
+                updateUnpaidBookings();
             }
             else
             {
@@ -204,7 +204,7 @@ namespace kassasystem
             };
         }
 
-        public void updateUnppaidBookings() // FIXME spelling
+        public void updateUnpaidBookings()
         {
             bookingsList.Items.Clear();
 
@@ -222,7 +222,7 @@ namespace kassasystem
 
         private void UserControlPayment_Load(object sender, EventArgs e)
         {
-            updateUnppaidBookings();
+            updateUnpaidBookings();
         }
 
         private void btnRmBooking_click(object sender, EventArgs e)
@@ -230,13 +230,8 @@ namespace kassasystem
             if (SelectedBooking == null) return;
 
             db.RemoveBooking(SelectedBooking.id);
-            updateUnppaidBookings();
+            updateUnpaidBookings();
             // TODO reset values
         }
-    }
-    class BookingItem
-    {
-        public string displayName { get; set; }
-        public Booking bookingObject { get; set; }
     }
 }

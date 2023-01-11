@@ -67,11 +67,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.bookings.FormattingEnabled = true;
             this.bookings.ItemHeight = 15;
-            this.bookings.Location = new System.Drawing.Point(13, 14);
+            this.bookings.Location = new System.Drawing.Point(13, 104);
             this.bookings.Name = "bookings";
-            this.bookings.Size = new System.Drawing.Size(406, 1009);
+            this.bookings.Size = new System.Drawing.Size(406, 919);
             this.bookings.TabIndex = 2;
-            this.bookings.Visible = false;
             // 
             // availableRooms
             // 

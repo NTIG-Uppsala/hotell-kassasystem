@@ -29,7 +29,7 @@ namespace kassasystem
             userControlPayment1.Refresh();
             userControlPayment1.BringToFront();
             userControlBooking1.Hide();
-            userControlPayment1.updateUnppaidBookings();
+            userControlPayment1.updateUnpaidBookings();
 
 
         }
@@ -40,7 +40,7 @@ namespace kassasystem
             userControlBooking1.Refresh();
             userControlBooking1.BringToFront();
             userControlPayment1.Hide();
-
+            userControlBooking1.updateBookings();
         }
     }
 }
