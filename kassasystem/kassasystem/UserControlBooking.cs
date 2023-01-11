@@ -38,7 +38,7 @@ namespace kassasystem
             foreach (Room room in rooms)
             {
                 availableRooms.Items.Add($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
-                System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+                // System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
 
                 if (!avaliableRoomsList.ContainsKey(room.id)) { avaliableRoomsList.Add(room.id, room); }
 

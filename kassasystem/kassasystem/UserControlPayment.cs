@@ -138,8 +138,8 @@ namespace kassasystem
         {
             if (listBox1.Items.Count > 0) // REFACTOR invert
             {
+                db.SaveReceiptData(SelectedBooking.id, totalPrice);
                 db.SetBookingPaid(SelectedBooking.paymentId);
-                db.SaveReceiptData(SelectedBooking.bookingID, totalPrice);
                 pdfGenerator.savePDF(SelectedBooking, totalPrice);
                 ResetValues();
 
