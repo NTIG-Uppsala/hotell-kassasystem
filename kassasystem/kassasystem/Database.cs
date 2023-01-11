@@ -68,7 +68,8 @@ namespace kassasystem
             "CREATE TABLE \"paymentType\" (\r\n\t\"paymentTypeID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tNUMERIC,\r\n\tPRIMARY KEY(\"paymentTypeID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"roomTypes\" (\r\n\t\"roomTypesID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tTEXT,\r\n\t\"totalPeople\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomTypesID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"rooms\" (\r\n\t\"roomID\"\tINTEGER NOT NULL,\r\n\t\"roomTypesID\"\tINTEGER,\r\n\t\"floor\"\tINTEGER,\r\n\t\"roomNumber\"\tINTEGER,\r\n\t\"rate\"\tNUMERIC,\r\n\tPRIMARY KEY(\"roomID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"roomTypesID\") REFERENCES \"roomTypes\"(\"roomTypesID\")\r\n);",
-            "CREATE TABLE \"roomsBooked\" (\r\n\t\"roomsBookedID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"roomID\"\tINTEGER,\r\n\tFOREIGN KEY(\"roomID\") REFERENCES \"rooms\"(\"roomID\"),\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"roomsBookedID\" AUTOINCREMENT)\r\n);"
+            "CREATE TABLE \"roomsBooked\" (\r\n\t\"roomsBookedID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"roomID\"\tINTEGER,\r\n\tFOREIGN KEY(\"roomID\") REFERENCES \"rooms\"(\"roomID\"),\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"roomsBookedID\" AUTOINCREMENT)\r\n);",
+            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tNUMERIC,\r\n\t\"totalNoTax\"\tREAL,\r\n\t\"tax\"\tREAL,\r\n\t\"total\"\tREAL,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
         };
 
         public SQLiteConnection con { get; set; }
@@ -269,9 +270,27 @@ namespace kassasystem
             QueryInsertExecutor($"UPDATE payment SET isPaid=1 WHERE paymentID={paymentID}");
         }
 
-        public void RemoveBooking(Int64 bookingId)
+        public void SaveReceiptData(Int64 bookingID, Decimal totalPrice)
         {
-            QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingId}; DELETE FROM roomsBooked WHERE bookingID = {bookingId};");
+            float taxAmount = 0.12f;
+
+            string currentDate = DateTime.Now.ToString().Split(" ")[0];
+            string currentTime = DateTime.Now.ToString().Split(" ")[1];
+
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
+            string currentTimePeriod = ((int)t.TotalSeconds).ToString();
+
+            decimal totalNoTax = Math.Round((totalPrice / ((Decimal)taxAmount + 1)), 2);
+            decimal tax = Math.Round(totalPrice - (totalPrice / ((Decimal)taxAmount + 1)), 2);
+            decimal total = Math.Round(totalPrice * 1.00M, 2);
+
+            QueryInsertExecutor($"INSERT INTO receipt (bookingID, date, time, orderNumber, totalNoTax, tax, total) " +
+                $"VALUES ('{bookingID}', '{currentDate}', '{currentTime}', '{currentTimePeriod}', '{totalNoTax}', '{tax}', '{total}')");
+        }
+
+        public void RemoveBooking(Int64 bookingID)
+        {
+            QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingID}; DELETE FROM roomsBooked WHERE bookingID = {bookingID};");
         }
 
     }
