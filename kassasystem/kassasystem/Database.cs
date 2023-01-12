@@ -315,6 +315,38 @@ namespace kassasystem
 
         }
 
+        public List<Booking> GetPaidBookings()
+        {
+            /*
+             * For each booking save it to a list of Booking objects to be used later (when creating PDF and updating cart view)
+             */
+            var rows = QueryExecutor("SELECT b.guestID, b.dateFrom, b.dateTo, b.roomCount, b.isBreakfastIncluded, r.roomsBookedID, r.bookingID, r.roomID, r1.roomID, r1.roomTypesID, r1.floor, r1.roomNumber, r1.rate, r2.totalPeople, g.firstName, g.lastName, p.paymentID, p.date, p.amount, p.isPaid, p1.\"type\"\r\nFROM bookings b \r\n\tLEFT JOIN roomsBooked r ON ( r.bookingID = b.bookingID  )  \r\n\tLEFT JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tLEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\n\tLEFT JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\n\tLEFT JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tLEFT JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\nWHERE p.isPaid = 1");
+
+
+
+            var output = new List<Booking>();
+            for (int i = 0; i < rows.Count; i++)
+            {
+                Booking newBooking = new Booking();
+                newBooking.id = (Int64)rows[i]["bookingID"];
+                newBooking.paymentId = (Int64)rows[i]["paymentID"];
+                //newBooking.paymentDate = (Int64)rows[i]["date"];
+                newBooking.amountDue = Convert.ToDecimal((Int64)rows[i]["amount"]) / 100m;
+                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
+                // newBooking.paymentType = (string)rows[i]["type"];
+                newBooking.guestFirstName = (string)rows[i]["firstName"];
+                newBooking.guestLastName = (string)rows[i]["lastName"];
+                //newBooking.dateFrom = (string)rows[i]["dateFrom"];
+                //newBooking.dateTo = (string)rows[i]["dateTo"];
+
+
+                output.Add(newBooking);
+            }
+
+            return output;
+
+        }
+
         public List<Booking> GetUnpaidBookings()
         {
             /*

@@ -30,13 +30,16 @@
         {
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.bookings = new System.Windows.Forms.ListBox();
+            this.unpaidBookings = new System.Windows.Forms.ListBox();
             this.availableRooms = new System.Windows.Forms.ListBox();
             this.btnNewBooking = new System.Windows.Forms.Button();
             this.btnEditBooking = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.inputFirstName = new System.Windows.Forms.TextBox();
             this.inputLastName = new System.Windows.Forms.TextBox();
+            this.paidBookings = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -61,16 +64,14 @@
             this.dateTimePicker2.Visible = false;
             this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
-            // bookings
+            // unpaidBookings
             // 
-            this.bookings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.bookings.FormattingEnabled = true;
-            this.bookings.ItemHeight = 15;
-            this.bookings.Location = new System.Drawing.Point(13, 104);
-            this.bookings.Name = "bookings";
-            this.bookings.Size = new System.Drawing.Size(406, 919);
-            this.bookings.TabIndex = 2;
+            this.unpaidBookings.FormattingEnabled = true;
+            this.unpaidBookings.ItemHeight = 15;
+            this.unpaidBookings.Location = new System.Drawing.Point(13, 119);
+            this.unpaidBookings.Name = "unpaidBookings";
+            this.unpaidBookings.Size = new System.Drawing.Size(406, 574);
+            this.unpaidBookings.TabIndex = 2;
             // 
             // availableRooms
             // 
@@ -142,18 +143,50 @@
             this.inputLastName.TabIndex = 8;
             this.inputLastName.Visible = false;
             // 
+            // paidBookings
+            // 
+            this.paidBookings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.paidBookings.FormattingEnabled = true;
+            this.paidBookings.ItemHeight = 15;
+            this.paidBookings.Location = new System.Drawing.Point(13, 719);
+            this.paidBookings.Name = "paidBookings";
+            this.paidBookings.Size = new System.Drawing.Size(406, 304);
+            this.paidBookings.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 701);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Paid bookings:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 15);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Unpaid bookings:";
+            // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.paidBookings);
             this.Controls.Add(this.inputLastName);
             this.Controls.Add(this.inputFirstName);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnEditBooking);
             this.Controls.Add(this.btnNewBooking);
             this.Controls.Add(this.availableRooms);
-            this.Controls.Add(this.bookings);
+            this.Controls.Add(this.unpaidBookings);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "UserControlBooking";
@@ -167,12 +200,15 @@
 
         public DateTimePicker dateTimePicker1;
         public DateTimePicker dateTimePicker2;
-        public ListBox bookings;
+        public ListBox unpaidBookings;
         public ListBox availableRooms;
         public Button btnNewBooking;
         public Button btnEditBooking;
         public Button btnSave;
         public TextBox inputFirstName;
         public TextBox inputLastName;
+        public ListBox paidBookings;
+        private Label label1;
+        private Label label2;
     }
 }

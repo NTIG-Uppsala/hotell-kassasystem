@@ -26,19 +26,33 @@ namespace kassasystem
         {
             InitializeComponent();
 
-            bookings.DisplayMember = "displayName";
-            bookings.ValueMember = "bookingObject";
+            unpaidBookings.DisplayMember = "displayName";
+            unpaidBookings.ValueMember = "bookingObject";
+            paidBookings.DisplayMember = "displayName";
+            paidBookings.ValueMember = "bookingObject";
         }
 
         public void updateBookings()
         {
-            bookings.Items.Clear();
+            unpaidBookings.Items.Clear();
+            paidBookings.Items.Clear();
 
-            var data = databaseConnection.GetBookings();
+            var unpaid = databaseConnection.GetUnpaidBookings();
+            var paid = databaseConnection.GetPaidBookings();
 
-            foreach (Booking booking in data)
+            foreach (Booking booking in unpaid)
             {
-                bookings.Items.Add(new BookingItem
+                unpaidBookings.Items.Add(new BookingItem
+                {
+                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
+                    bookingObject = booking
+                });
+                
+            }
+
+            foreach (Booking booking in paid)
+            {
+                paidBookings.Items.Add(new BookingItem
                 {
                     displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
                     bookingObject = booking
