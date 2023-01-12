@@ -46,7 +46,7 @@
             // 
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateTimePicker1.Location = new System.Drawing.Point(1389, 14);
+            this.dateTimePicker1.Location = new System.Drawing.Point(1389, 29);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(279, 27);
             this.dateTimePicker1.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateTimePicker2.Location = new System.Drawing.Point(1111, 14);
+            this.dateTimePicker2.Location = new System.Drawing.Point(1111, 29);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(272, 27);
             this.dateTimePicker2.TabIndex = 1;
@@ -68,9 +68,9 @@
             // 
             this.unpaidBookings.FormattingEnabled = true;
             this.unpaidBookings.ItemHeight = 15;
-            this.unpaidBookings.Location = new System.Drawing.Point(13, 119);
+            this.unpaidBookings.Location = new System.Drawing.Point(8, 41);
             this.unpaidBookings.Name = "unpaidBookings";
-            this.unpaidBookings.Size = new System.Drawing.Size(406, 574);
+            this.unpaidBookings.Size = new System.Drawing.Size(406, 634);
             this.unpaidBookings.TabIndex = 2;
             // 
             // availableRooms
@@ -79,44 +79,50 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.availableRooms.FormattingEnabled = true;
             this.availableRooms.ItemHeight = 15;
-            this.availableRooms.Location = new System.Drawing.Point(583, 14);
+            this.availableRooms.Location = new System.Drawing.Point(606, 29);
             this.availableRooms.Name = "availableRooms";
-            this.availableRooms.Size = new System.Drawing.Size(522, 1009);
+            this.availableRooms.Size = new System.Drawing.Size(499, 994);
             this.availableRooms.TabIndex = 3;
             this.availableRooms.Visible = false;
             // 
             // btnNewBooking
             // 
-            this.btnNewBooking.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNewBooking.Location = new System.Drawing.Point(13, 14);
+            this.btnNewBooking.BackColor = System.Drawing.Color.LightGray;
+            this.btnNewBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnNewBooking.Location = new System.Drawing.Point(425, 41);
             this.btnNewBooking.Name = "btnNewBooking";
-            this.btnNewBooking.Size = new System.Drawing.Size(152, 72);
+            this.btnNewBooking.Size = new System.Drawing.Size(175, 45);
             this.btnNewBooking.TabIndex = 4;
             this.btnNewBooking.Text = "New booking";
-            this.btnNewBooking.UseVisualStyleBackColor = true;
+            this.btnNewBooking.UseVisualStyleBackColor = false;
             this.btnNewBooking.Click += new System.EventHandler(this.btnNewBooking_Click);
             // 
             // btnEditBooking
             // 
-            this.btnEditBooking.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnEditBooking.Location = new System.Drawing.Point(425, 14);
+            this.btnEditBooking.BackColor = System.Drawing.Color.LightGray;
+            this.btnEditBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEditBooking.Location = new System.Drawing.Point(425, 95);
             this.btnEditBooking.Name = "btnEditBooking";
-            this.btnEditBooking.Size = new System.Drawing.Size(152, 72);
+            this.btnEditBooking.Size = new System.Drawing.Size(175, 45);
             this.btnEditBooking.TabIndex = 5;
             this.btnEditBooking.Text = "Edit booking";
-            this.btnEditBooking.UseVisualStyleBackColor = true;
+            this.btnEditBooking.UseVisualStyleBackColor = false;
             this.btnEditBooking.Visible = false;
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(1111, 101);
+            this.btnSave.BackColor = System.Drawing.Color.LightGray;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSave.Location = new System.Drawing.Point(1111, 95);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(152, 72);
+            this.btnSave.Size = new System.Drawing.Size(175, 45);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Visible = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -124,7 +130,7 @@
             // 
             this.inputFirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inputFirstName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.inputFirstName.Location = new System.Drawing.Point(1111, 63);
+            this.inputFirstName.Location = new System.Drawing.Point(1111, 62);
             this.inputFirstName.Name = "inputFirstName";
             this.inputFirstName.PlaceholderText = "First name";
             this.inputFirstName.Size = new System.Drawing.Size(272, 27);
@@ -136,7 +142,7 @@
             // 
             this.inputLastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.inputLastName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.inputLastName.Location = new System.Drawing.Point(1389, 63);
+            this.inputLastName.Location = new System.Drawing.Point(1389, 62);
             this.inputLastName.Name = "inputLastName";
             this.inputLastName.PlaceholderText = "Last name";
             this.inputLastName.Size = new System.Drawing.Size(279, 27);
@@ -149,26 +155,29 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.paidBookings.FormattingEnabled = true;
             this.paidBookings.ItemHeight = 15;
-            this.paidBookings.Location = new System.Drawing.Point(13, 719);
+            this.paidBookings.Location = new System.Drawing.Point(8, 713);
             this.paidBookings.Name = "paidBookings";
-            this.paidBookings.Size = new System.Drawing.Size(406, 229);
+            this.paidBookings.Size = new System.Drawing.Size(406, 304);
             this.paidBookings.TabIndex = 9;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 701);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(8, 678);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 15);
+            this.label1.Size = new System.Drawing.Size(168, 32);
             this.label1.TabIndex = 10;
             this.label1.Text = "Paid bookings:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 101);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 15);
+            this.label2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.label2.Size = new System.Drawing.Size(200, 38);
             this.label2.TabIndex = 11;
             this.label2.Text = "Unpaid bookings:";
             // 
