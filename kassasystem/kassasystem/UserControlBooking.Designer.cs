@@ -151,7 +151,7 @@
             this.paidBookings.ItemHeight = 15;
             this.paidBookings.Location = new System.Drawing.Point(13, 719);
             this.paidBookings.Name = "paidBookings";
-            this.paidBookings.Size = new System.Drawing.Size(406, 304);
+            this.paidBookings.Size = new System.Drawing.Size(406, 229);
             this.paidBookings.TabIndex = 9;
             // 
             // label1
