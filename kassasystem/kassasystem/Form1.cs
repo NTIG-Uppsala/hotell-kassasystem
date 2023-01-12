@@ -23,24 +23,25 @@ namespace kassasystem
             // CheckOutDayPicker.Value = DateTime.Now; 
         }
 
-        private void btnPayment_Click(object sender, EventArgs e)
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            userControlPayment1.Show();
-            userControlPayment1.Refresh();
-            userControlPayment1.BringToFront();
-            userControlBooking1.Hide();
-            userControlPayment1.updateUnpaidBookings();
+            if (e.TabPage == paymentPage)
+            {
+                userControlPayment1.Show();
+                userControlPayment1.Refresh();
+                userControlPayment1.BringToFront();
+                userControlBooking1.Hide();
+                userControlPayment1.updateUnpaidBookings();
+            }
+            else if (e.TabPage == bookingManagementPage)
+            {
+                userControlBooking1.Show();
+                userControlBooking1.Refresh();
+                userControlBooking1.BringToFront();
+                userControlPayment1.Hide();
+                userControlBooking1.updateBookings();
+            }
 
-
-        }
-
-        private void btnBooking_Click(object sender, EventArgs e)
-        {
-            userControlBooking1.Show();
-            userControlBooking1.Refresh();
-            userControlBooking1.BringToFront();
-            userControlPayment1.Hide();
-            userControlBooking1.updateBookings();
         }
     }
 }

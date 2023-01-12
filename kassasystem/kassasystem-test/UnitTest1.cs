@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using kassasystem;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace kassasystem_test
 {
@@ -42,7 +43,8 @@ namespace kassasystem_test
         [Test]
         public void testBookAndRemoveBooking()
         {
-            _form.BtnBooking.PerformClick();
+            _form.tabControl1.SelectedTab = _form.tabControl1.TabPages["bookingManagementPage"];
+
             _form.userControlBooking1.btnNewBooking.PerformClick();
 
             string firstName = "bertil";
@@ -56,7 +58,7 @@ namespace kassasystem_test
 
             _form.userControlBooking1.btnSave.PerformClick();
 
-            _form.btnPayment.PerformClick();
+            _form.tabControl1.SelectedTab = _form.paymentPage;
             _form.userControlPayment1.bookingsList.SelectedIndex = _form.userControlPayment1.bookingsList.Items.Count - 1;
             _form.userControlPayment1.button1.PerformClick();
 
@@ -71,7 +73,7 @@ namespace kassasystem_test
         [Test]
         public void testBookAndPayBooking()
         {
-            _form.BtnBooking.PerformClick();
+            _form.tabControl1.SelectedTab = _form.bookingManagementPage;
             _form.userControlBooking1.btnNewBooking.PerformClick();
 
             string firstName = "bertil";
@@ -85,7 +87,7 @@ namespace kassasystem_test
 
             _form.userControlBooking1.btnSave.PerformClick();
 
-            _form.btnPayment.PerformClick();
+            _form.tabControl1.SelectedTab = _form.paymentPage;
             _form.userControlPayment1.bookingsList.SelectedIndex = _form.userControlPayment1.bookingsList.Items.Count - 1;
             _form.userControlPayment1.btnSendToPaymentList.PerformClick();
             _form.userControlPayment1.btnPay.PerformClick();

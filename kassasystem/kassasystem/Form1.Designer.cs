@@ -37,10 +37,14 @@ namespace kassasystem
         private void InitializeComponent()
         {
             this.lbl_button_val = new System.Windows.Forms.Label();
-            this.BtnBooking = new System.Windows.Forms.Button();
-            this.btnPayment = new System.Windows.Forms.Button();
             this.userControlBooking1 = new kassasystem.UserControlBooking();
             this.userControlPayment1 = new kassasystem.UserControlPayment();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.paymentPage = new System.Windows.Forms.TabPage();
+            this.bookingManagementPage = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
+            this.paymentPage.SuspendLayout();
+            this.bookingManagementPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -52,52 +56,59 @@ namespace kassasystem
             this.lbl_button_val.Size = new System.Drawing.Size(0, 114);
             this.lbl_button_val.TabIndex = 2;
             // 
-            // BtnBooking
-            // 
-            this.BtnBooking.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.BtnBooking.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnBooking.Location = new System.Drawing.Point(12, 12);
-            this.BtnBooking.Name = "BtnBooking";
-            this.BtnBooking.Size = new System.Drawing.Size(175, 62);
-            this.BtnBooking.TabIndex = 13;
-            this.BtnBooking.Text = "Booking";
-            this.BtnBooking.UseVisualStyleBackColor = false;
-            this.BtnBooking.Click += new System.EventHandler(this.btnBooking_Click);
-            // 
-            // btnPayment
-            // 
-            this.btnPayment.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnPayment.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnPayment.Location = new System.Drawing.Point(12, 123);
-            this.btnPayment.Name = "btnPayment";
-            this.btnPayment.Size = new System.Drawing.Size(175, 62);
-            this.btnPayment.TabIndex = 15;
-            this.btnPayment.Text = "Payment";
-            this.btnPayment.UseVisualStyleBackColor = false;
-            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
-            // 
             // userControlBooking1
             // 
-            this.userControlBooking1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.userControlBooking1.BackColor = System.Drawing.Color.DarkGray;
             this.userControlBooking1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.userControlBooking1.Location = new System.Drawing.Point(238, -1);
+            this.userControlBooking1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlBooking1.Location = new System.Drawing.Point(3, 3);
             this.userControlBooking1.Name = "userControlBooking1";
-            this.userControlBooking1.Size = new System.Drawing.Size(1668, 1041);
+            this.userControlBooking1.Size = new System.Drawing.Size(1890, 1007);
             this.userControlBooking1.TabIndex = 17;
             // 
             // userControlPayment1
             // 
-            this.userControlPayment1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.userControlPayment1.BackColor = System.Drawing.Color.DarkGray;
-            this.userControlPayment1.Location = new System.Drawing.Point(238, -1);
+            this.userControlPayment1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userControlPayment1.Location = new System.Drawing.Point(3, 3);
             this.userControlPayment1.Name = "userControlPayment1";
-            this.userControlPayment1.Size = new System.Drawing.Size(1668, 1041);
+            this.userControlPayment1.Size = new System.Drawing.Size(1890, 1007);
             this.userControlPayment1.TabIndex = 18;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.paymentPage);
+            this.tabControl1.Controls.Add(this.bookingManagementPage);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Multiline = true;
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1904, 1041);
+            this.tabControl1.TabIndex = 1;
+            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            // 
+            // paymentPage
+            // 
+            this.paymentPage.Controls.Add(this.userControlPayment1);
+            this.paymentPage.Location = new System.Drawing.Point(4, 24);
+            this.paymentPage.Name = "paymentPage";
+            this.paymentPage.Padding = new System.Windows.Forms.Padding(3);
+            this.paymentPage.Size = new System.Drawing.Size(1896, 1013);
+            this.paymentPage.TabIndex = 0;
+            this.paymentPage.Text = "Payment";
+            this.paymentPage.UseVisualStyleBackColor = true;
+            // 
+            // bookingManagementPage
+            // 
+            this.bookingManagementPage.Controls.Add(this.userControlBooking1);
+            this.bookingManagementPage.Location = new System.Drawing.Point(4, 24);
+            this.bookingManagementPage.Name = "bookingManagementPage";
+            this.bookingManagementPage.Padding = new System.Windows.Forms.Padding(3);
+            this.bookingManagementPage.Size = new System.Drawing.Size(1896, 1013);
+            this.bookingManagementPage.TabIndex = 1;
+            this.bookingManagementPage.Text = "Booking Management";
+            this.bookingManagementPage.UseVisualStyleBackColor = true;
             // 
             // hotelPaymentAndBookingSystem
             // 
@@ -105,16 +116,16 @@ namespace kassasystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.btnPayment);
-            this.Controls.Add(this.BtnBooking);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lbl_button_val);
-            this.Controls.Add(this.userControlPayment1);
-            this.Controls.Add(this.userControlBooking1);
             this.IsMdiContainer = true;
             this.Name = "hotelPaymentAndBookingSystem";
             this.Text = "Hotel Payment And Booking System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1Load);
+            this.tabControl1.ResumeLayout(false);
+            this.paymentPage.ResumeLayout(false);
+            this.bookingManagementPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,9 +134,10 @@ namespace kassasystem
         #endregion
 
         public Label lbl_button_val;
-        public Button BtnBooking;
-        public Button btnPayment;
         public UserControlBooking userControlBooking1;
         public UserControlPayment userControlPayment1;
+        public TabControl tabControl1;
+        public TabPage paymentPage;
+        public TabPage bookingManagementPage;
     }
 }
