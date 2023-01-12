@@ -6,6 +6,8 @@ using System.Data.SQLite;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+// TODO Fix naming rule violations
+
 namespace kassasystem
 {
     public class Room
@@ -25,9 +27,9 @@ namespace kassasystem
         public string date { get; set; }
         public string time { get; set; }
         public Int64 orderNumber { get; set; }
-        public Double totalNoTax { get; set; }
-        public Double tax { get; set; }
-        public Double total { get; set; }
+        public decimal totalNoTax { get; set; }
+        public decimal tax { get; set; }
+        public decimal total { get; set; }
     }
 
     public class Booking
@@ -83,12 +85,12 @@ namespace kassasystem
             "CREATE TABLE \"externalCosts\" (\r\n\t\"externalCostsID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"externalCost\"\tTEXT,\r\n\t\"costDescription\"\tTEXT,\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\"),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tPRIMARY KEY(\"externalCostsID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"guestContact\" (\r\n\t\"guestContactID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"mail\"\tTEXT,\r\n\t\"phoneNumber\"\tINTEGER,\r\n\tPRIMARY KEY(\"guestContactID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\")\r\n);",
             "CREATE TABLE \"guests\" (\r\n\t\"guestID\"\tINTEGER NOT NULL,\r\n\t\"firstName\"\tTEXT,\r\n\t\"lastName\"\tTEXT,\r\n\tPRIMARY KEY(\"guestID\" AUTOINCREMENT)\r\n);",
-            "CREATE TABLE \"payment\" (\r\n\t\"paymentID\"\tINTEGER NOT NULL,\r\n\t\"paymentTypeID\"\tINTEGER,\r\n\t\"date\"\tINTEGER,\r\n\t\"amount\"\tNUMERIC,\r\n\t\"isPaid\"\tNUMERIC,\r\n\tPRIMARY KEY(\"paymentID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"paymentTypeID\") REFERENCES \"paymentType\"(\"paymentTypeID\")\r\n);",
+            "CREATE TABLE \"payment\" (\r\n\t\"paymentID\"\tINTEGER NOT NULL,\r\n\t\"paymentTypeID\"\tINTEGER,\r\n\t\"date\"\tINTEGER,\r\n\t\"amount\"\tINTEGER,\r\n\t\"isPaid\"\tNUMERIC,\r\n\tPRIMARY KEY(\"paymentID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"paymentTypeID\") REFERENCES \"paymentType\"(\"paymentTypeID\")\r\n);",
             "CREATE TABLE \"paymentType\" (\r\n\t\"paymentTypeID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tNUMERIC,\r\n\tPRIMARY KEY(\"paymentTypeID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"roomTypes\" (\r\n\t\"roomTypesID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tTEXT,\r\n\t\"totalPeople\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomTypesID\" AUTOINCREMENT)\r\n);",
-            "CREATE TABLE \"rooms\" (\r\n\t\"roomID\"\tINTEGER NOT NULL,\r\n\t\"roomTypesID\"\tINTEGER,\r\n\t\"floor\"\tINTEGER,\r\n\t\"roomNumber\"\tINTEGER,\r\n\t\"rate\"\tNUMERIC,\r\n\tPRIMARY KEY(\"roomID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"roomTypesID\") REFERENCES \"roomTypes\"(\"roomTypesID\")\r\n);",
+            "CREATE TABLE \"rooms\" (\r\n\t\"roomID\"\tINTEGER NOT NULL,\r\n\t\"roomTypesID\"\tINTEGER,\r\n\t\"floor\"\tINTEGER,\r\n\t\"roomNumber\"\tINTEGER,\r\n\t\"rate\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"roomTypesID\") REFERENCES \"roomTypes\"(\"roomTypesID\")\r\n);",
             "CREATE TABLE \"roomsBooked\" (\r\n\t\"roomsBookedID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"roomID\"\tINTEGER,\r\n\tFOREIGN KEY(\"roomID\") REFERENCES \"rooms\"(\"roomID\"),\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"roomsBookedID\" AUTOINCREMENT)\r\n);",
-            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"totalNoTax\"\tREAL,\r\n\t\"tax\"\tREAL,\r\n\t\"total\"\tREAL,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
+            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"totalNoTax\"\tINTEGER,\r\n\t\"tax\"\tINTEGER,\r\n\t\"total\"\tINTEGER,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
         };
 
         public SQLiteConnection con { get; set; }
@@ -253,7 +255,7 @@ namespace kassasystem
             {
                 Room newRoom = new Room();
                 newRoom.id = (Int64)rooms[i]["roomID"];
-                newRoom.rate = (decimal)rooms[i]["rate"];
+                newRoom.rate = Convert.ToDecimal((Int64) rooms[i]["rate"]) / 100m;
                 newRoom.number = (Int64)rooms[i]["roomNumber"];
                 newRoom.floor = (Int64)rooms[i]["floor"];
                 newRoom.type = (string)rooms[i]["type"];
@@ -264,12 +266,14 @@ namespace kassasystem
             return output;
         }
 
-        public void CreateNewBooking(Int64 roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate, Decimal totalPrice)
+        public void CreateNewBooking(Int64 roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate, decimal totalPrice)
         {
             TimeSpan t = DateTime.Now - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
             int currentDateNow = ((int)t.TotalSeconds);
 
-            var newPaymentID = QueryInsertExecutor($"INSERT INTO payment (paymentTypeId, date, amount, isPaid) VALUES ('1', '{currentDateNow}', '{totalPrice}', '0')");
+            var insertTotalPrice = decimal.ToInt64(totalPrice * 100m);
+
+            var newPaymentID = QueryInsertExecutor($"INSERT INTO payment (paymentTypeId, date, amount, isPaid) VALUES ('1', '{currentDateNow}', '{insertTotalPrice}', '0')");
             var newGuestID = QueryInsertExecutor($"INSERT INTO guests (firstName, lastName) VALUES ('{GuestFirstName}', '{GuestLastName}')");
             System.Diagnostics.Debug.WriteLine(newGuestID);
 
@@ -295,8 +299,7 @@ namespace kassasystem
                 newBooking.id = (Int64)rows[i]["bookingID"];
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
                 newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = (decimal)rows[i]["amount"];
-
+                newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
                 // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
@@ -326,9 +329,8 @@ namespace kassasystem
                 Booking newBooking = new Booking();
                 newBooking.id = (Int64)rows[i]["bookingID"];
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
-                newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = (decimal)rows[i]["amount"];
-
+                //newBooking.paymentDate = (Int64)rows[i]["date"];
+                newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
                 // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
@@ -348,9 +350,9 @@ namespace kassasystem
             QueryInsertExecutor($"UPDATE payment SET isPaid=1 WHERE paymentID={paymentID}");
         }
 
-        public void SaveReceiptData(Int64 bookingID, Decimal totalPrice)
+        public void SaveReceiptData(Int64 bookingID, decimal totalPrice)
         {
-            float taxAmount = 0.12f;
+            decimal taxAmount = 0.12m;
 
             string currentDate = DateTime.Now.ToString().Split(" ")[0];
             string currentTime = DateTime.Now.ToString().Split(" ")[1];
@@ -358,9 +360,9 @@ namespace kassasystem
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
             string currentTimePeriod = ((int)t.TotalSeconds).ToString();
 
-            decimal totalNoTax = Math.Round((totalPrice / ((Decimal)taxAmount + 1)), 2);
-            decimal tax = Math.Round(totalPrice - (totalPrice / ((Decimal)taxAmount + 1)), 2);
-            decimal total = Math.Round(totalPrice * 1.00M, 2);
+            decimal totalNoTax = decimal.ToInt64(Math.Round((totalPrice / ((decimal)taxAmount + 1)), 2) * 100m);
+            decimal tax = decimal.ToInt64(Math.Round(totalPrice - (totalPrice / ((decimal)taxAmount + 1)), 2) * 100m);
+            decimal total = decimal.ToInt64(Math.Round(totalPrice * 1.00M, 2) * 100m);
 
             QueryInsertExecutor($"INSERT INTO receipt (bookingID, date, time, orderNumber, totalNoTax, tax, total) " +
                 $"VALUES ('{bookingID}', '{currentDate}', '{currentTime}', '{currentTimePeriod}', '{totalNoTax}', '{tax}', '{total}')");
@@ -371,17 +373,15 @@ namespace kassasystem
             var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}");
             Data newdata = new Data();
             for (int i = 0; i < data.Count; i++)
-            {
+            {   
                 newdata.id = (Int64)data[i]["receiptID"];
                 newdata.bookingID = (Int64)data[i]["bookingID"];
                 newdata.date = (string)data[i]["date"];
                 newdata.time = (string)data[i]["time"];
                 newdata.orderNumber = (Int64)data[i]["orderNumber"];
-                newdata.totalNoTax = (Double)data[i]["totalNoTax"];
-                newdata.tax = (Double)data[i]["tax"];
-                newdata.total = (Double)data[i]["total"];
-
-                System.Diagnostics.Debug.WriteLine($"importtant {newdata.id} {newdata.bookingID} {newdata.date} {newdata.total} {newdata.tax}");
+                newdata.totalNoTax = Convert.ToDecimal((Int64) data[i]["totalNoTax"]) / 100m;
+                newdata.tax = Convert.ToDecimal((Int64) data[i]["tax"]) / 100m;
+                newdata.total = Convert.ToDecimal((Int64)data[i]["total"]) / 100m;
             }
             return newdata;
         }
