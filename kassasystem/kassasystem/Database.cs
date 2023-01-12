@@ -300,6 +300,7 @@ namespace kassasystem
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
                 newBooking.paymentDate = (Int64)rows[i]["date"];
                 newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
+                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
                 // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
@@ -331,6 +332,7 @@ namespace kassasystem
                 newBooking.paymentId = (Int64)rows[i]["paymentID"];
                 //newBooking.paymentDate = (Int64)rows[i]["date"];
                 newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
+                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
                 // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.guestFirstName = (string)rows[i]["firstName"];
                 newBooking.guestLastName = (string)rows[i]["lastName"];
