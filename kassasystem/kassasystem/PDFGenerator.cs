@@ -68,14 +68,14 @@ namespace kassasystem
 
             int offset = 220;
 
-            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice.ToString(culture)} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice.ToString("0.00", culture)} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
             offset += 45;
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {data.totalNoTax.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax: {data.tax.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Total: {data.total.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {data.totalNoTax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax: {data.tax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {data.total.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
             //Specify file name of the PDF file

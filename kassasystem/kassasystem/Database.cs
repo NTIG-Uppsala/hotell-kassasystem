@@ -90,7 +90,7 @@ namespace kassasystem
             "CREATE TABLE \"roomTypes\" (\r\n\t\"roomTypesID\"\tINTEGER NOT NULL,\r\n\t\"type\"\tTEXT,\r\n\t\"totalPeople\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomTypesID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"rooms\" (\r\n\t\"roomID\"\tINTEGER NOT NULL,\r\n\t\"roomTypesID\"\tINTEGER,\r\n\t\"floor\"\tINTEGER,\r\n\t\"roomNumber\"\tINTEGER,\r\n\t\"rate\"\tINTEGER,\r\n\tPRIMARY KEY(\"roomID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"roomTypesID\") REFERENCES \"roomTypes\"(\"roomTypesID\")\r\n);",
             "CREATE TABLE \"roomsBooked\" (\r\n\t\"roomsBookedID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"roomID\"\tINTEGER,\r\n\tFOREIGN KEY(\"roomID\") REFERENCES \"rooms\"(\"roomID\"),\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"roomsBookedID\" AUTOINCREMENT)\r\n);",
-            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"totalNoTax\"\tINTEGER,\r\n\t\"tax\"\tINTEGER,\r\n\t\"total\"\tINTEGER,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
+            "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"total\"\tINTEGER,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
         };
 
         public SQLiteConnection con { get; set; }
@@ -386,26 +386,23 @@ namespace kassasystem
 
         public void SaveReceiptData(Int64 bookingID, decimal totalPrice)
         {
-            decimal taxAmount = 0.12m;
-
             string currentDate = DateTime.Now.ToString().Split(" ")[0];
             string currentTime = DateTime.Now.ToString().Split(" ")[1];
 
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
             string currentTimePeriod = ((int)t.TotalSeconds).ToString();
 
-            decimal totalNoTax = decimal.ToInt64(Math.Round((totalPrice / ((decimal)taxAmount + 1)), 2) * 100m);
-            decimal tax = decimal.ToInt64(Math.Round(totalPrice - (totalPrice / ((decimal)taxAmount + 1)), 2) * 100m);
             decimal total = decimal.ToInt64(Math.Round(totalPrice * 1.00M, 2) * 100m);
 
-            QueryInsertExecutor($"INSERT INTO receipt (bookingID, date, time, orderNumber, totalNoTax, tax, total) " +
-                $"VALUES ('{bookingID}', '{currentDate}', '{currentTime}', '{currentTimePeriod}', '{totalNoTax}', '{tax}', '{total}')");
+            QueryInsertExecutor($"INSERT INTO receipt (bookingID, date, time, orderNumber, total) " +
+                $"VALUES ('{bookingID}', '{currentDate}', '{currentTime}', '{currentTimePeriod}', '{total}')");
         }
-
+         
         public Data GetReceiptData(Int64 bookingID)
         {
             var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}"); // TODO check if query can return multiple receipts.
             Data newdata = new Data();
+            decimal taxAmount = 0.12m;
             for (int i = 0; i < data.Count; i++)
             {   
                 newdata.id = (Int64)data[i]["receiptID"];
@@ -413,9 +410,10 @@ namespace kassasystem
                 newdata.date = (string)data[i]["date"];
                 newdata.time = (string)data[i]["time"];
                 newdata.orderNumber = (Int64)data[i]["orderNumber"];
-                newdata.totalNoTax = Convert.ToDecimal((Int64) data[i]["totalNoTax"]) / 100m;
-                newdata.tax = Convert.ToDecimal((Int64) data[i]["tax"]) / 100m;
                 newdata.total = Convert.ToDecimal((Int64)data[i]["total"]) / 100m;
+                newdata.totalNoTax = Math.Round(newdata.total / (taxAmount + 1), 2);
+                newdata.tax = Math.Round(newdata.total - newdata.total / (taxAmount + 1), 2);
+                
             }
             return newdata;
         }
