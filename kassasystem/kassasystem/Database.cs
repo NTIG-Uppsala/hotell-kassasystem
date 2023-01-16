@@ -16,7 +16,7 @@ namespace kassasystem
         public decimal rate { get; set; }
         public Int64 number { get; set; }
         public Int64 floor { get; set; }
-        public string type { get; set; }
+        public string? type { get; set; }
         public Int64 recommendedPeople { get; set; }
     }
 
@@ -227,12 +227,6 @@ namespace kassasystem
             var rooms = QueryExecutor("SELECT * FROM rooms");
             var roomTypes = QueryExecutor("SELECT * FROM roomTypes");
 
-            //for (int x = 0; x < rooms.Count; x++)
-            //{
-            //    var room = rooms[x]["roomNumber"];
-            //    MessageBox.Show(room.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-
             for (int x = 0; x < rooms.Count; x++)
             {
                 var typeID = rooms[x]["roomTypesID"];
@@ -259,6 +253,8 @@ namespace kassasystem
                 newRoom.number = (Int64)rooms[i]["roomNumber"];
                 newRoom.floor = (Int64)rooms[i]["floor"];
                 newRoom.type = (string)rooms[i]["type"];
+                if (newRoom.type == null)
+                    MessageBox.Show("type null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 newRoom.recommendedPeople = (Int64)rooms[i]["totalPeople"];
 
                 output.Add(newRoom);

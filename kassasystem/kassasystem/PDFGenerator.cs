@@ -17,12 +17,6 @@ namespace kassasystem
 {
     internal class PDFGenerator
     {
-        float taxAmount = 0.12f;
-        public PDFGenerator()
-        {
-
-        }
-
         public void savePDF(Booking bookingData, Decimal totalPrice)
         {
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
