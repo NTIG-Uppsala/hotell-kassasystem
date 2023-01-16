@@ -109,18 +109,26 @@ namespace kassasystem
 
             // TODO error handling for date
 
-            var selectedRoom = availableRooms.SelectedItem; // TODO null check  
+            var selectedRoom = availableRooms.SelectedItem; 
                                                                                      // FIXME make selection persistant
-            if (selectedRoom == null || selectedRoom.ToString() == null)
+            if (selectedRoom == null)
             {
                 MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            } 
+            }
 
-            selectedRoom = selectedRoom.ToString().Split(' ')[0];
+            var selectedRoomString = selectedRoom.ToString();
+
+            if (selectedRoomString == null)
+            {
+                MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            selectedRoomString = selectedRoomString.Split(' ')[0];
             foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
             {
-                if (selectedRoom == Convert.ToString(room.Value.id))
+                if (selectedRoomString == Convert.ToString(room.Value.id))
                 {
                     databaseConnection.CreateNewBooking(room.Value.id,
                             inputFirstName.Text,
