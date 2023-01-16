@@ -101,7 +101,13 @@ namespace kassasystem
         // Adds correct product to listbox according to the pressed button
         private void BtnClick(object sender, EventArgs e)
         {
-            string buttonText = (sender as Button).Text;
+            var button = sender as Button;
+            if (button == null)
+            {
+                MessageBox.Show("Button text is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string buttonText = button.Text;
             AddToCart(buttonText);
 
         }
@@ -165,21 +171,18 @@ namespace kassasystem
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
-                Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
-                System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
+                Booking? selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
+                //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
 
-                if (selectedBooking != null) // REFACTOR invert
-                {
-                    System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
-                    cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
-                    this.SelectedBooking = selectedBooking;
-                    UpdateCartView();
-                }
-                else
-                {
-                    // TODO error handling
-                }
+                if (selectedBooking == null) return; // REFACTOR invert
+        
+                System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
+                cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
+                this.SelectedBooking = selectedBooking;
+                UpdateCartView();
+
+
             };
 
         }
@@ -191,7 +194,7 @@ namespace kassasystem
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
                 Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
-                System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
+                //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
                 if (selectedBooking != null) // REFACTOR invert
                 {

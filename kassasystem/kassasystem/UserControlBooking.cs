@@ -105,15 +105,19 @@ namespace kassasystem
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
 
-            // REFACTOR
-            if (inputFirstName.Text.Length <= 0) return;
-            if (inputLastName.Text.Length <= 0) return;
-            if (availableRooms.SelectedIndex == -1) return;
+            if (inputFirstName.Text.Length <= 0 || inputLastName.Text.Length <= 0 || availableRooms.SelectedIndex == -1) return;
 
             // TODO error handling for date
 
-            var selectedRoom = availableRooms.SelectedItem.ToString().Split(' ')[0]; // TODO null check  
+            var selectedRoom = availableRooms.SelectedItem; // TODO null check  
                                                                                      // FIXME make selection persistant
+            if (selectedRoom == null || selectedRoom.ToString() == null)
+            {
+                MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            } 
+
+            selectedRoom = selectedRoom.ToString().Split(' ')[0];
             foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
             {
                 if (selectedRoom == Convert.ToString(room.Value.id))
@@ -130,6 +134,8 @@ namespace kassasystem
             }
 
             updateBookings();
+
+
         }
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)

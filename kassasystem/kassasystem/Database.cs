@@ -24,8 +24,8 @@ namespace kassasystem
     {
         public Int64 id { get; set;}
         public Int64 bookingID { get; set; }
-        public string date { get; set; }
-        public string time { get; set; }
+        public string? date { get; set; }
+        public string? time { get; set; }
         public Int64 orderNumber { get; set; }
         public decimal totalNoTax { get; set; }
         public decimal tax { get; set; }
@@ -48,8 +48,8 @@ namespace kassasystem
 
         public Int64 bookingID { get; set; }
 
-        public string dateFrom { get; set; }
-        public string dateTo { get; set; }
+        public string? dateFrom { get; set; }
+        public string? dateTo { get; set; }
         public Int64 roomCount { get; set; }
 
         public Int64 roomNumber { get; set; }
@@ -59,23 +59,23 @@ namespace kassasystem
         public Int64 floor { get; set; }
 
         public Int64 guestID { get; set; }
-        public string guestFirstName { get; set; }
-        public string guestLastName { get; set; }
+        public string? guestFirstName { get; set; }
+        public string? guestLastName { get; set; }
 
 
         public Int64 paymentId { get; set; }
         public Int64 paymentDate { get; set; }
         public decimal amountDue { get; set; }
         public Int64 roomTypesID { get; set; }
-        public string paymentType { get; set; }
+        public string? paymentType { get; set; }
 
 
     }
 
     class BookingItem
     {
-        public string displayName { get; set; }
-        public Booking bookingObject { get; set; }
+        public string? displayName { get; set; }
+        public Booking? bookingObject { get; set; }
     }
 
     public class Database
@@ -202,7 +202,7 @@ namespace kassasystem
             this.con.Open();
             try
             {
-                SQLiteTransaction transaction = null;
+                SQLiteTransaction transaction;
                 transaction = this.con.BeginTransaction();
 
                 cmd.ExecuteNonQuery();
@@ -254,7 +254,10 @@ namespace kassasystem
                 newRoom.floor = (Int64)rooms[i]["floor"];
                 newRoom.type = (string)rooms[i]["type"];
                 if (newRoom.type == null)
+                {
                     MessageBox.Show("type null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                    
                 newRoom.recommendedPeople = (Int64)rooms[i]["totalPeople"];
 
                 output.Add(newRoom);
