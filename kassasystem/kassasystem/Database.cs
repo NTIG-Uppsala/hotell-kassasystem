@@ -404,7 +404,7 @@ namespace kassasystem
 
         public Data GetReceiptData(Int64 bookingID)
         {
-            var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}");
+            var data = QueryExecutor($"SELECT * FROM receipt WHERE bookingID = {bookingID}"); // TODO check if query can return multiple receipts.
             Data newdata = new Data();
             for (int i = 0; i < data.Count; i++)
             {   
