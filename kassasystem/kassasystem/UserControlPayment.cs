@@ -25,7 +25,7 @@ namespace kassasystem
         static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
         public Database db = new Database(path, "database.db");
 
-        Booking SelectedBooking;
+        Booking? selectedBooking;
 
         public Decimal totalPrice = 0;
         public UserControlPayment()
@@ -50,11 +50,13 @@ namespace kassasystem
 
         private void UpdateCartView()
         {
+            if (selectedBooking == null) return;
+
             listBox1.Items.Clear();
             foreach (KeyValuePair<string, decimal> product in cartDictionary)
             {
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {SelectedBooking.amountDue} SEK");
+                listBox1.Items.Add($"{product.Key} {selectedBooking.amountDue} SEK");
             }
             UpdateTotal();
         }
@@ -62,6 +64,8 @@ namespace kassasystem
         // Keeps the total price up to date
         private void UpdateTotal()
         {
+            if (selectedBooking == null) return;
+
             this.totalPrice = 0.00M;
 
             if (cartDictionary.Count > 0)
@@ -69,7 +73,7 @@ namespace kassasystem
                 foreach (KeyValuePair<string, decimal> product in cartDictionary)
                 {
 
-                    this.totalPrice += SelectedBooking.amountDue;
+                    this.totalPrice += selectedBooking.amountDue;
                 }
             }
             this.lblTotal.Text = $"Total: {this.totalPrice} SEK";
@@ -142,12 +146,14 @@ namespace kassasystem
         // Makes PDF reciept when button is pressed, then calls reset function
         private void BtnPayClick(object sender, EventArgs e)
         {
+            if (selectedBooking == null) return;
+
             if (listBox1.Items.Count > 0) // REFACTOR invert
             {
-                db.SaveReceiptData(SelectedBooking.id, totalPrice);
-                db.SetBookingPaid(SelectedBooking.paymentId);
+                db.SaveReceiptData(selectedBooking.id, totalPrice);
+                db.SetBookingPaid(selectedBooking.paymentId);
 
-                pdfGenerator.savePDF(SelectedBooking, totalPrice);
+                pdfGenerator.savePDF(selectedBooking, totalPrice);
 
                 ResetValues();
                 updateUnpaidBookings();
@@ -171,7 +177,10 @@ namespace kassasystem
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
-                Booking? selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
+                if (bookingsList.SelectedItem == null) return;
+                var bookingItem = (BookingItem)bookingsList.SelectedItem;
+                if (bookingItem == null) return;
+                Booking? selectedBooking = bookingItem.bookingObject;
                 //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
 
@@ -179,7 +188,7 @@ namespace kassasystem
         
                 System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
                 cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
-                this.SelectedBooking = selectedBooking;
+                this.selectedBooking = selectedBooking;
                 UpdateCartView();
 
 
@@ -193,12 +202,15 @@ namespace kassasystem
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
-                Booking selectedBooking = ((BookingItem)bookingsList.SelectedItem).bookingObject;
+                if (bookingsList.SelectedItem == null) return;
+                var bookingItem = (BookingItem)bookingsList.SelectedItem;
+                if (bookingItem == null) return;
+                Booking? selectedBooking = bookingItem.bookingObject;
                 //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
                 if (selectedBooking != null) // REFACTOR invert
                 {
-                    this.SelectedBooking = selectedBooking;
+                    this.selectedBooking = selectedBooking;
                 }
                 else
                 {
@@ -230,9 +242,9 @@ namespace kassasystem
 
         private void btnRmBooking_click(object sender, EventArgs e)
         {
-            if (SelectedBooking == null) return;
+            if (selectedBooking == null) return;
 
-            db.RemoveBooking(SelectedBooking.id);
+            db.RemoveBooking(selectedBooking.id);
             updateUnpaidBookings();
             // TODO reset values
         }
