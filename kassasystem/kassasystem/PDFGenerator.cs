@@ -11,6 +11,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Data.Entity.Validation;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
 
 namespace kassasystem
 {
@@ -44,10 +45,9 @@ namespace kassasystem
             XPen DividerColor = new XPen(XColors.LightSkyBlue, 3);
             XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
 
-            System.Diagnostics.Debug.WriteLine($"thae id {bookingData.id}");
             var data = db.GetReceiptData(bookingData.id);
+            var culture = new CultureInfo("en-US");
 
-            
             //System.Diagnostics.Debug.WriteLine(data[0].date);
 
             gfx.DrawString("Hotel name", titleFont, XBrushes.Black, new XRect(15, 15, page.Width, page.Height), XStringFormats.TopLeft);
@@ -68,14 +68,14 @@ namespace kassasystem
 
             int offset = 220;
 
-            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice.ToString(culture)} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
             offset += 45;
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {data.totalNoTax} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax: {data.tax} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Total: {data.total} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {data.totalNoTax.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax: {data.tax.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {data.total.ToString(culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
             //Specify file name of the PDF file
