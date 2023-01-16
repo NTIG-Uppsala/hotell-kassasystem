@@ -6,81 +6,54 @@ using System.Data.SQLite;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-// TODO Fix naming rule violations
-
 namespace kassasystem
 {
     public class Room
     {
-        public Int64 id { get; set; }
-        public decimal rate { get; set; }
-        public Int64 number { get; set; }
-        public Int64 floor { get; set; }
-        public string? type { get; set; }
-        public Int64 recommendedPeople { get; set; }
+        public Int64 Id { get; set; }
+        public decimal Rate { get; set; }
+        public Int64 Number { get; set; }
+        public Int64 Floor { get; set; }
+        public string? Type { get; set; }
+        public Int64 RecommendedPeople { get; set; }
     }
 
     public class Data
     {
-        public Int64 id { get; set;}
-        public Int64 bookingID { get; set; }
-        public string? date { get; set; }
-        public string? time { get; set; }
-        public Int64 orderNumber { get; set; }
-        public decimal totalNoTax { get; set; }
-        public decimal tax { get; set; }
-        public decimal total { get; set; }
+        public Int64 Id { get; set;}
+        public Int64 BookingId { get; set; }
+        public string? Date { get; set; }
+        public string? Time { get; set; }
+        public Int64 OrderNumber { get; set; }
+        public decimal TotalNoTax { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Total { get; set; }
     }
 
     public class Booking
     {
-        public Int64 id { get; set; }
-        public Int64 guestId { get; set; }
+        public Int64 Id { get; set; }
 
-        public Int64 roomId { get; set; }
+        public Int64 RoomNumber { get; set; }
 
-        public Int64 roomsTypeid { get; set; }
-        public Int64 rate { get; set; }
-
-        public Int64 roomID { get; set; }
-        public Int64 roomsBookedID { get; set; }
+        public string? GuestFirstName { get; set; }
+        public string? GuestLastName { get; set; }
 
 
-        public Int64 bookingID { get; set; }
-
-        public string? dateFrom { get; set; }
-        public string? dateTo { get; set; }
-        public Int64 roomCount { get; set; }
-
-        public Int64 roomNumber { get; set; }
-        public Int64 totalPeople { get; set; }
-        public Int64 isPaid { get; set; }
-        public bool isBreakfastIncluded { get; set; }
-        public Int64 floor { get; set; }
-
-        public Int64 guestID { get; set; }
-        public string? guestFirstName { get; set; }
-        public string? guestLastName { get; set; }
-
-
-        public Int64 paymentId { get; set; }
-        public Int64 paymentDate { get; set; }
-        public decimal amountDue { get; set; }
-        public Int64 roomTypesID { get; set; }
-        public string? paymentType { get; set; }
-
-
+        public Int64 PaymentId { get; set; }
+        public Int64 PaymentDate { get; set; }
+        public decimal AmountDue { get; set; }
     }
 
     class BookingItem
     {
-        public string? displayName { get; set; }
-        public Booking? bookingObject { get; set; }
+        public string? DisplayName { get; set; }
+        public Booking? BookingObject { get; set; }
     }
 
     public class Database
     {
-        static readonly string[] tables = {
+        private static readonly string[] tables = {
             "CREATE TABLE \"bookings\" (\r\n\t\"bookingID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"dateFrom\"\tNUMERIC,\r\n\t\"dateTo\"\tNUMERIC,\r\n\t\"roomCount\"\tINTEGER,\r\n\t\"isBreakfastIncluded\"\tNUMERIC,\r\n\tPRIMARY KEY(\"bookingID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\")\r\n);",
             "CREATE TABLE \"externalCosts\" (\r\n\t\"externalCostsID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"externalCost\"\tTEXT,\r\n\t\"costDescription\"\tTEXT,\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\"),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tPRIMARY KEY(\"externalCostsID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"guestContact\" (\r\n\t\"guestContactID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"mail\"\tTEXT,\r\n\t\"phoneNumber\"\tINTEGER,\r\n\tPRIMARY KEY(\"guestContactID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\")\r\n);",
@@ -93,7 +66,7 @@ namespace kassasystem
             "CREATE TABLE \"receipt\" (\r\n\t\"receiptID\"\tINTEGER NOT NULL,\r\n\t\"bookingID\"\tINTEGER,\r\n\t\"date\"\tTEXT,\r\n\t\"time\"\tTEXT,\r\n\t\"orderNumber\"\tINTEGER,\r\n\t\"total\"\tINTEGER,\r\n\tFOREIGN KEY(\"bookingID\") REFERENCES \"bookings\"(\"bookingID\"),\r\n\tPRIMARY KEY(\"receiptID\" AUTOINCREMENT)\r\n);"
         };
 
-        public SQLiteConnection con { get; set; }
+        public SQLiteConnection Connection { get; set; }
 
         // directoryPath must end with "\"
         public Database(string directoryPath, string fileName)
@@ -121,7 +94,7 @@ namespace kassasystem
                 db.Close();
             }
 
-            this.con = new SQLiteConnection($"Data Source={filePath};");
+            this.Connection = new SQLiteConnection($"Data Source={filePath};");
         }
 
         public List<Dictionary<string, object>> QueryExecutor(string query)
@@ -134,8 +107,8 @@ namespace kassasystem
 
             List<Dictionary<string, object>> output = new List<Dictionary<string, object>>();
 
-            SQLiteCommand cmd = new SQLiteCommand(query, this.con);
-            this.con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, this.Connection);
+            this.Connection.Open();
             try
             {
                 using (SQLiteDataReader dataReader = cmd.ExecuteReader())
@@ -183,7 +156,7 @@ namespace kassasystem
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
 
-            this.con.Close();
+            this.Connection.Close();
 
             return output;
 
@@ -198,16 +171,16 @@ namespace kassasystem
 
             Int64 output_row_id = -1;
 
-            SQLiteCommand cmd = new SQLiteCommand(query, this.con);
-            this.con.Open();
+            SQLiteCommand cmd = new SQLiteCommand(query, this.Connection);
+            this.Connection.Open();
             try
             {
                 SQLiteTransaction transaction;
-                transaction = this.con.BeginTransaction();
+                transaction = this.Connection.BeginTransaction();
 
                 cmd.ExecuteNonQuery();
 
-                output_row_id = this.con.LastInsertRowId;
+                output_row_id = this.Connection.LastInsertRowId;
 
                 transaction.Commit();
             }
@@ -215,7 +188,7 @@ namespace kassasystem
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
-            this.con.Close();
+            this.Connection.Close();
 
             return output_row_id;
 
@@ -248,17 +221,17 @@ namespace kassasystem
             for (int i = 0; i < rooms.Count; i++)
             {
                 Room newRoom = new Room();
-                newRoom.id = (Int64)rooms[i]["roomID"];
-                newRoom.rate = Convert.ToDecimal((Int64) rooms[i]["rate"]) / 100m;
-                newRoom.number = (Int64)rooms[i]["roomNumber"];
-                newRoom.floor = (Int64)rooms[i]["floor"];
-                newRoom.type = (string)rooms[i]["type"];
-                if (newRoom.type == null)
+                newRoom.Id = (Int64)rooms[i]["roomID"];
+                newRoom.Rate = Convert.ToDecimal((Int64) rooms[i]["rate"]) / 100m;
+                newRoom.Number = (Int64)rooms[i]["roomNumber"];
+                newRoom.Floor = (Int64)rooms[i]["floor"];
+                newRoom.Type = (string)rooms[i]["type"];
+                if (newRoom.Type == null)
                 {
                     MessageBox.Show("type null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                     
-                newRoom.recommendedPeople = (Int64)rooms[i]["totalPeople"];
+                newRoom.RecommendedPeople = (Int64)rooms[i]["totalPeople"];
 
                 output.Add(newRoom);
             }
@@ -295,14 +268,14 @@ namespace kassasystem
             for (int i = 0; i < rows.Count; i++)
             {
                 Booking newBooking = new Booking();
-                newBooking.id = (Int64)rows[i]["bookingID"];
-                newBooking.paymentId = (Int64)rows[i]["paymentID"];
-                newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
-                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
+                newBooking.Id = (Int64)rows[i]["bookingID"];
+                newBooking.PaymentId = (Int64)rows[i]["paymentID"];
+                newBooking.PaymentDate = (Int64)rows[i]["date"];
+                newBooking.AmountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
+                newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
                 // newBooking.paymentType = (string)rows[i]["type"];
-                newBooking.guestFirstName = (string)rows[i]["firstName"];
-                newBooking.guestLastName = (string)rows[i]["lastName"];
+                newBooking.GuestFirstName = (string)rows[i]["firstName"];
+                newBooking.GuestLastName = (string)rows[i]["lastName"];
                 //newBooking.dateFrom = (string)rows[i]["dateFrom"];
                 //newBooking.dateTo = (string)rows[i]["dateTo"];
 
@@ -327,14 +300,14 @@ namespace kassasystem
             for (int i = 0; i < rows.Count; i++)
             {
                 Booking newBooking = new Booking();
-                newBooking.id = (Int64)rows[i]["bookingID"];
-                newBooking.paymentId = (Int64)rows[i]["paymentID"];
+                newBooking.Id = (Int64)rows[i]["bookingID"];
+                newBooking.PaymentId = (Int64)rows[i]["paymentID"];
                 //newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = Convert.ToDecimal((Int64)rows[i]["amount"]) / 100m;
-                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
+                newBooking.AmountDue = Convert.ToDecimal((Int64)rows[i]["amount"]) / 100m;
+                newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
                 // newBooking.paymentType = (string)rows[i]["type"];
-                newBooking.guestFirstName = (string)rows[i]["firstName"];
-                newBooking.guestLastName = (string)rows[i]["lastName"];
+                newBooking.GuestFirstName = (string)rows[i]["firstName"];
+                newBooking.GuestLastName = (string)rows[i]["lastName"];
                 //newBooking.dateFrom = (string)rows[i]["dateFrom"];
                 //newBooking.dateTo = (string)rows[i]["dateTo"];
 
@@ -359,14 +332,14 @@ namespace kassasystem
             for (int i = 0; i < rows.Count; i++)
             {
                 Booking newBooking = new Booking();
-                newBooking.id = (Int64)rows[i]["bookingID"];
-                newBooking.paymentId = (Int64)rows[i]["paymentID"];
+                newBooking.Id = (Int64)rows[i]["bookingID"];
+                newBooking.PaymentId = (Int64)rows[i]["paymentID"];
                 //newBooking.paymentDate = (Int64)rows[i]["date"];
-                newBooking.amountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
-                newBooking.roomNumber = (Int64)rows[i]["roomNumber"];
+                newBooking.AmountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
+                newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
                 // newBooking.paymentType = (string)rows[i]["type"];
-                newBooking.guestFirstName = (string)rows[i]["firstName"];
-                newBooking.guestLastName = (string)rows[i]["lastName"];
+                newBooking.GuestFirstName = (string)rows[i]["firstName"];
+                newBooking.GuestLastName = (string)rows[i]["lastName"];
                 //newBooking.dateFrom = (string)rows[i]["dateFrom"];
                 //newBooking.dateTo = (string)rows[i]["dateTo"];
 
@@ -404,14 +377,14 @@ namespace kassasystem
             decimal taxAmount = 0.12m;
             for (int i = 0; i < data.Count; i++)
             {   
-                newdata.id = (Int64)data[i]["receiptID"];
-                newdata.bookingID = (Int64)data[i]["bookingID"];
-                newdata.date = (string)data[i]["date"];
-                newdata.time = (string)data[i]["time"];
-                newdata.orderNumber = (Int64)data[i]["orderNumber"];
-                newdata.total = Convert.ToDecimal((Int64)data[i]["total"]) / 100m;
-                newdata.totalNoTax = Math.Round(newdata.total / (taxAmount + 1), 2);
-                newdata.tax = Math.Round(newdata.total - newdata.total / (taxAmount + 1), 2);
+                newdata.Id = (Int64)data[i]["receiptID"];
+                newdata.BookingId = (Int64)data[i]["bookingID"];
+                newdata.Date = (string)data[i]["date"];
+                newdata.Time = (string)data[i]["time"];
+                newdata.OrderNumber = (Int64)data[i]["orderNumber"];
+                newdata.Total = Convert.ToDecimal((Int64)data[i]["total"]) / 100m;
+                newdata.TotalNoTax = Math.Round(newdata.Total / (taxAmount + 1), 2);
+                newdata.Tax = Math.Round(newdata.Total - newdata.Total / (taxAmount + 1), 2);
                 
             }
             return newdata;

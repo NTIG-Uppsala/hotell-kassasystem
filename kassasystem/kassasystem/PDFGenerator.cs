@@ -39,7 +39,7 @@ namespace kassasystem
             XPen DividerColor = new XPen(XColors.LightSkyBlue, 3);
             XPen DividerColorProduct = new XPen(XColors.WhiteSmoke, 2);
 
-            var data = db.GetReceiptData(bookingData.id);
+            var data = db.GetReceiptData(bookingData.Id);
             var culture = new CultureInfo("en-US");
 
             //System.Diagnostics.Debug.WriteLine(data[0].date);
@@ -53,27 +53,27 @@ namespace kassasystem
             /* Info box (date of purchase, order number etc..)  */
             gfx.DrawRectangle(XPens.WhiteSmoke, XBrushes.WhiteSmoke, 10, 75, 160, 80);
             gfx.DrawString($"Address: some address", descriptionFont, XBrushes.Black, new XRect(15, 80, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Date: {data.date}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Time: {data.time}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Order number: {data.orderNumber}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Date: {data.Date}", descriptionFont, XBrushes.Black, new XRect(15, 95, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Time: {data.Time}", descriptionFont, XBrushes.Black, new XRect(15, 110, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Order number: {data.OrderNumber}", descriptionFont, XBrushes.Black, new XRect(15, 125, page.Width, page.Height), XStringFormats.TopLeft);
 
             // Divider
             gfx.DrawLine(DividerColor, 15, 200, page.Width - 15, 200);
 
             int offset = 220;
 
-            gfx.DrawString($"{bookingData.guestFirstName} {bookingData.guestLastName} - {totalPrice.ToString("0.00", culture)} SEK; Room: {bookingData.roomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"{bookingData.GuestFirstName} {bookingData.GuestLastName} - {totalPrice.ToString("0.00", culture)} SEK; Room: {bookingData.RoomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
             offset += 45;
 
             // Tax and total amount
-            gfx.DrawString($"Total without tax: {data.totalNoTax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax: {data.tax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Total: {data.total.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total without tax: {data.TotalNoTax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax: {data.Tax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Total: {data.Total.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 
             //Specify file name of the PDF file
-            string filename = string.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, data.orderNumber);
+            string filename = string.Format(@"C:\Users\{0}\Documents\hotel-receipts\receipt_{1}.pdf", userName, data.OrderNumber);
 
             if (!Directory.Exists(string.Format(@"c:\Users\{0}\Documents\hotel-receipts\", userName)))
             {

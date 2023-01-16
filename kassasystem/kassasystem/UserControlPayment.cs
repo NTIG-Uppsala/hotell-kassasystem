@@ -56,7 +56,7 @@ namespace kassasystem
             foreach (KeyValuePair<string, decimal> product in cartDictionary)
             {
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {selectedBooking.amountDue} SEK");
+                listBox1.Items.Add($"{product.Key} {selectedBooking.AmountDue} SEK");
             }
             UpdateTotal();
         }
@@ -73,7 +73,7 @@ namespace kassasystem
                 foreach (KeyValuePair<string, decimal> product in cartDictionary)
                 {
 
-                    this.totalPrice += selectedBooking.amountDue;
+                    this.totalPrice += selectedBooking.AmountDue;
                 }
             }
             this.lblTotal.Text = $"Total: {this.totalPrice} SEK";
@@ -146,22 +146,21 @@ namespace kassasystem
         // Makes PDF reciept when button is pressed, then calls reset function
         private void BtnPayClick(object sender, EventArgs e)
         {
-            if (selectedBooking == null) return;
+            if (selectedBooking == null)
+            {
+                MessageBox.Show("The cart is empty!", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (listBox1.Items.Count > 0) // REFACTOR invert
             {
-                db.SaveReceiptData(selectedBooking.id, totalPrice);
-                db.SetBookingPaid(selectedBooking.paymentId);
+                db.SaveReceiptData(selectedBooking.Id, totalPrice);
+                db.SetBookingPaid(selectedBooking.PaymentId);
 
                 pdfGenerator.savePDF(selectedBooking, totalPrice);
 
                 ResetValues();
                 updateUnpaidBookings();
-            }
-            else
-            {
-                // TODO: show message cart empty
-
             }
         }
 
@@ -180,14 +179,14 @@ namespace kassasystem
                 if (bookingsList.SelectedItem == null) return;
                 var bookingItem = (BookingItem)bookingsList.SelectedItem;
                 if (bookingItem == null) return;
-                Booking? selectedBooking = bookingItem.bookingObject;
+                Booking? selectedBooking = bookingItem.BookingObject;
                 //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
 
                 if (selectedBooking == null) return; // REFACTOR invert
         
-                System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.id)}, {selectedBooking.amountDue}");
-                cartDictionary.Add(Convert.ToString(selectedBooking.id), selectedBooking.amountDue);
+                System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.Id)}, {selectedBooking.AmountDue}");
+                cartDictionary.Add(Convert.ToString(selectedBooking.Id), selectedBooking.AmountDue);
                 this.selectedBooking = selectedBooking;
                 UpdateCartView();
 
@@ -205,7 +204,7 @@ namespace kassasystem
                 if (bookingsList.SelectedItem == null) return;
                 var bookingItem = (BookingItem)bookingsList.SelectedItem;
                 if (bookingItem == null) return;
-                Booking? selectedBooking = bookingItem.bookingObject;
+                Booking? selectedBooking = bookingItem.BookingObject;
                 //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
                 if (selectedBooking != null) // REFACTOR invert
@@ -229,8 +228,8 @@ namespace kassasystem
             {
                 bookingsList.Items.Add(new BookingItem
                 {
-                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
-                    bookingObject = booking
+                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
+                    BookingObject = booking
                 });
             }
         }
@@ -244,9 +243,9 @@ namespace kassasystem
         {
             if (selectedBooking == null) return;
 
-            db.RemoveBooking(selectedBooking.id);
+            db.RemoveBooking(selectedBooking.Id);
             updateUnpaidBookings();
-            // TODO reset values
+            ResetValues()
         }
     }
 }

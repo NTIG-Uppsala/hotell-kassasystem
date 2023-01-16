@@ -44,8 +44,8 @@ namespace kassasystem
             {
                 unpaidBookings.Items.Add(new BookingItem
                 {
-                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
-                    bookingObject = booking
+                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
+                    BookingObject = booking
                 });
                 
             }
@@ -54,8 +54,8 @@ namespace kassasystem
             {
                 paidBookings.Items.Add(new BookingItem
                 {
-                    displayName = Convert.ToString(booking.id) + ' ' + Convert.ToString(booking.guestFirstName) + ' ' + Convert.ToString(booking.guestLastName),
-                    bookingObject = booking
+                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
+                    BookingObject = booking
                 });
             }
         }
@@ -70,10 +70,10 @@ namespace kassasystem
 
             foreach (Room room in rooms)
             {
-                availableRooms.Items.Add($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+                availableRooms.Items.Add($"{room.Id} {room.Type} {room.Rate} kr / night {room.RecommendedPeople} people floor {room.Floor} number {room.Number}");
                 // System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
 
-                if (!avaliableRoomsList.ContainsKey(room.id)) { avaliableRoomsList.Add(room.id, room); }
+                if (!avaliableRoomsList.ContainsKey(room.Id)) { avaliableRoomsList.Add(room.Id, room); }
 
             }
 
@@ -108,9 +108,10 @@ namespace kassasystem
             if (inputFirstName.Text.Length <= 0 || inputLastName.Text.Length <= 0 || availableRooms.SelectedIndex == -1) return;
 
             // TODO error handling for date
+            // FIXME make selection persistant
 
             var selectedRoom = availableRooms.SelectedItem; 
-                                                                                     // FIXME make selection persistant
+                                                                                     
             if (selectedRoom == null)
             {
                 MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -128,14 +129,14 @@ namespace kassasystem
             selectedRoomString = selectedRoomString.Split(' ')[0];
             foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
             {
-                if (selectedRoomString == Convert.ToString(room.Value.id))
+                if (selectedRoomString == Convert.ToString(room.Value.Id))
                 {
-                    databaseConnection.CreateNewBooking(room.Value.id,
+                    databaseConnection.CreateNewBooking(room.Value.Id,
                             inputFirstName.Text,
                             inputLastName.Text,
                             convertDateToEpoch(dateTimePicker2.Value),
                             convertDateToEpoch(dateTimePicker1.Value),
-                            CalculateRoomPrice(room.Value.rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
+                            CalculateRoomPrice(room.Value.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
                         );
                 }
 
@@ -176,6 +177,11 @@ namespace kassasystem
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             getAvaliableRooms();
+        }
+
+        private void btnRemoveBooking_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
