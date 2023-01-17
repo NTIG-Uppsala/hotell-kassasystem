@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -86,13 +87,13 @@
             this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTotal.BackColor = System.Drawing.Color.White;
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTotal.Location = new System.Drawing.Point(1596, 873);
+            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTotal.Location = new System.Drawing.Point(1596, 876);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(3);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(300, 53);
+            this.lblTotal.Size = new System.Drawing.Size(300, 43);
             this.lblTotal.TabIndex = 4;
-            this.lblTotal.Text = "Total: 0,00 SEK";
+            this.lblTotal.Text = "Total: 0.00 SEK";
             // 
             // btnPay
             // 
@@ -190,11 +191,20 @@
             this.panel2.Size = new System.Drawing.Size(504, 992);
             this.panel2.TabIndex = 16;
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(1074, 179);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(321, 550);
+            this.listView1.TabIndex = 17;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -229,6 +239,7 @@
         public Label label1;
         private Panel panel1;
         private Panel panel2;
+        private ListView listView1;
     }
 
 }

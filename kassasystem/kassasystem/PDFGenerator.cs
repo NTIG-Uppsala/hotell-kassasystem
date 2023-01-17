@@ -17,7 +17,7 @@ namespace kassasystem
 {
     internal class PDFGenerator
     {
-        public void savePDF(Booking bookingData, Decimal totalPrice)
+        public void savePDF(Booking bookingData)
         {
             string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
             string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
@@ -62,7 +62,7 @@ namespace kassasystem
 
             int offset = 220;
 
-            gfx.DrawString($"{bookingData.GuestFirstName} {bookingData.GuestLastName} - {totalPrice.ToString("0.00", culture)} SEK; Room: {bookingData.RoomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"{bookingData.GuestFirstName} {bookingData.GuestLastName} - {data.Total.ToString("0.00", culture)} SEK; Room: {bookingData.RoomNumber}", productFont, XBrushes.Black, new XRect(15, offset, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawLine(DividerColorProduct, 15, offset + 30 , page.Width - 15, offset + 30);
             offset += 45;
 

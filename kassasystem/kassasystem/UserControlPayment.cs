@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using static System.Net.Mime.MediaTypeNames;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace kassasystem
 {
@@ -51,12 +53,15 @@ namespace kassasystem
         private void UpdateCartView()
         {
             if (selectedBooking == null) return;
+            
+            var culture = new CultureInfo("en-US");
+
 
             listBox1.Items.Clear();
             foreach (KeyValuePair<string, decimal> product in cartDictionary)
             {
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {selectedBooking.AmountDue} SEK");
+                listBox1.Items.Add($"{product.Key} {selectedBooking.AmountDue.ToString("0.00", culture)} SEK");
             }
             UpdateTotal();
         }
@@ -64,6 +69,8 @@ namespace kassasystem
         // Keeps the total price up to date
         private void UpdateTotal()
         {
+            var culture = new CultureInfo("en-US");
+
             if (selectedBooking == null) return;
 
             this.totalPrice = 0.00M;
@@ -76,7 +83,7 @@ namespace kassasystem
                     this.totalPrice += selectedBooking.AmountDue;
                 }
             }
-            this.lblTotal.Text = $"Total: {this.totalPrice} SEK";
+            this.lblTotal.Text = $"Total: {this.totalPrice.ToString("0.00", culture)} SEK";
         }
 
         // Adds to the of amount of products in list box when product is already present
@@ -116,18 +123,6 @@ namespace kassasystem
 
         }
 
-        // Removes one instance of selected product amount
-        private void BtnRemove1xClick(object sender, EventArgs e) 
-        {
-            while (true)
-            {
-                MessageBox.Show("Fatal error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Removes every instance of selected product
-        private void BtnRemoveClick(object sender, EventArgs e) { }
-
         // Resets the entire list box
         private void ResetValues()
         {
@@ -157,7 +152,7 @@ namespace kassasystem
                 db.SaveReceiptData(selectedBooking.Id, totalPrice);
                 db.SetBookingPaid(selectedBooking.PaymentId);
 
-                pdfGenerator.savePDF(selectedBooking, totalPrice);
+                pdfGenerator.savePDF(selectedBooking);
 
                 ResetValues();
                 updateUnpaidBookings();
@@ -172,6 +167,7 @@ namespace kassasystem
 
         private void btnSendToPaymentList_Click(object sender, EventArgs e)
         {
+
             if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
             {
                 System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
@@ -245,7 +241,8 @@ namespace kassasystem
 
             db.RemoveBooking(selectedBooking.Id);
             updateUnpaidBookings();
-            ResetValues()
+            ResetValues();
         }
+
     }
 }
