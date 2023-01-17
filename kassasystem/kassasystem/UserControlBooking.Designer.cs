@@ -105,7 +105,7 @@
             this.btnSave.BackColor = System.Drawing.Color.LightGray;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(1111, 95);
+            this.btnSave.Location = new System.Drawing.Point(1111, 978);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(175, 45);
             this.btnSave.TabIndex = 6;
@@ -219,11 +219,12 @@
             this.columnHeader7,
             this.columnHeader8,
             this.columnHeader9});
+            this.availableRooms.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.availableRooms.FullRowSelect = true;
             this.availableRooms.GridLines = true;
-            this.availableRooms.Location = new System.Drawing.Point(1111, 146);
+            this.availableRooms.Location = new System.Drawing.Point(1111, 95);
             this.availableRooms.Name = "availableRooms";
-            this.availableRooms.Size = new System.Drawing.Size(557, 446);
+            this.availableRooms.Size = new System.Drawing.Size(557, 877);
             this.availableRooms.TabIndex = 16;
             this.availableRooms.UseCompatibleStateImageBehavior = false;
             this.availableRooms.View = System.Windows.Forms.View.Details;
@@ -232,17 +233,17 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Room number";
-            this.columnHeader5.Width = 100;
+            this.columnHeader5.Width = 120;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Room type";
-            this.columnHeader6.Width = 80;
+            this.columnHeader6.Width = 160;
             // 
             // columnHeader7
             // 
             this.columnHeader7.Text = "Total people";
-            this.columnHeader7.Width = 85;
+            this.columnHeader7.Width = 100;
             // 
             // columnHeader8
             // 
@@ -252,7 +253,7 @@
             // columnHeader9
             // 
             this.columnHeader9.Text = "Price / Night";
-            this.columnHeader9.Width = 90;
+            this.columnHeader9.Width = 120;
             // 
             // UserControlBooking
             // 

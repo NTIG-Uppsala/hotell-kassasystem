@@ -34,14 +34,14 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnPay = new System.Windows.Forms.Button();
             this.LblBooking = new System.Windows.Forms.Label();
-            this.bookingsList = new System.Windows.Forms.ListBox();
             this.btnSendToPaymentList = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.bookingsList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -119,19 +119,6 @@
             this.LblBooking.TabIndex = 10;
             this.LblBooking.Text = "Bookings:";
             // 
-            // bookingsList
-            // 
-            this.bookingsList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bookingsList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bookingsList.FormattingEnabled = true;
-            this.bookingsList.ItemHeight = 15;
-            this.bookingsList.Location = new System.Drawing.Point(0, 0);
-            this.bookingsList.Margin = new System.Windows.Forms.Padding(0);
-            this.bookingsList.Name = "bookingsList";
-            this.bookingsList.Size = new System.Drawing.Size(504, 992);
-            this.bookingsList.TabIndex = 11;
-            this.bookingsList.SelectedIndexChanged += new System.EventHandler(this.bookingsList_SelectedIndexChanged);
-            // 
             // btnSendToPaymentList
             // 
             this.btnSendToPaymentList.BackColor = System.Drawing.Color.LightGray;
@@ -180,22 +167,39 @@
             this.panel1.Size = new System.Drawing.Size(300, 829);
             this.panel1.TabIndex = 15;
             // 
-            // panel2
+            // bookingsList
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.bookingsList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel2.Controls.Add(this.bookingsList);
-            this.panel2.Location = new System.Drawing.Point(8, 38);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(504, 992);
-            this.panel2.TabIndex = 16;
+            this.bookingsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.bookingsList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bookingsList.FullRowSelect = true;
+            this.bookingsList.GridLines = true;
+            this.bookingsList.Location = new System.Drawing.Point(8, 38);
+            this.bookingsList.Name = "bookingsList";
+            this.bookingsList.Size = new System.Drawing.Size(504, 992);
+            this.bookingsList.TabIndex = 17;
+            this.bookingsList.UseCompatibleStateImageBehavior = false;
+            this.bookingsList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "ID";
+            this.columnHeader1.Width = 50;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 150;
             // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.bookingsList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPay);
@@ -209,7 +213,6 @@
             this.Size = new System.Drawing.Size(1904, 1041);
             this.Load += new System.EventHandler(this.UserControlPayment_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,12 +226,13 @@
         public Label lblTotal;
         public Button btnPay;
         public Label LblBooking;
-        public ListBox bookingsList;
         public Button btnSendToPaymentList;
         public Button button1;
         public Label label1;
         private Panel panel1;
-        private Panel panel2;
+        private ListView bookingsList;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
     }
 
 }

@@ -167,19 +167,21 @@ namespace kassasystem
 
             if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
             {
-                System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
                 cartDictionary.Clear();
-                if (bookingsList.SelectedItem == null) return;
-                var bookingItem = (BookingItem)bookingsList.SelectedItem;
-                if (bookingItem == null) return;
-                Booking? selectedBooking = bookingItem.BookingObject;
+
+                var data = (Booking)bookingsList.SelectedItems[0].Tag;
+
+                if (bookingsList.SelectedItems[0] == null) return;
+                //var bookingItem = (BookingItem)bookingsList.SelectedItems[0];
+                //if (bookingItem == null) return;
+                //Booking? selectedBooking = bookingItem.BookingObject;
                 //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
 
                 if (selectedBooking == null) return; // REFACTOR invert
         
-                System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.Id)}, {selectedBooking.AmountDue}");
-                cartDictionary.Add(Convert.ToString(selectedBooking.Id), selectedBooking.AmountDue);
+                //System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.Id)}, {selectedBooking.AmountDue}");
+                cartDictionary.Add(Convert.ToString(data.Id), data.AmountDue);
                 this.selectedBooking = selectedBooking;
                 UpdateCartView();
 
@@ -188,42 +190,52 @@ namespace kassasystem
 
         }
 
-        private void bookingsList_SelectedIndexChanged(object sender, EventArgs e) 
-        {
-            if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
-            {
-                System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
-                cartDictionary.Clear();
-                if (bookingsList.SelectedItem == null) return;
-                var bookingItem = (BookingItem)bookingsList.SelectedItem;
-                if (bookingItem == null) return;
-                Booking? selectedBooking = bookingItem.BookingObject;
-                //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
+        //private void bookingsList_SelectedIndexChanged(object sender, EventArgs e) 
+        //{
+        //    if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
+        //    {
+        //        System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
+        //        cartDictionary.Clear();
+        //        if (bookingsList.SelectedItem == null) return;
+        //        var bookingItem = (BookingItem)bookingsList.SelectedItem;
+        //        if (bookingItem == null) return;
+        //        Booking? selectedBooking = bookingItem.BookingObject;
+        //        //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
 
-                if (selectedBooking != null) // REFACTOR invert
-                {
-                    this.selectedBooking = selectedBooking;
-                }
-                else
-                {
-                    //
-                }
-            };
-        }
+        //        if (selectedBooking != null) // REFACTOR invert
+        //        {
+        //            this.selectedBooking = selectedBooking;
+        //        }
+        //        else
+        //        {
+        //            //
+        //        }
+        //    };
+        //}
 
         public void updateUnpaidBookings()
         {
             bookingsList.Items.Clear();
 
             var data = db.GetUnpaidBookings();
-            
+
             foreach (Booking booking in data)
             {
-                bookingsList.Items.Add(new BookingItem
+                if (booking.GuestFirstName == null)
                 {
-                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
-                    BookingObject = booking
-                });
+                    MessageBox.Show("GuestFirstName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] displayArray =
+                {
+                    Convert.ToString(booking.Id),
+                    Convert.ToString(booking.GuestFirstName)
+                };
+
+                ListViewItem item = new ListViewItem(displayArray);
+                item.Tag = booking;
+                bookingsList.Items.Add(item);
             }
         }
 

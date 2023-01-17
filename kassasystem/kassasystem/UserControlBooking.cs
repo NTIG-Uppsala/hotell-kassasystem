@@ -90,12 +90,13 @@ namespace kassasystem
                 }
 
                 string[] displayArray =
-                {
+                {                 
                     Convert.ToString(room.Number),
                     Convert.ToString(room.Type),
                     Convert.ToString(room.RecommendedPeople),
                     Convert.ToString(room.Floor),
-                    Convert.ToString(room.Rate)
+                    Convert.ToString(room.Rate),
+                    Convert.ToString(room.Id)
                 };
 
                 ListViewItem item = new ListViewItem(displayArray);
@@ -152,17 +153,17 @@ namespace kassasystem
                 return;
             }
 
-            var roomData = selectedRoom.Tag;
-            MessageBox.Show(" ", "Test", MessageBoxButtons.OK, MessageBoxIcon.None);
+            var roomData = (Room) selectedRoom.Tag;
+            MessageBox.Show(roomData.ToString(), "Test", MessageBoxButtons.OK, MessageBoxIcon.None);
 
-            //databaseConnection.CreateNewBooking(roomData.Id,
-            //    inputFirstName.Text,
-            //    inputLastName.Text,
-            //    convertDateToEpoch(dateTimePicker2.Value),
-            //    convertDateToEpoch(dateTimePicker1.Value),
-            //    CalculateRoomPrice(selectedRoom.Tag.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
-            //);
-                
+            databaseConnection.CreateNewBooking(roomData.Id,
+                inputFirstName.Text,
+                inputLastName.Text,
+                convertDateToEpoch(dateTimePicker2.Value),
+                convertDateToEpoch(dateTimePicker1.Value),
+                CalculateRoomPrice(roomData.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
+            );
+
             updateBookings();
 
 
