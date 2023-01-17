@@ -25,73 +25,83 @@ namespace kassasystem
         public UserControlBooking()
         {
             InitializeComponent();
-
-            unpaidBookings.DisplayMember = "displayName";
-            unpaidBookings.ValueMember = "bookingObject";
-            paidBookings.DisplayMember = "displayName";
-            paidBookings.ValueMember = "bookingObject";
         }
 
         public void updateBookings()
         {
-            unpaidBookings.Items.Clear();
             paidBookings.Items.Clear();
-            listView.Items.Clear();
+            unpaidBookings.Items.Clear();
 
             var unpaid = databaseConnection.GetUnpaidBookings();
             var paid = databaseConnection.GetPaidBookings();
 
-            foreach (Booking booking in unpaid)
-            {
-                unpaidBookings.Items.Add(new BookingItem
-                {
-                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
-                    BookingObject = booking
-                });
-            }
-
             // Listview test
             foreach (Booking booking in unpaid)
             {
-                if (booking.GuestFirstName == null) return;
-                string[] someList =
+                if (booking.GuestFirstName == null)
+                {
+                    MessageBox.Show("GuestFirstName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] displayArray =
                 {
                     Convert.ToString(booking.Id),
                     Convert.ToString(booking.GuestFirstName)
                 };
-                ListViewItem item = new ListViewItem(someList);
-                listView.Items.Add(item);
 
-
+                ListViewItem item = new ListViewItem(displayArray);
+                item.Tag = booking;
+                unpaidBookings.Items.Add(item);
             }
 
             foreach (Booking booking in paid)
             {
-                paidBookings.Items.Add(new BookingItem
+                if (booking.GuestFirstName == null)
                 {
-                    DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
-                    BookingObject = booking
-                });
+                    MessageBox.Show("GuestFirstName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] displayArray =
+                {
+                    Convert.ToString(booking.Id),
+                    Convert.ToString(booking.GuestFirstName)
+                };
+
+                ListViewItem item = new ListViewItem(displayArray);
+                item.Tag = booking;
+                paidBookings.Items.Add(item);
             }
         }
 
-        private void getAvaliableRooms()
+        private void AvailableRooms()
         {
-
             availableRooms.Items.Clear();
 
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
 
-
             foreach (Room room in rooms)
             {
-                availableRooms.Items.Add($"{room.Id} {room.Type} {room.Rate} kr / night {room.RecommendedPeople} people floor {room.Floor} number {room.Number}");
-                // System.Diagnostics.Debug.WriteLine($"{room.id} {room.type} {room.rate} kr / night {room.recommendedPeople} people floor {room.floor} number {room.number}");
+                if (room.Type == null)
+                {
+                    MessageBox.Show($"Room {room.Number} type is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                if (!avaliableRoomsList.ContainsKey(room.Id)) { avaliableRoomsList.Add(room.Id, room); }
+                string[] displayArray =
+                {
+                    Convert.ToString(room.Number),
+                    Convert.ToString(room.Type),
+                    Convert.ToString(room.RecommendedPeople),
+                    Convert.ToString(room.Floor),
+                    Convert.ToString(room.Rate)
+                };
 
+                ListViewItem item = new ListViewItem(displayArray);
+                item.Tag = room;
+                availableRooms.Items.Add(item);
             }
-
         }
 
         private void btnNewBooking_Click(object sender, EventArgs e)
@@ -106,8 +116,7 @@ namespace kassasystem
             dateTimePicker1.Value = DateTime.Today;
             dateTimePicker2.Value = DateTime.Today;
 
-            getAvaliableRooms();
-
+            AvailableRooms();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -120,43 +129,40 @@ namespace kassasystem
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
 
-            if (inputFirstName.Text.Length <= 0 || inputLastName.Text.Length <= 0 || availableRooms.SelectedIndex == -1) return;
+            if (inputFirstName.Text.Length <= 0 || inputLastName.Text.Length <= 0) {
+                MessageBox.Show("Firstname input is missing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; 
+            }
+
+
+            if (inputLastName.Text.Length <= 0)
+            {
+                MessageBox.Show("Lastname input is missing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // TODO error handling for date
             // FIXME make selection persistant
 
-            var selectedRoom = availableRooms.SelectedItem; 
-                                                                                     
+            var selectedRoom = availableRooms.SelectedItems[0];
+
             if (selectedRoom == null)
             {
                 MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var selectedRoomString = selectedRoom.ToString();
+            var roomData = selectedRoom.Tag;
+            MessageBox.Show(" ", "Test", MessageBoxButtons.OK, MessageBoxIcon.None);
 
-            if (selectedRoomString == null)
-            {
-                MessageBox.Show("selectedRoom is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            selectedRoomString = selectedRoomString.Split(' ')[0];
-            foreach (KeyValuePair<Int64, Room> room in avaliableRoomsList)
-            {
-                if (selectedRoomString == Convert.ToString(room.Value.Id))
-                {
-                    databaseConnection.CreateNewBooking(room.Value.Id,
-                            inputFirstName.Text,
-                            inputLastName.Text,
-                            convertDateToEpoch(dateTimePicker2.Value),
-                            convertDateToEpoch(dateTimePicker1.Value),
-                            CalculateRoomPrice(room.Value.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
-                        );
-                }
-
-            }
-
+            //databaseConnection.CreateNewBooking(roomData.Id,
+            //    inputFirstName.Text,
+            //    inputLastName.Text,
+            //    convertDateToEpoch(dateTimePicker2.Value),
+            //    convertDateToEpoch(dateTimePicker1.Value),
+            //    CalculateRoomPrice(selectedRoom.Tag.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
+            //);
+                
             updateBookings();
 
 
@@ -186,12 +192,12 @@ namespace kassasystem
         // REFACTOR combine dateTimePicker2- and dateTimePicker1_ValueChanged
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-            getAvaliableRooms();
+            AvailableRooms();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            getAvaliableRooms();
+            AvailableRooms();
         }
 
         private void btnRemoveBooking_Click(object sender, EventArgs e)

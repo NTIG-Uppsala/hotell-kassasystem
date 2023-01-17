@@ -33,9 +33,6 @@ namespace kassasystem
         public UserControlPayment()
         {
             InitializeComponent();
-            bookingsList.DisplayMember = "displayName";
-            bookingsList.ValueMember = "bookingObject";
-
         }
 
         private void Form1Load(object sender, EventArgs e)

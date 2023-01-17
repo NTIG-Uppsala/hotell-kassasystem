@@ -30,19 +30,25 @@
         {
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.unpaidBookings = new System.Windows.Forms.ListBox();
-            this.availableRooms = new System.Windows.Forms.ListBox();
             this.btnNewBooking = new System.Windows.Forms.Button();
             this.btnEditBooking = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.inputFirstName = new System.Windows.Forms.TextBox();
             this.inputLastName = new System.Windows.Forms.TextBox();
-            this.paidBookings = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listView = new System.Windows.Forms.ListView();
+            this.unpaidBookings = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.paidBookings = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.availableRooms = new System.Windows.Forms.ListView();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -66,27 +72,6 @@
             this.dateTimePicker2.TabIndex = 1;
             this.dateTimePicker2.Visible = false;
             this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
-            // 
-            // unpaidBookings
-            // 
-            this.unpaidBookings.FormattingEnabled = true;
-            this.unpaidBookings.ItemHeight = 15;
-            this.unpaidBookings.Location = new System.Drawing.Point(8, 41);
-            this.unpaidBookings.Name = "unpaidBookings";
-            this.unpaidBookings.Size = new System.Drawing.Size(406, 634);
-            this.unpaidBookings.TabIndex = 2;
-            // 
-            // availableRooms
-            // 
-            this.availableRooms.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.availableRooms.FormattingEnabled = true;
-            this.availableRooms.ItemHeight = 15;
-            this.availableRooms.Location = new System.Drawing.Point(606, 29);
-            this.availableRooms.Name = "availableRooms";
-            this.availableRooms.Size = new System.Drawing.Size(499, 994);
-            this.availableRooms.TabIndex = 3;
-            this.availableRooms.Visible = false;
             // 
             // btnNewBooking
             // 
@@ -152,17 +137,6 @@
             this.inputLastName.TabIndex = 8;
             this.inputLastName.Visible = false;
             // 
-            // paidBookings
-            // 
-            this.paidBookings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.paidBookings.FormattingEnabled = true;
-            this.paidBookings.ItemHeight = 15;
-            this.paidBookings.Location = new System.Drawing.Point(8, 713);
-            this.paidBookings.Name = "paidBookings";
-            this.paidBookings.Size = new System.Drawing.Size(406, 304);
-            this.paidBookings.TabIndex = 9;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -184,19 +158,20 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Unpaid bookings:";
             // 
-            // listView
+            // unpaidBookings
             // 
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.unpaidBookings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listView.FullRowSelect = true;
-            this.listView.GridLines = true;
-            this.listView.Location = new System.Drawing.Point(1177, 197);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(407, 760);
-            this.listView.TabIndex = 12;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
+            this.unpaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.unpaidBookings.FullRowSelect = true;
+            this.unpaidBookings.GridLines = true;
+            this.unpaidBookings.Location = new System.Drawing.Point(8, 41);
+            this.unpaidBookings.Name = "unpaidBookings";
+            this.unpaidBookings.Size = new System.Drawing.Size(406, 634);
+            this.unpaidBookings.TabIndex = 12;
+            this.unpaidBookings.UseCompatibleStateImageBehavior = false;
+            this.unpaidBookings.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -208,22 +183,92 @@
             this.columnHeader2.Text = "Name";
             this.columnHeader2.Width = 200;
             // 
+            // paidBookings
+            // 
+            this.paidBookings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.paidBookings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.paidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.paidBookings.FullRowSelect = true;
+            this.paidBookings.GridLines = true;
+            this.paidBookings.Location = new System.Drawing.Point(8, 713);
+            this.paidBookings.Name = "paidBookings";
+            this.paidBookings.Size = new System.Drawing.Size(406, 310);
+            this.paidBookings.TabIndex = 15;
+            this.paidBookings.UseCompatibleStateImageBehavior = false;
+            this.paidBookings.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ID";
+            this.columnHeader3.Width = 200;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Name";
+            this.columnHeader4.Width = 200;
+            // 
+            // availableRooms
+            // 
+            this.availableRooms.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.availableRooms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9});
+            this.availableRooms.FullRowSelect = true;
+            this.availableRooms.GridLines = true;
+            this.availableRooms.Location = new System.Drawing.Point(1111, 146);
+            this.availableRooms.Name = "availableRooms";
+            this.availableRooms.Size = new System.Drawing.Size(557, 446);
+            this.availableRooms.TabIndex = 16;
+            this.availableRooms.UseCompatibleStateImageBehavior = false;
+            this.availableRooms.View = System.Windows.Forms.View.Details;
+            this.availableRooms.Visible = false;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Room number";
+            this.columnHeader5.Width = 100;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Room type";
+            this.columnHeader6.Width = 80;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Total people";
+            this.columnHeader7.Width = 85;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Floor";
+            this.columnHeader8.Width = 50;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Price / Night";
+            this.columnHeader9.Width = 90;
+            // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.Controls.Add(this.listView);
+            this.Controls.Add(this.availableRooms);
+            this.Controls.Add(this.paidBookings);
+            this.Controls.Add(this.unpaidBookings);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.paidBookings);
             this.Controls.Add(this.inputLastName);
             this.Controls.Add(this.inputFirstName);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnEditBooking);
             this.Controls.Add(this.btnNewBooking);
-            this.Controls.Add(this.availableRooms);
-            this.Controls.Add(this.unpaidBookings);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "UserControlBooking";
@@ -237,18 +282,24 @@
 
         public DateTimePicker dateTimePicker1;
         public DateTimePicker dateTimePicker2;
-        public ListBox unpaidBookings;
-        public ListBox availableRooms;
         public Button btnNewBooking;
         public Button btnEditBooking;
         public Button btnSave;
         public TextBox inputFirstName;
         public TextBox inputLastName;
-        public ListBox paidBookings;
         private Label label1;
         private Label label2;
-        private ListView listView;
+        private ListView unpaidBookings;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
+        private ListView paidBookings;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ListView availableRooms;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader8;
+        private ColumnHeader columnHeader9;
     }
 }
