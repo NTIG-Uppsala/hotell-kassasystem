@@ -36,6 +36,7 @@ namespace kassasystem
         {
             unpaidBookings.Items.Clear();
             paidBookings.Items.Clear();
+            listView.Items.Clear();
 
             var unpaid = databaseConnection.GetUnpaidBookings();
             var paid = databaseConnection.GetPaidBookings();
@@ -47,7 +48,21 @@ namespace kassasystem
                     DisplayName = Convert.ToString(booking.Id) + ' ' + Convert.ToString(booking.GuestFirstName) + ' ' + Convert.ToString(booking.GuestLastName),
                     BookingObject = booking
                 });
-                
+            }
+
+            // Listview test
+            foreach (Booking booking in unpaid)
+            {
+                if (booking.GuestFirstName == null) return;
+                string[] someList =
+                {
+                    Convert.ToString(booking.Id),
+                    Convert.ToString(booking.GuestFirstName)
+                };
+                ListViewItem item = new ListViewItem(someList);
+                listView.Items.Add(item);
+
+
             }
 
             foreach (Booking booking in paid)
