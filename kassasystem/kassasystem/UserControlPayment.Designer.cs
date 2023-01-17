@@ -40,7 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -191,20 +190,11 @@
             this.panel2.Size = new System.Drawing.Size(504, 992);
             this.panel2.TabIndex = 16;
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(1074, 179);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(321, 550);
-            this.listView1.TabIndex = 17;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -239,7 +229,6 @@
         public Label label1;
         private Panel panel1;
         private Panel panel2;
-        private ListView listView1;
     }
 
 }
