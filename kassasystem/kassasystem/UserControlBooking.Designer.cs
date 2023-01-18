@@ -49,6 +49,8 @@
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -162,7 +164,8 @@
             // 
             this.unpaidBookings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader10});
             this.unpaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.unpaidBookings.FullRowSelect = true;
             this.unpaidBookings.GridLines = true;
@@ -176,12 +179,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "ID";
-            this.columnHeader1.Width = 200;
+            this.columnHeader1.Width = 50;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Name";
-            this.columnHeader2.Width = 200;
+            this.columnHeader2.Text = "First name";
+            this.columnHeader2.Width = 150;
             // 
             // paidBookings
             // 
@@ -189,7 +192,8 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.paidBookings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader11});
             this.paidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.paidBookings.FullRowSelect = true;
             this.paidBookings.GridLines = true;
@@ -203,12 +207,12 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "ID";
-            this.columnHeader3.Width = 200;
+            this.columnHeader3.Width = 50;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Name";
-            this.columnHeader4.Width = 200;
+            this.columnHeader4.Text = "First name";
+            this.columnHeader4.Width = 150;
             // 
             // availableRooms
             // 
@@ -254,6 +258,16 @@
             // 
             this.columnHeader9.Text = "Price / Night";
             this.columnHeader9.Width = 120;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Last name";
+            this.columnHeader10.Width = 150;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Last name";
+            this.columnHeader11.Width = 150;
             // 
             // UserControlBooking
             // 
@@ -302,5 +316,7 @@
         private ColumnHeader columnHeader7;
         private ColumnHeader columnHeader8;
         private ColumnHeader columnHeader9;
+        private ColumnHeader columnHeader10;
+        private ColumnHeader columnHeader11;
     }
 }
