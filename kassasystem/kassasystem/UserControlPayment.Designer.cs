@@ -34,7 +34,6 @@
             this.btnPay = new System.Windows.Forms.Button();
             this.LblBooking = new System.Windows.Forms.Label();
             this.btnSendToPaymentList = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.bookingsList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -115,26 +114,13 @@
             this.btnSendToPaymentList.BackColor = System.Drawing.Color.LightGray;
             this.btnSendToPaymentList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendToPaymentList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSendToPaymentList.Location = new System.Drawing.Point(528, 89);
+            this.btnSendToPaymentList.Location = new System.Drawing.Point(528, 41);
             this.btnSendToPaymentList.Name = "btnSendToPaymentList";
             this.btnSendToPaymentList.Size = new System.Drawing.Size(175, 45);
             this.btnSendToPaymentList.TabIndex = 12;
             this.btnSendToPaymentList.Text = "Select Booking";
             this.btnSendToPaymentList.UseVisualStyleBackColor = false;
             this.btnSendToPaymentList.Click += new System.EventHandler(this.btnSendToPaymentList_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.LightGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(528, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 45);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Remove Booking";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btnRmBooking_click);
             // 
             // label1
             // 
@@ -167,6 +153,7 @@
             this.bookingsList.TabIndex = 17;
             this.bookingsList.UseCompatibleStateImageBehavior = false;
             this.bookingsList.View = System.Windows.Forms.View.Details;
+            this.bookingsList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.bookingsList_ColumnClick);
             // 
             // columnHeader1
             // 
@@ -243,7 +230,6 @@
             this.Controls.Add(this.btnPay);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSendToPaymentList);
             this.Controls.Add(this.LblBooking);
             this.Controls.Add(this.lbl_button_val);
@@ -263,7 +249,6 @@
         public Button btnPay;
         public Label LblBooking;
         public Button btnSendToPaymentList;
-        public Button button1;
         public Label label1;
         public ListView bookingsList;
         public ColumnHeader columnHeader1;

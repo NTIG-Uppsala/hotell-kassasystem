@@ -40,17 +40,18 @@
             this.unpaidBookings = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.paidBookings = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
             this.availableRooms = new System.Windows.Forms.ListView();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -93,7 +94,7 @@
             this.btnEditBooking.BackColor = System.Drawing.Color.LightGray;
             this.btnEditBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEditBooking.Location = new System.Drawing.Point(425, 95);
+            this.btnEditBooking.Location = new System.Drawing.Point(425, 146);
             this.btnEditBooking.Name = "btnEditBooking";
             this.btnEditBooking.Size = new System.Drawing.Size(175, 45);
             this.btnEditBooking.TabIndex = 5;
@@ -125,7 +126,6 @@
             this.inputFirstName.PlaceholderText = "First name";
             this.inputFirstName.Size = new System.Drawing.Size(272, 27);
             this.inputFirstName.TabIndex = 7;
-            this.inputFirstName.UseWaitCursor = true;
             this.inputFirstName.Visible = false;
             // 
             // inputLastName
@@ -175,6 +175,7 @@
             this.unpaidBookings.TabIndex = 12;
             this.unpaidBookings.UseCompatibleStateImageBehavior = false;
             this.unpaidBookings.View = System.Windows.Forms.View.Details;
+            this.unpaidBookings.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.unpaidBookings_ColumnClick);
             // 
             // columnHeader1
             // 
@@ -185,6 +186,11 @@
             // 
             this.columnHeader2.Text = "First name";
             this.columnHeader2.Width = 150;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Last name";
+            this.columnHeader10.Width = 150;
             // 
             // paidBookings
             // 
@@ -203,6 +209,7 @@
             this.paidBookings.TabIndex = 15;
             this.paidBookings.UseCompatibleStateImageBehavior = false;
             this.paidBookings.View = System.Windows.Forms.View.Details;
+            this.paidBookings.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.paidBookings_ColumnClick);
             // 
             // columnHeader3
             // 
@@ -213,6 +220,11 @@
             // 
             this.columnHeader4.Text = "First name";
             this.columnHeader4.Width = 150;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Last name";
+            this.columnHeader11.Width = 150;
             // 
             // availableRooms
             // 
@@ -233,6 +245,7 @@
             this.availableRooms.UseCompatibleStateImageBehavior = false;
             this.availableRooms.View = System.Windows.Forms.View.Details;
             this.availableRooms.Visible = false;
+            this.availableRooms.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.availableRooms_ColumnClick);
             // 
             // columnHeader5
             // 
@@ -259,21 +272,25 @@
             this.columnHeader9.Text = "Price / Night";
             this.columnHeader9.Width = 120;
             // 
-            // columnHeader10
+            // btnRemove
             // 
-            this.columnHeader10.Text = "Last name";
-            this.columnHeader10.Width = 150;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Last name";
-            this.columnHeader11.Width = 150;
+            this.btnRemove.BackColor = System.Drawing.Color.LightGray;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRemove.Location = new System.Drawing.Point(425, 95);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(175, 45);
+            this.btnRemove.TabIndex = 17;
+            this.btnRemove.Text = "Remove Booking";
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.availableRooms);
             this.Controls.Add(this.paidBookings);
             this.Controls.Add(this.unpaidBookings);
@@ -318,5 +335,6 @@
         private ColumnHeader columnHeader9;
         private ColumnHeader columnHeader10;
         private ColumnHeader columnHeader11;
+        public Button btnRemove;
     }
 }

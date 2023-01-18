@@ -4,7 +4,9 @@ namespace kassasystem
 {
 
     public partial class UserControlPayment : UserControl
-    {   
+    {
+        private ListViewColumnSorter lvwColumnSorter;
+
         // Dictionaries for prices and products
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
         public Dictionary<string, Booking> cartDictionary = new Dictionary<string, Booking>();
@@ -20,6 +22,8 @@ namespace kassasystem
         public UserControlPayment()
         {
             InitializeComponent();
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.bookingsList.ListViewItemSorter = lvwColumnSorter;
         }
 
         private void Form1Load(object sender, EventArgs e)
@@ -257,14 +261,30 @@ namespace kassasystem
             updateUnpaidBookings();
         }
 
-        private void btnRmBooking_click(object sender, EventArgs e)
+        private void bookingsList_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (selectedBooking == null) return;
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
 
-            db.RemoveBooking(selectedBooking.Id);
-            updateUnpaidBookings();
-            ResetValues();
+            // Perform the sort with these new sort options.
+            this.bookingsList.Sort();
         }
-
     }
 }

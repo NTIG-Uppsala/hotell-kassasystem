@@ -16,6 +16,8 @@ namespace kassasystem
 
     public partial class UserControlBooking : UserControl
     {
+        private ListViewColumnSorter lvwColumnSorter;
+
         Booking newbooking = new Booking(); // FIXME spelling
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
         static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
@@ -25,6 +27,13 @@ namespace kassasystem
         public UserControlBooking()
         {
             InitializeComponent();
+
+            // Create an instance of a ListView column sorter and assign it
+            // to the ListView control.
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.availableRooms.ListViewItemSorter = lvwColumnSorter;
+            this.unpaidBookings.ListViewItemSorter = lvwColumnSorter;
+            this.paidBookings.ListViewItemSorter = lvwColumnSorter;
         }
 
         public void updateBookings()
@@ -158,7 +167,7 @@ namespace kassasystem
 
             // TODO error handling for date
             // FIXME make selection persistant
-
+            if (availableRooms.SelectedItems.Count == 0) return;
             var selectedRoom = availableRooms.SelectedItems[0];
 
             if (selectedRoom == null)
@@ -176,10 +185,7 @@ namespace kassasystem
                 convertDateToEpoch(dateTimePicker1.Value),
                 CalculateRoomPrice(roomData.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
             );
-
             updateBookings();
-
-
         }
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
@@ -217,6 +223,93 @@ namespace kassasystem
         private void btnRemoveBooking_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void availableRooms_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.availableRooms.Sort();
+        }
+
+        private void unpaidBookings_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.unpaidBookings.Sort();
+        }
+
+        private void paidBookings_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.paidBookings.Sort();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (unpaidBookings.SelectedItems.Count == 0) return;
+
+            var selectedId = (Booking)unpaidBookings.SelectedItems[0].Tag;
+            databaseConnection.RemoveBooking(selectedId.Id);
+            updateBookings();
         }
     }
 
