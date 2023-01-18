@@ -30,18 +30,20 @@
         {
             this.lbl_button_val = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnPay = new System.Windows.Forms.Button();
             this.LblBooking = new System.Windows.Forms.Label();
             this.btnSendToPaymentList = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.bookingsList = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.panel1.SuspendLayout();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -59,27 +61,13 @@
             this.btnClear.BackColor = System.Drawing.Color.Red;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(1596, 934);
+            this.btnClear.Location = new System.Drawing.Point(1470, 934);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(146, 96);
+            this.btnClear.Size = new System.Drawing.Size(121, 96);
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.BtnClearClick);
-            // 
-            // listBox1
-            // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(300, 829);
-            this.listBox1.Sorted = true;
-            this.listBox1.TabIndex = 0;
             // 
             // lblTotal
             // 
@@ -87,10 +75,10 @@
             this.lblTotal.BackColor = System.Drawing.Color.White;
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTotal.Location = new System.Drawing.Point(1596, 876);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(3);
+            this.lblTotal.Location = new System.Drawing.Point(1470, 876);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(300, 43);
+            this.lblTotal.Size = new System.Drawing.Size(426, 43);
             this.lblTotal.TabIndex = 4;
             this.lblTotal.Text = "Total: 0.00 SEK";
             // 
@@ -100,9 +88,9 @@
             this.btnPay.BackColor = System.Drawing.Color.Lime;
             this.btnPay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPay.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnPay.Location = new System.Drawing.Point(1750, 934);
+            this.btnPay.Location = new System.Drawing.Point(1597, 934);
             this.btnPay.Name = "btnPay";
-            this.btnPay.Size = new System.Drawing.Size(146, 96);
+            this.btnPay.Size = new System.Drawing.Size(299, 96);
             this.btnPay.TabIndex = 5;
             this.btnPay.Text = "PAY";
             this.btnPay.UseVisualStyleBackColor = false;
@@ -150,22 +138,12 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(1596, 0);
+            this.label1.Location = new System.Drawing.Point(1471, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.label1.Size = new System.Drawing.Size(120, 38);
             this.label1.TabIndex = 14;
             this.label1.Text = "Checkout:";
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.listBox1);
-            this.panel1.Location = new System.Drawing.Point(1596, 38);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 829);
-            this.panel1.TabIndex = 15;
             // 
             // bookingsList
             // 
@@ -194,13 +172,52 @@
             this.columnHeader2.Text = "Name";
             this.columnHeader2.Width = 150;
             // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(1470, 41);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(426, 829);
+            this.listView1.TabIndex = 18;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "bookingID";
+            this.columnHeader3.Width = 90;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "First name";
+            this.columnHeader4.Width = 110;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Last name";
+            this.columnHeader5.Width = 110;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Price";
+            this.columnHeader6.Width = 110;
+            // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.bookingsList);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPay);
             this.Controls.Add(this.btnClear);
@@ -212,7 +229,6 @@
             this.Name = "UserControlPayment";
             this.Size = new System.Drawing.Size(1904, 1041);
             this.Load += new System.EventHandler(this.UserControlPayment_Load);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,17 +238,20 @@
 
         public Label lbl_button_val;
         public Button btnClear;
-        public ListBox listBox1;
         public Label lblTotal;
         public Button btnPay;
         public Label LblBooking;
         public Button btnSendToPaymentList;
         public Button button1;
         public Label label1;
-        private Panel panel1;
-        private ListView bookingsList;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
+        public ListView bookingsList;
+        public ColumnHeader columnHeader1;
+        public ColumnHeader columnHeader2;
+        public ListView listView1;
+        public ColumnHeader columnHeader3;
+        public ColumnHeader columnHeader4;
+        public ColumnHeader columnHeader5;
+        public ColumnHeader columnHeader6;
     }
 
 }

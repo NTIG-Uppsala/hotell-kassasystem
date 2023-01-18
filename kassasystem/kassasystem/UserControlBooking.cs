@@ -154,7 +154,6 @@ namespace kassasystem
             }
 
             var roomData = (Room) selectedRoom.Tag;
-            MessageBox.Show(roomData.ToString(), "Test", MessageBoxButtons.OK, MessageBoxIcon.None);
 
             databaseConnection.CreateNewBooking(roomData.Id,
                 inputFirstName.Text,

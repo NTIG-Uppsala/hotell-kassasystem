@@ -20,7 +20,7 @@ namespace kassasystem
     {   
         // Dictionaries for prices and products
         public Dictionary<string, int> priceList = new Dictionary<string, int>();
-        public Dictionary<string, decimal> cartDictionary = new Dictionary<string, decimal>();
+        public Dictionary<string, Booking> cartDictionary = new Dictionary<string, Booking>();
         PDFGenerator pdfGenerator = new PDFGenerator();
 
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
@@ -53,12 +53,36 @@ namespace kassasystem
             
             var culture = new CultureInfo("en-US");
 
+            listView1.Items.Clear();
 
-            listBox1.Items.Clear();
-            foreach (KeyValuePair<string, decimal> product in cartDictionary)
+            foreach (KeyValuePair<string, Booking> product in cartDictionary)
             {
+                Booking booking = product.Value;
+
+                if (booking.GuestFirstName == null)
+                {
+                    MessageBox.Show("GuestFirstName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (booking.GuestLastName == null)
+                {
+                    MessageBox.Show("GuestLastName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] displayArray =
+                {
+                    Convert.ToString(booking.Id),
+                    Convert.ToString(booking.GuestFirstName),
+                    Convert.ToString(booking.GuestLastName),
+                    Convert.ToString(booking.AmountDue),
+
+                };
+                ListViewItem item = new ListViewItem(displayArray);
+                item.Tag = booking;
                 // Adds products in formated order to list box
-                listBox1.Items.Add($"{product.Key} {selectedBooking.AmountDue.ToString("0.00", culture)} SEK");
+                listView1.Items.Add(item);
             }
             UpdateTotal();
         }
@@ -70,32 +94,26 @@ namespace kassasystem
 
             if (selectedBooking == null) return;
 
-            this.totalPrice = 0.00M;
+            totalPrice = 0.00M;
 
             if (cartDictionary.Count > 0)
             {
-                foreach (KeyValuePair<string, decimal> product in cartDictionary)
+                foreach (KeyValuePair<string, Booking> product in cartDictionary)
                 {
-
-                    this.totalPrice += selectedBooking.AmountDue;
+                    decimal price = product.Value.AmountDue;
+                    
+                    totalPrice += price;
                 }
             }
-            this.lblTotal.Text = $"Total: {this.totalPrice.ToString("0.00", culture)} SEK";
+            lblTotal.Text = $"Total: {totalPrice.ToString("0.00", culture)} SEK";
         }
 
         // Adds to the of amount of products in list box when product is already present
-        private void AddToCart(string productName)
-        {
-            if (cartDictionary.ContainsKey(productName))
-            {
-                cartDictionary[productName]++;
-            }
-            else
-            {
-                cartDictionary.Add(productName, 1);
-            }
-            UpdateCartView();
-        }
+        //private void AddToCart(string productName)
+        //{
+        //    cartDictionary.Add(productName, 1);
+        //    UpdateCartView();
+        //}
 
         // Checks differnce between current date and checkout date
         private int GetDateDifference(DateTime dateCheck)
@@ -107,24 +125,24 @@ namespace kassasystem
         }
 
         // Adds correct product to listbox according to the pressed button
-        private void BtnClick(object sender, EventArgs e)
-        {
-            var button = sender as Button;
-            if (button == null)
-            {
-                MessageBox.Show("Button text is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            string buttonText = button.Text;
-            AddToCart(buttonText);
+        //private void BtnClick(object sender, EventArgs e)
+        //{
+        //    var button = sender as Button;
+        //    if (button == null)
+        //    {
+        //        MessageBox.Show("Button text is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
+        //    string buttonText = button.Text;
+        //    AddToCart(buttonText);
 
-        }
+        //}
 
         // Resets the entire list box
         private void ResetValues()
         {
             cartDictionary.Clear();
-            listBox1.Items.Clear();
+            listView1.Items.Clear();
             //CheckOutDayPicker.Value = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
             UpdateTotal();
         }
@@ -144,7 +162,7 @@ namespace kassasystem
                 return;
             }
 
-            if (listBox1.Items.Count > 0) // REFACTOR invert
+            if (listView1.Items.Count > 0) // REFACTOR invert
             {
                 db.SaveReceiptData(selectedBooking.Id, totalPrice);
                 db.SetBookingPaid(selectedBooking.PaymentId);
@@ -172,16 +190,11 @@ namespace kassasystem
                 var data = (Booking)bookingsList.SelectedItems[0].Tag;
 
                 if (bookingsList.SelectedItems[0] == null) return;
-                //var bookingItem = (BookingItem)bookingsList.SelectedItems[0];
-                //if (bookingItem == null) return;
-                //Booking? selectedBooking = bookingItem.BookingObject;
-                //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
-
+                Booking? selectedBooking = data;
 
                 if (selectedBooking == null) return; // REFACTOR invert
-        
-                //System.Diagnostics.Debug.Write($"{Convert.ToString(selectedBooking.Id)}, {selectedBooking.AmountDue}");
-                cartDictionary.Add(Convert.ToString(data.Id), data.AmountDue);
+                
+                cartDictionary.Add(Convert.ToString(data.Id), data);
                 this.selectedBooking = selectedBooking;
                 UpdateCartView();
 
