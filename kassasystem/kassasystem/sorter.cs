@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Windows.Forms;
+using kassasystem;
 
 /// <summary>
 /// This class is an implementation of the 'IComparer' interface.
@@ -45,14 +45,48 @@ public class ListViewColumnSorter : IComparer
     public int Compare(object x, object y)
     {
         int compareResult;
-        ListViewItem listviewX, listviewY;
+        ListViewItem listViewX, listViewY;
+        TypedListViewItem? typedListViewX, typedListViewY;
 
         // Cast the objects to be compared to ListViewItem objects
-        listviewX = (ListViewItem)x;
-        listviewY = (ListViewItem)y;
+        listViewX = (ListViewItem)x;
+        listViewY = (ListViewItem)y;
+        typedListViewX = listViewX as TypedListViewItem;
+        typedListViewY = listViewY as TypedListViewItem;
+
+        if (typedListViewX != null && typedListViewY != null)
+        {
+            Type type = typedListViewX.TypeDictionary[typedListViewX.SubItems[ColumnToSort].Text];
+
+            if (type != typedListViewY.TypeDictionary[typedListViewY.SubItems[ColumnToSort].Text])
+                goto StringComparison;
+
+            int returnValue = 0;
+            switch(Type.GetTypeCode(type))
+            {
+                case TypeCode.Int64:
+                    if (Int64.TryParse(typedListViewX.SubItems[ColumnToSort].Text, out Int64 parsedX) &&
+                        Int64.TryParse(typedListViewY.SubItems[ColumnToSort].Text, out Int64 parsedY))
+                        if (parsedX < parsedY)
+                            returnValue = -1;
+                        else if (parsedX > parsedY)
+                            returnValue = 1;
+
+                    if (OrderOfSort == SortOrder.Descending)
+                        return -returnValue;
+                    else
+                        return returnValue;
+
+                default: goto StringComparison;
+            }
+
+            return 0;
+        }
+
+StringComparison: // Label :P
 
         // Compare the two items
-        compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+        compareResult = ObjectCompare.Compare(listViewX.SubItems[ColumnToSort].Text, listViewY.SubItems[ColumnToSort].Text);
 
         // Calculate correct return value based on object comparison
         if (OrderOfSort == SortOrder.Ascending)

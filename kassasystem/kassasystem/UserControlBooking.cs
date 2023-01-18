@@ -59,14 +59,9 @@ namespace kassasystem
                     return;
                 }
 
-                string[] displayArray =
-                {
-                    Convert.ToString(booking.Id),
-                    Convert.ToString(booking.GuestFirstName),
-                    Convert.ToString(booking.GuestLastName)
-                };
-
-                ListViewItem item = new ListViewItem(displayArray);
+                var item = new TypedListViewItem(booking.Id,
+                                                 booking.GuestFirstName,
+                                                 booking.GuestLastName);
                 item.Tag = booking;
                 unpaidBookings.Items.Add(item);
             }
@@ -85,14 +80,9 @@ namespace kassasystem
                     return;
                 }
 
-                string[] displayArray =
-                {
-                    Convert.ToString(booking.Id),
-                    Convert.ToString(booking.GuestFirstName),
-                    Convert.ToString(booking.GuestLastName)
-                };
-
-                ListViewItem item = new ListViewItem(displayArray);
+                var item = new TypedListViewItem(booking.Id,
+                                                 booking.GuestFirstName,
+                                                 booking.GuestLastName);
                 item.Tag = booking;
                 paidBookings.Items.Add(item);
             }
@@ -112,17 +102,12 @@ namespace kassasystem
                     return;
                 }
 
-                string[] displayArray =
-                {                 
-                    Convert.ToString(room.Number),
-                    Convert.ToString(room.Type),
-                    Convert.ToString(room.RecommendedPeople),
-                    Convert.ToString(room.Floor),
-                    Convert.ToString(room.Rate),
-                    Convert.ToString(room.Id)
-                };
-
-                ListViewItem item = new ListViewItem(displayArray);
+                ListViewItem item = new TypedListViewItem(room.Number,
+                                                          room.Type,
+                                                          room.RecommendedPeople,
+                                                          room.Floor,
+                                                          room.Rate,
+                                                          room.Id);
                 item.Tag = room;
                 availableRooms.Items.Add(item);
             }
