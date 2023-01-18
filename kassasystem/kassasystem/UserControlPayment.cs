@@ -71,6 +71,8 @@ namespace kassasystem
                     return;
                 }
 
+                db.GetBookingDate(booking.Id);
+
                 string[] displayArray =
                 {
                     Convert.ToString(booking.Id),
@@ -240,10 +242,21 @@ namespace kassasystem
                     return;
                 }
 
+                if (booking.GuestLastName == null)
+                {
+                    MessageBox.Show("GuestLastName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] dateData = db.GetBookingDate(booking.Id);
+
                 string[] displayArray =
                 {
                     Convert.ToString(booking.Id),
-                    Convert.ToString(booking.GuestFirstName)
+                    Convert.ToString(booking.GuestFirstName),
+                    Convert.ToString(booking.GuestLastName),
+                    dateData[0],
+                    dateData[1]
                 };
 
                 ListViewItem item = new ListViewItem(displayArray);

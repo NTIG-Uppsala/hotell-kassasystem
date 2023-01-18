@@ -44,6 +44,9 @@
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -76,7 +79,7 @@
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTotal.Location = new System.Drawing.Point(1470, 876);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(3);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(426, 43);
             this.lblTotal.TabIndex = 4;
@@ -112,7 +115,7 @@
             this.btnSendToPaymentList.BackColor = System.Drawing.Color.LightGray;
             this.btnSendToPaymentList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSendToPaymentList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSendToPaymentList.Location = new System.Drawing.Point(518, 89);
+            this.btnSendToPaymentList.Location = new System.Drawing.Point(528, 89);
             this.btnSendToPaymentList.Name = "btnSendToPaymentList";
             this.btnSendToPaymentList.Size = new System.Drawing.Size(175, 45);
             this.btnSendToPaymentList.TabIndex = 12;
@@ -125,7 +128,7 @@
             this.button1.BackColor = System.Drawing.Color.LightGray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(518, 38);
+            this.button1.Location = new System.Drawing.Point(528, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(175, 45);
             this.button1.TabIndex = 13;
@@ -151,13 +154,16 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.bookingsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9});
             this.bookingsList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bookingsList.FullRowSelect = true;
             this.bookingsList.GridLines = true;
             this.bookingsList.Location = new System.Drawing.Point(8, 38);
             this.bookingsList.Name = "bookingsList";
-            this.bookingsList.Size = new System.Drawing.Size(504, 992);
+            this.bookingsList.Size = new System.Drawing.Size(514, 992);
             this.bookingsList.TabIndex = 17;
             this.bookingsList.UseCompatibleStateImageBehavior = false;
             this.bookingsList.View = System.Windows.Forms.View.Details;
@@ -169,8 +175,8 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Name";
-            this.columnHeader2.Width = 150;
+            this.columnHeader2.Text = "First name";
+            this.columnHeader2.Width = 110;
             // 
             // listView1
             // 
@@ -210,6 +216,21 @@
             // 
             this.columnHeader6.Text = "Price";
             this.columnHeader6.Width = 110;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Last name";
+            this.columnHeader7.Width = 110;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "CheckIn Date";
+            this.columnHeader8.Width = 120;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "CheckOut Date";
+            this.columnHeader9.Width = 120;
             // 
             // UserControlPayment
             // 
@@ -252,6 +273,9 @@
         public ColumnHeader columnHeader4;
         public ColumnHeader columnHeader5;
         public ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader8;
+        private ColumnHeader columnHeader9;
     }
 
 }

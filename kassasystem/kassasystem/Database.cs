@@ -395,5 +395,27 @@ namespace kassasystem
             QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingID}; DELETE FROM roomsBooked WHERE bookingID = {bookingID};");
         }
 
+        public string[] GetBookingDate(Int64 bookingID)
+        {
+            var data = QueryExecutor($"SELECT dateFrom, dateTo FROM bookings WHERE bookingID = {bookingID}");
+
+            string dateFrom = data[0]["dateFrom"].ToString();
+            string dateTo = data[0]["dateTo"].ToString();
+
+            long dateFrom2 = long.Parse(dateFrom);
+            long dateTo2 = long.Parse(dateTo);
+
+            DateTimeOffset checkInDate = DateTimeOffset.FromUnixTimeSeconds(dateFrom2);
+            DateTimeOffset checkOutDate = DateTimeOffset.FromUnixTimeSeconds(dateTo2);
+
+            string[] dataArray =
+            {
+                Convert.ToString(checkInDate).Split(" ")[0],
+                Convert.ToString(checkOutDate).Split(" ")[0]
+            };
+
+            return dataArray;
+        }
+
     }
 }
