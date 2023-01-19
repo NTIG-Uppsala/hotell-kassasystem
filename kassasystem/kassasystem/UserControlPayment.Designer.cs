@@ -258,9 +258,9 @@
         public ColumnHeader columnHeader4;
         public ColumnHeader columnHeader5;
         public ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
-        private ColumnHeader columnHeader8;
-        private ColumnHeader columnHeader9;
+        public ColumnHeader columnHeader7;
+        public ColumnHeader columnHeader8;
+        public ColumnHeader columnHeader9;
     }
 
 }

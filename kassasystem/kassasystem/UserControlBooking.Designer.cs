@@ -319,22 +319,22 @@
         public Button btnSave;
         public TextBox inputFirstName;
         public TextBox inputLastName;
-        private Label label1;
-        private Label label2;
-        private ListView unpaidBookings;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ListView paidBookings;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ListView availableRooms;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
-        private ColumnHeader columnHeader8;
-        private ColumnHeader columnHeader9;
-        private ColumnHeader columnHeader10;
-        private ColumnHeader columnHeader11;
+        public Label label1;
+        public Label label2;
+        public ListView unpaidBookings;
+        public ColumnHeader columnHeader1;
+        public ColumnHeader columnHeader2;
+        public ListView paidBookings;
+        public ColumnHeader columnHeader3;
+        public ColumnHeader columnHeader4;
+        public ListView availableRooms;
+        public ColumnHeader columnHeader5;
+        public ColumnHeader columnHeader6;
+        public ColumnHeader columnHeader7;
+        public ColumnHeader columnHeader8;
+        public ColumnHeader columnHeader9;
+        public ColumnHeader columnHeader10;
+        public ColumnHeader columnHeader11;
         public Button btnRemove;
     }
 }
