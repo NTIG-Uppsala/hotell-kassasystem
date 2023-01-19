@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -93,7 +95,7 @@ namespace kassasystem
             availableRooms.Items.Clear();
 
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
-
+            var culture = new CultureInfo("en-US");
             foreach (Room room in rooms)
             {
                 if (room.Type == null)
@@ -106,7 +108,7 @@ namespace kassasystem
                                                           room.Type,
                                                           room.RecommendedPeople,
                                                           room.Floor,
-                                                          room.Rate,
+                                                          room.Rate.ToString("0.00", culture),
                                                           room.Id);
                 item.Tag = room;
                 availableRooms.Items.Add(item);

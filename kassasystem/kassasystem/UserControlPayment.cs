@@ -57,8 +57,7 @@ namespace kassasystem
                     Convert.ToString(booking.Id),
                     Convert.ToString(booking.GuestFirstName),
                     Convert.ToString(booking.GuestLastName),
-                    Convert.ToString(booking.AmountDue),
-
+                    booking.AmountDue.ToString("0.00", culture)
                 };
                 ListViewItem item = new ListViewItem(displayArray);
                 item.Tag = booking;
