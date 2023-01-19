@@ -101,7 +101,7 @@ public class ListViewColumnSorter : IComparer
             }
         }
 
-StringComparison: // Label :P
+StringComparison:
 
         // Compare the two items
         compareResult = ObjectCompare.Compare(listViewX.SubItems[ColumnToSort].Text, listViewY.SubItems[ColumnToSort].Text);

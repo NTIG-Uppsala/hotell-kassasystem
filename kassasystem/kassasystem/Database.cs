@@ -386,6 +386,7 @@ namespace kassasystem
 
             string dateFrom = data[0]["dateFrom"].ToString();
             string dateTo = data[0]["dateTo"].ToString();
+ 
 
             long dateFrom2 = long.Parse(dateFrom);
             long dateTo2 = long.Parse(dateTo);

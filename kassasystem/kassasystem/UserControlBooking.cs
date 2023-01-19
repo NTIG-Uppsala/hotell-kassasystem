@@ -20,11 +20,11 @@ namespace kassasystem
     {
         private ListViewColumnSorter lvwColumnSorter;
 
-        Booking newbooking = new Booking(); // FIXME spelling
+        Booking newBooking = new Booking(); // FIXME spelling
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
         static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
         Database databaseConnection = new Database(path, "database.db");
-        Dictionary<Int64, Room> avaliableRoomsList = new Dictionary<Int64, Room>(); // FIXME spelling
+        Dictionary<Int64, Room> availableRoomsList = new Dictionary<Int64, Room>();
                                                                                     // REFACTOR
         public UserControlBooking()
         {
@@ -46,7 +46,6 @@ namespace kassasystem
             var unpaid = databaseConnection.GetUnpaidBookings();
             var paid = databaseConnection.GetPaidBookings();
 
-            // Listview test
             foreach (Booking booking in unpaid)
             {
                 if (booking.GuestFirstName == null)
@@ -95,7 +94,6 @@ namespace kassasystem
             availableRooms.Items.Clear();
 
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
-            var culture = new CultureInfo("en-US");
             foreach (Room room in rooms)
             {
                 if (room.Type == null)

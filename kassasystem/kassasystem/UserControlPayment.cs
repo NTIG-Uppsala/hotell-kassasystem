@@ -102,7 +102,6 @@ namespace kassasystem
         {
             cartDictionary.Clear();
             listView1.Items.Clear();
-            //CheckOutDayPicker.Value = Convert.ToDateTime(DateTime.Now.Date.ToString().Split()[0]);
             UpdateTotal();
         }
 
@@ -150,10 +149,7 @@ namespace kassasystem
                 cartDictionary.Add(Convert.ToString(data.Id), data);
                 this.selectedBooking = selectedBooking;
                 UpdateCartView();
-
-
             };
-
         }
 
         public void updateUnpaidBookings()
