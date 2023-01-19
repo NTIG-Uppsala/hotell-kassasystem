@@ -380,24 +380,36 @@ namespace kassasystem
             QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingID}; DELETE FROM roomsBooked WHERE bookingID = {bookingID};");
         }
 
-        public string[] GetBookingDate(Int64 bookingID)
+        public string[]? GetBookingDate(Int64 bookingID)
         {
             var data = QueryExecutor($"SELECT dateFrom, dateTo FROM bookings WHERE bookingID = {bookingID}");
 
-            string dateFrom = data[0]["dateFrom"].ToString();
-            string dateTo = data[0]["dateTo"].ToString();
- 
+            var dateFrom = data[0]["dateFrom"];
+            var dateTo = data[0]["dateTo"];
 
-            long dateFrom2 = long.Parse(dateFrom);
-            long dateTo2 = long.Parse(dateTo);
+            if (dateFrom == null || dateTo == null)
+                return null;
+
+            string? dateFromStr = dateFrom.ToString();
+            string? dateToStr = dateTo.ToString();
+            if (dateFromStr == null || dateToStr == null)
+                return null;
+
+            long dateFrom2 = long.Parse(dateFromStr);
+            long dateTo2 = long.Parse(dateToStr);
 
             DateTimeOffset checkInDate = DateTimeOffset.FromUnixTimeSeconds(dateFrom2);
             DateTimeOffset checkOutDate = DateTimeOffset.FromUnixTimeSeconds(dateTo2);
 
+            string? checkInDateStr = checkInDate.ToString();
+            string? checkOutDateStr = checkOutDate.ToString();
+            if (checkInDateStr == null || checkOutDateStr == null)
+                return null;
+
             string[] dataArray =
             {
-                Convert.ToString(checkInDate).Split(" ")[0],
-                Convert.ToString(checkOutDate).Split(" ")[0]
+                checkInDateStr.Split(" ")[0],
+                checkOutDateStr.Split(" ")[0]
             };
 
             return dataArray;

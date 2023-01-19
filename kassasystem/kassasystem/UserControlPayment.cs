@@ -50,7 +50,12 @@ namespace kassasystem
                     return;
                 }
 
-                db.GetBookingDate(booking.Id);
+                string[]? dateData = db.GetBookingDate(booking.Id);
+                if (dateData == null)
+                {
+                    MessageBox.Show("Booking date is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 string[] displayArray =
                 {
@@ -172,7 +177,12 @@ namespace kassasystem
                     return;
                 }
 
-                string[] dateData = db.GetBookingDate(booking.Id);
+                string[]? dateData = db.GetBookingDate(booking.Id);
+                if (dateData == null)
+                {
+                    MessageBox.Show("Booking date is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 string[] displayArray =
                 {
