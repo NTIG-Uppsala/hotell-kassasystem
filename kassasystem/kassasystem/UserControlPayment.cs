@@ -26,18 +26,6 @@ namespace kassasystem
             this.bookingsList.ListViewItemSorter = lvwColumnSorter;
         }
 
-        private void Form1Load(object sender, EventArgs e)
-        {
-
-        }
-
-        // Calculates price of room
-        private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
-        {
-            Decimal formula = roomPrice + (roomPrice * nights);
-            return formula;
-        }
-
         private void UpdateCartView()
         {
             if (selectedBooking == null) return;
@@ -101,13 +89,6 @@ namespace kassasystem
             lblTotal.Text = $"Total: {totalPrice.ToString("0.00", culture)} SEK";
         }
 
-        // Adds to the of amount of products in list box when product is already present
-        //private void AddToCart(string productName)
-        //{
-        //    cartDictionary.Add(productName, 1);
-        //    UpdateCartView();
-        //}
-
         // Checks differnce between current date and checkout date
         private int GetDateDifference(DateTime dateCheck)
         {
@@ -116,20 +97,6 @@ namespace kassasystem
             int difference = (int)(theDate - today).TotalDays;
             return difference;
         }
-
-        // Adds correct product to listbox according to the pressed button
-        //private void BtnClick(object sender, EventArgs e)
-        //{
-        //    var button = sender as Button;
-        //    if (button == null)
-        //    {
-        //        MessageBox.Show("Button text is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return;
-        //    }
-        //    string buttonText = button.Text;
-        //    AddToCart(buttonText);
-
-        //}
 
         // Resets the entire list box
         private void ResetValues()
@@ -167,12 +134,6 @@ namespace kassasystem
             }
         }
 
-        // Keeps amount of days up to date
-        private void CheckOutDayPicker_ValueChanged(object sender, EventArgs e)
-        {
-            UpdateCartView();
-        }
-
         private void btnSendToPaymentList_Click(object sender, EventArgs e)
         {
 
@@ -195,29 +156,6 @@ namespace kassasystem
             };
 
         }
-
-        //private void bookingsList_SelectedIndexChanged(object sender, EventArgs e) 
-        //{
-        //    if (bookingsList.SelectedItems.Count == 1) // REFACTOR invert
-        //    {
-        //        System.Diagnostics.Debug.WriteLine($"INDEX SELECTED FROM BOOKING LIST {bookingsList.SelectedIndex.ToString()}");
-        //        cartDictionary.Clear();
-        //        if (bookingsList.SelectedItem == null) return;
-        //        var bookingItem = (BookingItem)bookingsList.SelectedItem;
-        //        if (bookingItem == null) return;
-        //        Booking? selectedBooking = bookingItem.BookingObject;
-        //        //System.Diagnostics.Debug.WriteLine($"ITEM SELECTED {selectedBooking.ToString()}");
-
-        //        if (selectedBooking != null) // REFACTOR invert
-        //        {
-        //            this.selectedBooking = selectedBooking;
-        //        }
-        //        else
-        //        {
-        //            //
-        //        }
-        //    };
-        //}
 
         public void updateUnpaidBookings()
         {

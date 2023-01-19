@@ -79,8 +79,6 @@ public class ListViewColumnSorter : IComparer
 
                 default: goto StringComparison;
             }
-
-            return 0;
         }
 
 StringComparison: // Label :P

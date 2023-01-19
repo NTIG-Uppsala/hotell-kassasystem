@@ -205,11 +205,6 @@ namespace kassasystem
             AvailableRooms();
         }
 
-        private void btnRemoveBooking_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void availableRooms_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             // Determine if clicked column is already the column that is being sorted.

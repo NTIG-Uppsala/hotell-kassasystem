@@ -195,8 +195,6 @@ namespace kassasystem
         }
         public List<Room> GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
-            // var row = QueryExecutor($"SELECT r.roomID, r1.floor, r1.roomNumber, r1.rate, r2.type, r2.totalPeople\r\nFROM roomsBooked r \r\n\tINNER JOIN bookings b ON ( b.bookingID = r.bookingID  )  \r\n\tINNER JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tINNER JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\nWHERE NOT ({epochStartDate} <= b.dateTo AND {epochEndDate} >= b.dateFrom)\r\nGROUP BY r1.roomID;");
-
             var rooms = QueryExecutor("SELECT * FROM rooms");
             var roomTypes = QueryExecutor("SELECT * FROM roomTypes");
 
@@ -210,8 +208,6 @@ namespace kassasystem
                     if (typeID.ToString() == roomTypes[y]["roomTypesID"].ToString())
                     {
                         roomTypes[y].ToList().ForEach(z => rooms[x][z.Key] = z.Value);
-                        //rooms[x].ToList().ForEach(z => System.Diagnostics.Debug.WriteLine(z.Key, z.Value));
-                        //System.Diagnostics.Debug.WriteLine(rooms[x].Count);
                     } 
                     
                 }
@@ -273,11 +269,8 @@ namespace kassasystem
                 newBooking.PaymentDate = (Int64)rows[i]["date"];
                 newBooking.AmountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
                 newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
-                // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.GuestFirstName = (string)rows[i]["firstName"];
                 newBooking.GuestLastName = (string)rows[i]["lastName"];
-                //newBooking.dateFrom = (string)rows[i]["dateFrom"];
-                //newBooking.dateTo = (string)rows[i]["dateTo"];
 
 
                 output.Add(newBooking);
@@ -302,14 +295,10 @@ namespace kassasystem
                 Booking newBooking = new Booking();
                 newBooking.Id = (Int64)rows[i]["bookingID"];
                 newBooking.PaymentId = (Int64)rows[i]["paymentID"];
-                //newBooking.paymentDate = (Int64)rows[i]["date"];
                 newBooking.AmountDue = Convert.ToDecimal((Int64)rows[i]["amount"]) / 100m;
                 newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
-                // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.GuestFirstName = (string)rows[i]["firstName"];
                 newBooking.GuestLastName = (string)rows[i]["lastName"];
-                //newBooking.dateFrom = (string)rows[i]["dateFrom"];
-                //newBooking.dateTo = (string)rows[i]["dateTo"];
 
 
                 output.Add(newBooking);
@@ -334,14 +323,10 @@ namespace kassasystem
                 Booking newBooking = new Booking();
                 newBooking.Id = (Int64)rows[i]["bookingID"];
                 newBooking.PaymentId = (Int64)rows[i]["paymentID"];
-                //newBooking.paymentDate = (Int64)rows[i]["date"];
                 newBooking.AmountDue = Convert.ToDecimal((Int64) rows[i]["amount"]) / 100m;
                 newBooking.RoomNumber = (Int64)rows[i]["roomNumber"];
-                // newBooking.paymentType = (string)rows[i]["type"];
                 newBooking.GuestFirstName = (string)rows[i]["firstName"];
                 newBooking.GuestLastName = (string)rows[i]["lastName"];
-                //newBooking.dateFrom = (string)rows[i]["dateFrom"];
-                //newBooking.dateTo = (string)rows[i]["dateTo"];
 
 
                 output.Add(newBooking);
