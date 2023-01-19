@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using kassasystem;
 
 /// <summary>
@@ -62,20 +63,39 @@ public class ListViewColumnSorter : IComparer
                 goto StringComparison;
 
             int returnValue = 0;
-            switch(Type.GetTypeCode(type))
+            switch (Type.GetTypeCode(type))
             {
                 case TypeCode.Int64:
-                    if (Int64.TryParse(typedListViewX.SubItems[ColumnToSort].Text, out Int64 parsedX) &&
-                        Int64.TryParse(typedListViewY.SubItems[ColumnToSort].Text, out Int64 parsedY))
-                        if (parsedX < parsedY)
-                            returnValue = -1;
-                        else if (parsedX > parsedY)
-                            returnValue = 1;
+                    if (!Int64.TryParse(typedListViewX.SubItems[ColumnToSort].Text, out Int64 parsedIntX) ||
+                        !Int64.TryParse(typedListViewY.SubItems[ColumnToSort].Text, out Int64 parsedIntY))
+                        goto StringComparison;
+
+                    if (parsedIntX < parsedIntY)
+                        returnValue = -1;
+                    else if (parsedIntX > parsedIntY)
+                        returnValue = 1;
 
                     if (OrderOfSort == SortOrder.Descending)
                         return -returnValue;
-                    else
-                        return returnValue;
+
+                    return returnValue;
+
+                case TypeCode.Decimal:
+                    string x_text = typedListViewX.SubItems[ColumnToSort].Text.Replace('.', Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
+                    string y_text = typedListViewY.SubItems[ColumnToSort].Text.Replace('.', Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
+                    if (!Decimal.TryParse(x_text, out decimal parsedDecX) ||
+                        !Decimal.TryParse(y_text, out decimal parsedDecY))
+                        goto StringComparison;
+
+                    if (parsedDecX < parsedDecY)
+                        returnValue = -1;
+                    else if (parsedDecX > parsedDecY)
+                        returnValue = 1;
+
+                    if (OrderOfSort == SortOrder.Descending)
+                        return -returnValue;
+
+                    return returnValue;
 
                 default: goto StringComparison;
             }

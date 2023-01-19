@@ -68,7 +68,7 @@ namespace kassasystem
 
             // Tax and total amount
             gfx.DrawString($"Total without tax: {data.TotalNoTax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 15, page.Width, page.Height), XStringFormats.TopLeft);
-            gfx.DrawString($"Tax: {data.Tax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
+            gfx.DrawString($"Tax (12%): {data.Tax.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset + 45, page.Width, page.Height), XStringFormats.TopLeft);
             gfx.DrawString($"Total: {data.Total.ToString("0.00", culture)} SEK", productFont, XBrushes.Black, new XRect(15, offset+75, page.Width, page.Height), XStringFormats.TopLeft);
 
 

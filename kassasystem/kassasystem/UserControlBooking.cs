@@ -104,12 +104,12 @@ namespace kassasystem
                     return;
                 }
 
-                ListViewItem item = new TypedListViewItem(room.Number,
-                                                          room.Type,
-                                                          room.RecommendedPeople,
-                                                          room.Floor,
-                                                          room.Rate.ToString("0.00", culture),
-                                                          room.Id);
+                var item = new TypedListViewItem(room.Number,
+                                 room.Type,
+                                 room.RecommendedPeople,
+                                 room.Floor,
+                                 room.Rate,
+                                 room.Id);
                 item.Tag = room;
                 availableRooms.Items.Add(item);
             }
