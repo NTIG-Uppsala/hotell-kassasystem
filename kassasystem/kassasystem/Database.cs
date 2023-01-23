@@ -60,7 +60,7 @@ namespace kassasystem
     public class Database
     {
         private static readonly string[] tables = {
-            "CREATE TABLE \"bookings\" (\r\n\t\"bookingID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"dateFrom\"\tNUMERIC,\r\n\t\"dateTo\"\tNUMERIC,\r\n\t\"roomCount\"\tINTEGER,\r\n\t\"isBreakfastIncluded\"\tNUMERIC,\r\n\tPRIMARY KEY(\"bookingID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\")\r\n);",
+            "CREATE TABLE \"bookings\" (\r\n\t\"bookingID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"dateFrom\"\tNUMERIC,\r\n\t\"dateTo\"\tNUMERIC,\r\n\t\"roomCount\"\tINTEGER,\r\n\t\"isBreakfastIncluded\"\tNUMERIC,\r\n\t\"isRemoved\"\tNUMERIC,\r\n\tPRIMARY KEY(\"bookingID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\")\r\n)",
             "CREATE TABLE \"externalCosts\" (\r\n\t\"externalCostsID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"paymentID\"\tINTEGER,\r\n\t\"externalCost\"\tTEXT,\r\n\t\"costDescription\"\tTEXT,\r\n\tFOREIGN KEY(\"paymentID\") REFERENCES \"payment\"(\"paymentID\"),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\"),\r\n\tPRIMARY KEY(\"externalCostsID\" AUTOINCREMENT)\r\n);",
             "CREATE TABLE \"guestContact\" (\r\n\t\"guestContactID\"\tINTEGER NOT NULL,\r\n\t\"guestID\"\tINTEGER,\r\n\t\"mail\"\tTEXT,\r\n\t\"phoneNumber\"\tINTEGER,\r\n\tPRIMARY KEY(\"guestContactID\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"guestID\") REFERENCES \"guests\"(\"guestID\")\r\n);",
             "CREATE TABLE \"guests\" (\r\n\t\"guestID\"\tINTEGER NOT NULL,\r\n\t\"firstName\"\tTEXT,\r\n\t\"lastName\"\tTEXT,\r\n\tPRIMARY KEY(\"guestID\" AUTOINCREMENT)\r\n);",
@@ -319,7 +319,7 @@ namespace kassasystem
             /*
              * For each booking save it to a list of Booking objects to be used later (when creating PDF and updating cart view)
              */
-            var rows = QueryExecutor("SELECT b.guestID, b.dateFrom, b.dateTo, b.roomCount, b.isBreakfastIncluded, r.roomsBookedID, r.bookingID, r.roomID, r1.roomID, r1.roomTypesID, r1.floor, r1.roomNumber, r1.rate, r2.totalPeople, g.firstName, g.lastName, p.paymentID, p.date, p.amount, p.isPaid, p1.\"type\"\r\nFROM bookings b \r\n\tLEFT JOIN roomsBooked r ON ( r.bookingID = b.bookingID  )  \r\n\tLEFT JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tLEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\n\tLEFT JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\n\tLEFT JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tLEFT JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\nWHERE p.isPaid = 0");
+            var rows = QueryExecutor("SELECT b.guestID, b.dateFrom, b.dateTo, b.roomCount, b.isBreakfastIncluded, r.roomsBookedID, r.bookingID, r.roomID, r1.roomID, r1.roomTypesID, r1.floor, r1.roomNumber, r1.rate, r2.totalPeople, g.firstName, g.lastName, p.paymentID, p.date, p.amount, p.isPaid, p1.\"type\"\r\nFROM bookings b \r\n\tLEFT JOIN roomsBooked r ON ( r.bookingID = b.bookingID  )  \r\n\tLEFT JOIN rooms r1 ON ( r1.roomID = r.roomID  )  \r\n\tLEFT JOIN roomTypes r2 ON ( r2.roomTypesID = r1.roomTypesID  )  \r\n\tLEFT JOIN guests g ON ( g.guestID = b.guestID  )  \r\n\tLEFT JOIN guestContact g1 ON ( g1.guestID = g.guestID  )  \r\n\tLEFT JOIN payment p ON ( p.paymentID = b.paymentID  )  \r\n\tLEFT JOIN paymentType p1 ON ( p1.paymentTypeID = p.paymentTypeID  )  \r\nWHERE p.isPaid = 0 AND b.isRemoved = 0");
 
            
 
@@ -383,7 +383,8 @@ namespace kassasystem
 
         public void RemoveBooking(Int64 bookingID)
         {
-            QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingID}; DELETE FROM roomsBooked WHERE bookingID = {bookingID};");
+            QueryExecutor($"UPDATE bookings SET isRemoved = 1 WHERE bookingID = {bookingID}");
+            //QueryExecutor($"DELETE FROM bookings WHERE bookingID = {bookingID}; DELETE FROM roomsBooked WHERE bookingID = {bookingID};");
         }
 
         public string[]? GetBookingDate(Int64 bookingID)
