@@ -40,9 +40,13 @@
             this.unpaidBookings = new System.Windows.Forms.ListView();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
             this.paidBookings = new System.Windows.Forms.ListView();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
             this.availableRooms = new System.Windows.Forms.ListView();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
@@ -50,10 +54,9 @@
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnCancelBooking = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -190,6 +193,16 @@
             this.columnHeader10.Text = "Last name";
             this.columnHeader10.Width = 150;
             // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Check-in date";
+            this.columnHeader12.Width = 120;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Check-out date";
+            this.columnHeader13.Width = 120;
+            // 
             // paidBookings
             // 
             this.paidBookings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -210,17 +223,27 @@
             this.paidBookings.View = System.Windows.Forms.View.Details;
             this.paidBookings.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.paidBookings_ColumnClick);
             // 
+            // columnHeader11
+            // 
+            this.columnHeader11.DisplayIndex = 1;
+            this.columnHeader11.Text = "Last name";
+            this.columnHeader11.Width = 150;
+            // 
             // columnHeader4
             // 
             this.columnHeader4.DisplayIndex = 0;
             this.columnHeader4.Text = "First name";
             this.columnHeader4.Width = 150;
             // 
-            // columnHeader11
+            // columnHeader1
             // 
-            this.columnHeader11.DisplayIndex = 1;
-            this.columnHeader11.Text = "Last name";
-            this.columnHeader11.Width = 150;
+            this.columnHeader1.Text = "Check-in date";
+            this.columnHeader1.Width = 120;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Check-out date";
+            this.columnHeader14.Width = 120;
             // 
             // availableRooms
             // 
@@ -281,31 +304,53 @@
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // columnHeader12
+            // label3
             // 
-            this.columnHeader12.Text = "Check-in date";
-            this.columnHeader12.Width = 120;
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(1111, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 21);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Check-In";
+            this.label3.Visible = false;
             // 
-            // columnHeader13
+            // label4
             // 
-            this.columnHeader13.Text = "Check-out date";
-            this.columnHeader13.Width = 120;
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(1389, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 21);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Check-Out";
+            this.label4.Visible = false;
             // 
-            // columnHeader1
+            // btnCancelBooking
             // 
-            this.columnHeader1.Text = "Check-in date";
-            this.columnHeader1.Width = 120;
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "Check-out date";
-            this.columnHeader14.Width = 120;
+            this.btnCancelBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelBooking.BackColor = System.Drawing.Color.LightGray;
+            this.btnCancelBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelBooking.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelBooking.Location = new System.Drawing.Point(1493, 978);
+            this.btnCancelBooking.Name = "btnCancelBooking";
+            this.btnCancelBooking.Size = new System.Drawing.Size(175, 45);
+            this.btnCancelBooking.TabIndex = 20;
+            this.btnCancelBooking.Text = "Cancel";
+            this.btnCancelBooking.UseVisualStyleBackColor = false;
+            this.btnCancelBooking.Visible = false;
+            this.btnCancelBooking.Click += new System.EventHandler(this.btnCancelBooking_Click);
             // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.btnCancelBooking);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.availableRooms);
             this.Controls.Add(this.paidBookings);
@@ -354,5 +399,8 @@
         private ColumnHeader columnHeader13;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader14;
+        private Label label3;
+        private Label label4;
+        public Button btnCancelBooking;
     }
 }

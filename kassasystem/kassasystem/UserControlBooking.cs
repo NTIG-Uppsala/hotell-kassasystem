@@ -126,8 +126,11 @@ namespace kassasystem
         private void btnNewBooking_Click(object sender, EventArgs e)
         {
             btnSave.Show();
+            btnCancelBooking.Show();
             inputFirstName.Show();
             inputLastName.Show();
+            label3.Show();
+            label4.Show();
             availableRooms.Show();
             dateTimePicker1.Show();
             dateTimePicker2.Show();
@@ -142,8 +145,11 @@ namespace kassasystem
         {
             // REFACTOR
             btnSave.Hide();
+            btnCancelBooking.Hide();
             inputFirstName.Hide();
             inputLastName.Hide();
+            label3.Hide();
+            label4.Hide();
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
@@ -297,9 +303,33 @@ namespace kassasystem
         {
             if (unpaidBookings.SelectedItems.Count == 0) return;
 
-            var selectedId = (Booking)unpaidBookings.SelectedItems[0].Tag;
-            databaseConnection.RemoveBooking(selectedId.Id);
-            updateBookings();
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove the selected booking?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                var selectedId = (Booking)unpaidBookings.SelectedItems[0].Tag;
+                databaseConnection.RemoveBooking(selectedId.Id);
+                updateBookings();
+            }
+        }
+
+        private void btnCancelBooking_Click(object sender, EventArgs e)
+        {
+            btnSave.Hide();
+            btnCancelBooking.Hide();
+
+            label3.Hide();
+            label4.Hide();
+
+            inputFirstName.Hide();
+            inputFirstName.Clear();
+
+            inputLastName.Hide();
+            inputLastName.Clear();
+
+            availableRooms.Hide();
+            dateTimePicker1.Hide();
+            dateTimePicker2.Hide();
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace kassasystem
 {
@@ -58,15 +59,25 @@ namespace kassasystem
                     return;
                 }
 
-                string[] displayArray =
+                var typeData = db.GetRoomData(booking.Id);
+
+                if (typeData.type == null)
                 {
-                    Convert.ToString(booking.GuestFirstName),
-                    Convert.ToString(booking.GuestLastName),
+                    MessageBox.Show("typeData is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+
+                var item = new TypedListViewItem(
+                    booking.GuestFirstName,
+                    booking.GuestLastName,
                     dateData[0],
                     dateData[1],
+                    typeData.type,
+                    typeData.number,
                     booking.AmountDue.ToString("0.00", culture)
-                };
-                ListViewItem item = new ListViewItem(displayArray);
+                );
                 item.Tag = booking;
                 // Adds products in formated order to list box
                 listView1.Items.Add(item);
@@ -186,16 +197,25 @@ namespace kassasystem
                     return;
                 }
 
-                string[] displayArray =
-                {
-                    Convert.ToString(booking.GuestFirstName),
-                    Convert.ToString(booking.GuestLastName),
-                    dateData[0],
-                    dateData[1]
-                };
+                var typeData = db.GetRoomData(booking.Id);
 
-                ListViewItem item = new ListViewItem(displayArray);
+                if (typeData.type == null)
+                {
+                    MessageBox.Show("typeData is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var item = new TypedListViewItem(
+                    booking.GuestFirstName,
+                    booking.GuestLastName,
+                    dateData[0],
+                    dateData[1],
+                    typeData.type,
+                    typeData.number
+
+                );
                 item.Tag = booking;
+                // Adds products in formated order to list box
                 bookingsList.Items.Add(item);
             }
         }

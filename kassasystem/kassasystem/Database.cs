@@ -48,7 +48,7 @@ namespace kassasystem
     public class RoomType
     {
         public string? type { get; set; }
-        public string? number { get; set; }
+        public Int64 number { get; set; }
     }
 
     class BookingItem
@@ -421,15 +421,15 @@ namespace kassasystem
             return dataArray;
         }
 
-        private RoomType GetRoomData(Int64 bookingID)
+        public RoomType GetRoomData(Int64 bookingID)
         {
             var roomID = QueryExecutor($"SELECT roomID FROM roomsBooked WHERE bookingID = {bookingID}");
-            var roomData = QueryExecutor($"SELECT roomTypesID, roomNumber FROM rooms WHERE roomID = {roomID}");
-            var type = QueryExecutor($"SELECT type FROM roomTypes WHERE roomTypesID = {roomData[0]}");
+            var roomData = QueryExecutor($"SELECT roomTypesID, roomNumber FROM rooms WHERE roomID = {roomID[0]["roomID"]}");
+            var type = QueryExecutor($"SELECT type FROM roomTypes WHERE roomTypesID = {roomData[0]["roomTypesID"]}");
 
             RoomType data = new RoomType();
             data.type = (string)type[0]["type"];
-            data.number = (long)roomData[0]["roomNumber"];
+            data.number = (Int64)roomData[0]["roomNumber"];
 
             return data;
         }
