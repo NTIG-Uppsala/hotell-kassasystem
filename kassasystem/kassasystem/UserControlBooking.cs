@@ -60,9 +60,14 @@ namespace kassasystem
                     return;
                 }
 
-                var item = new TypedListViewItem(booking.Id,
-                                                 booking.GuestFirstName,
-                                                 booking.GuestLastName);
+                var bookingDates = databaseConnection.GetBookingDate(booking.Id);
+
+                if (bookingDates == null) return;
+
+                var item = new TypedListViewItem(booking.GuestFirstName,
+                                                 booking.GuestLastName,
+                                                 bookingDates[0],
+                                                 bookingDates[1]);
                 item.Tag = booking;
                 unpaidBookings.Items.Add(item);
             }
@@ -81,9 +86,14 @@ namespace kassasystem
                     return;
                 }
 
-                var item = new TypedListViewItem(booking.Id,
-                                                 booking.GuestFirstName,
-                                                 booking.GuestLastName);
+                var bookingDates = databaseConnection.GetBookingDate(booking.Id);
+
+                if (bookingDates == null) return;
+
+                var item = new TypedListViewItem(booking.GuestFirstName,
+                                                 booking.GuestLastName,
+                                                 bookingDates[0],
+                                                 bookingDates[1]);
                 item.Tag = booking;
                 paidBookings.Items.Add(item);
             }

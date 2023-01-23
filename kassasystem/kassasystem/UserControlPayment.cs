@@ -38,6 +38,7 @@ namespace kassasystem
             {
                 Booking booking = product.Value;
 
+
                 if (booking.GuestFirstName == null)
                 {
                     MessageBox.Show("GuestFirstName is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -59,9 +60,10 @@ namespace kassasystem
 
                 string[] displayArray =
                 {
-                    Convert.ToString(booking.Id),
                     Convert.ToString(booking.GuestFirstName),
                     Convert.ToString(booking.GuestLastName),
+                    dateData[0],
+                    dateData[1],
                     booking.AmountDue.ToString("0.00", culture)
                 };
                 ListViewItem item = new ListViewItem(displayArray);
@@ -186,7 +188,6 @@ namespace kassasystem
 
                 string[] displayArray =
                 {
-                    Convert.ToString(booking.Id),
                     Convert.ToString(booking.GuestFirstName),
                     Convert.ToString(booking.GuestLastName),
                     dateData[0],
