@@ -45,13 +45,11 @@ namespace kassasystem
             this.paidBookings.ListViewItemSorter = lvwColumnSorter;
         }
 
-        public void updateBookings()
+        public void updateUnpaidBookings()
         {
-            paidBookings.Items.Clear();
             unpaidBookings.Items.Clear();
 
             var unpaid = databaseConnection.GetUnpaidBookings();
-            var paid = databaseConnection.GetPaidBookings();
 
             foreach (Booking booking in unpaid)
             {
@@ -78,7 +76,14 @@ namespace kassasystem
                 item.Tag = booking;
                 unpaidBookings.Items.Add(item);
             }
+        }
 
+        public void updatePaidBookings()
+        {
+            paidBookings.Items.Clear();
+
+            var paid = databaseConnection.GetPaidBookings();
+          
             foreach (Booking booking in paid)
             {
                 if (booking.GuestFirstName == null)
@@ -212,7 +217,8 @@ namespace kassasystem
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
 
-            updateBookings();
+            updateUnpaidBookings();
+            updatePaidBookings();
         }
 
         private Decimal CalculateRoomPrice(Decimal roomPrice, int nights)
@@ -335,7 +341,8 @@ namespace kassasystem
             {
                 var selectedId = (Booking)unpaidBookings.SelectedItems[0].Tag;
                 databaseConnection.RemoveBooking(selectedId.Id);
-                updateBookings();
+                updateUnpaidBookings();
+                updatePaidBookings();
             }
         }
 
@@ -402,54 +409,38 @@ namespace kassasystem
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (searchPaidBookings.Text != "")
+            updatePaidBookings(); // FIXME This is very very very slow :-)
+
+            for (int i = paidBookings.Items.Count - 1; i >= 0; i--)
             {
-                for (int i = paidBookings.Items.Count - 1; i >= 0; i--)
+                var item = paidBookings.Items[i];
+                item.Selected = false;
+                if (item.SubItems[0].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
                 {
-                    var item = paidBookings.Items[i];
-                    if (item.SubItems[0].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
-                    {
-                        item.BackColor = SystemColors.Highlight;
-                        item.ForeColor = SystemColors.HighlightText;
-                    }
-                    else
-                    {
-                        paidBookings.Items.Remove(item);
-                    }
+                    item.Selected = true;
+                    continue;
                 }
-                if (paidBookings.SelectedItems.Count == 1)
-                {
-                    paidBookings.Focus();
-                }
+
+                paidBookings.Items.Remove(item);
             }
-            else
-                databaseConnection.GetPaidBookings();
         }
 
         private void searchUnpaidBookings_TextChanged(object sender, EventArgs e)
         {
-            if (searchUnpaidBookings.Text != "")
+            updateUnpaidBookings(); // FIXME This is very very very slow :-)
+
+            for (int i = unpaidBookings.Items.Count - 1; i >= 0; i--)
             {
-                for (int i = unpaidBookings.Items.Count - 1; i >= 0; i--)
+                var item = unpaidBookings.Items[i];
+                item.Selected = false;
+                if (item.SubItems[0].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()))
                 {
-                    var item = unpaidBookings.Items[i];
-                    if (item.SubItems[0].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
-                    {
-                        item.BackColor = SystemColors.Highlight;
-                        item.ForeColor = SystemColors.HighlightText;
-                    }
-                    else
-                    {
-                        unpaidBookings.Items.Remove(item);
-                    }
+                    item.Selected = true;
+                    continue;
                 }
-                if (unpaidBookings.SelectedItems.Count == 1)
-                {
-                    unpaidBookings.Focus();
-                }
+
+                unpaidBookings.Items.Remove(item);
             }
-            else
-                databaseConnection.GetUnpaidBookings();
         }
     }
 

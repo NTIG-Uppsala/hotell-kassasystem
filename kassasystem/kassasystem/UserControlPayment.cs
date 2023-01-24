@@ -253,28 +253,20 @@ namespace kassasystem
 
         private void searchBookings_TextChanged(object sender, EventArgs e)
         {
-            if (searchBookings.Text != "")
+            updateUnpaidBookings(); // FIXME This is very very very slow :-)
+
+            for (int i = bookingsList.Items.Count - 1; i >= 0; i--)
             {
-                for (int i = bookingsList.Items.Count - 1; i >= 0; i--)
+                var item = bookingsList.Items[i];
+                item.Selected = false;
+                if (item.SubItems[0].Text.ToLower().Contains(searchBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchBookings.Text.ToLower()))
                 {
-                    var item = bookingsList.Items[i];
-                    if (item.SubItems[0].Text.ToLower().Contains(searchBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchBookings.Text.ToLower()))
-                    {
-                        item.BackColor = SystemColors.Highlight;
-                        item.ForeColor = SystemColors.HighlightText;
-                    }
-                    else
-                    {
-                        bookingsList.Items.Remove(item);
-                    }
+                    item.Selected = true;
+                    continue;
                 }
-                if (bookingsList.SelectedItems.Count == 1)
-                {
-                    bookingsList.Focus();
-                }
+
+                bookingsList.Items.Remove(item);
             }
-            else
-                db.GetUnpaidBookings();
         }
     }
 }

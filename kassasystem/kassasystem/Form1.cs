@@ -39,7 +39,8 @@ namespace kassasystem
                 userControlBooking1.Refresh();
                 userControlBooking1.BringToFront();
                 userControlPayment1.Hide();
-                userControlBooking1.updateBookings();
+                userControlBooking1.updateUnpaidBookings();
+                userControlBooking1.updatePaidBookings();
             }
 
         }
