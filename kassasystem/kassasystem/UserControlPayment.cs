@@ -250,5 +250,31 @@ namespace kassasystem
             // Perform the sort with these new sort options.
             this.bookingsList.Sort();
         }
+
+        private void searchBookings_TextChanged(object sender, EventArgs e)
+        {
+            if (searchBookings.Text != "")
+            {
+                for (int i = bookingsList.Items.Count - 1; i >= 0; i--)
+                {
+                    var item = bookingsList.Items[i];
+                    if (item.SubItems[0].Text.ToLower().Contains(searchBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchBookings.Text.ToLower()))
+                    {
+                        item.BackColor = SystemColors.Highlight;
+                        item.ForeColor = SystemColors.HighlightText;
+                    }
+                    else
+                    {
+                        bookingsList.Items.Remove(item);
+                    }
+                }
+                if (bookingsList.SelectedItems.Count == 1)
+                {
+                    bookingsList.Focus();
+                }
+            }
+            else
+                db.GetUnpaidBookings();
+        }
     }
 }

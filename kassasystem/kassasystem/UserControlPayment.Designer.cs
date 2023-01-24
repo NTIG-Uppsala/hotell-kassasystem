@@ -50,6 +50,7 @@
             this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+            this.searchBookings = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl_button_val
@@ -153,9 +154,9 @@
             this.bookingsList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bookingsList.FullRowSelect = true;
             this.bookingsList.GridLines = true;
-            this.bookingsList.Location = new System.Drawing.Point(8, 38);
+            this.bookingsList.Location = new System.Drawing.Point(8, 76);
             this.bookingsList.Name = "bookingsList";
-            this.bookingsList.Size = new System.Drawing.Size(694, 992);
+            this.bookingsList.Size = new System.Drawing.Size(694, 954);
             this.bookingsList.TabIndex = 17;
             this.bookingsList.UseCompatibleStateImageBehavior = false;
             this.bookingsList.View = System.Windows.Forms.View.Details;
@@ -248,11 +249,21 @@
             this.columnHeader15.Text = "Price";
             this.columnHeader15.Width = 120;
             // 
+            // searchBookings
+            // 
+            this.searchBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchBookings.Location = new System.Drawing.Point(8, 41);
+            this.searchBookings.Name = "searchBookings";
+            this.searchBookings.Size = new System.Drawing.Size(694, 29);
+            this.searchBookings.TabIndex = 23;
+            this.searchBookings.TextChanged += new System.EventHandler(this.searchBookings_TextChanged);
+            // 
             // UserControlPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.searchBookings);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.bookingsList);
             this.Controls.Add(this.label1);
@@ -294,6 +305,7 @@
         private ColumnHeader columnHeader13;
         private ColumnHeader columnHeader14;
         private ColumnHeader columnHeader15;
+        private TextBox searchBookings;
     }
 
 }

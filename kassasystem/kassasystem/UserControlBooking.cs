@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace kassasystem
@@ -397,6 +398,58 @@ namespace kassasystem
             dateTimePicker2.Value = dateTimeOffset.DateTime;
 
             AvailableRooms();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (searchPaidBookings.Text != "")
+            {
+                for (int i = paidBookings.Items.Count - 1; i >= 0; i--)
+                {
+                    var item = paidBookings.Items[i];
+                    if (item.SubItems[0].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
+                    {
+                        item.BackColor = SystemColors.Highlight;
+                        item.ForeColor = SystemColors.HighlightText;
+                    }
+                    else
+                    {
+                        paidBookings.Items.Remove(item);
+                    }
+                }
+                if (paidBookings.SelectedItems.Count == 1)
+                {
+                    paidBookings.Focus();
+                }
+            }
+            else
+                databaseConnection.GetPaidBookings();
+        }
+
+        private void searchUnpaidBookings_TextChanged(object sender, EventArgs e)
+        {
+            if (searchUnpaidBookings.Text != "")
+            {
+                for (int i = unpaidBookings.Items.Count - 1; i >= 0; i--)
+                {
+                    var item = unpaidBookings.Items[i];
+                    if (item.SubItems[0].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
+                    {
+                        item.BackColor = SystemColors.Highlight;
+                        item.ForeColor = SystemColors.HighlightText;
+                    }
+                    else
+                    {
+                        unpaidBookings.Items.Remove(item);
+                    }
+                }
+                if (unpaidBookings.SelectedItems.Count == 1)
+                {
+                    unpaidBookings.Focus();
+                }
+            }
+            else
+                databaseConnection.GetUnpaidBookings();
         }
     }
 

@@ -57,6 +57,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnCancelBooking = new System.Windows.Forms.Button();
+            this.searchPaidBookings = new System.Windows.Forms.TextBox();
+            this.searchUnpaidBookings = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -148,7 +150,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(8, 678);
+            this.label1.Location = new System.Drawing.Point(8, 643);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(168, 32);
             this.label1.TabIndex = 10;
@@ -175,9 +177,9 @@
             this.unpaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.unpaidBookings.FullRowSelect = true;
             this.unpaidBookings.GridLines = true;
-            this.unpaidBookings.Location = new System.Drawing.Point(8, 41);
+            this.unpaidBookings.Location = new System.Drawing.Point(8, 76);
             this.unpaidBookings.Name = "unpaidBookings";
-            this.unpaidBookings.Size = new System.Drawing.Size(546, 634);
+            this.unpaidBookings.Size = new System.Drawing.Size(546, 564);
             this.unpaidBookings.TabIndex = 12;
             this.unpaidBookings.UseCompatibleStateImageBehavior = false;
             this.unpaidBookings.View = System.Windows.Forms.View.Details;
@@ -343,11 +345,31 @@
             this.btnCancelBooking.Visible = false;
             this.btnCancelBooking.Click += new System.EventHandler(this.btnCancelBooking_Click);
             // 
+            // searchPaidBookings
+            // 
+            this.searchPaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchPaidBookings.Location = new System.Drawing.Point(8, 678);
+            this.searchPaidBookings.Name = "searchPaidBookings";
+            this.searchPaidBookings.Size = new System.Drawing.Size(546, 29);
+            this.searchPaidBookings.TabIndex = 21;
+            this.searchPaidBookings.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // searchUnpaidBookings
+            // 
+            this.searchUnpaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchUnpaidBookings.Location = new System.Drawing.Point(8, 41);
+            this.searchUnpaidBookings.Name = "searchUnpaidBookings";
+            this.searchUnpaidBookings.Size = new System.Drawing.Size(546, 29);
+            this.searchUnpaidBookings.TabIndex = 22;
+            this.searchUnpaidBookings.TextChanged += new System.EventHandler(this.searchUnpaidBookings_TextChanged);
+            // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.searchUnpaidBookings);
+            this.Controls.Add(this.searchPaidBookings);
             this.Controls.Add(this.btnCancelBooking);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -402,5 +424,7 @@
         private Label label3;
         private Label label4;
         public Button btnCancelBooking;
+        private TextBox searchPaidBookings;
+        private TextBox searchUnpaidBookings;
     }
 }
