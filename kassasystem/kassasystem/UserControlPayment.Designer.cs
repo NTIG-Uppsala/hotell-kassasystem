@@ -67,9 +67,9 @@
             this.btnClear.BackColor = System.Drawing.Color.Red;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(1082, 876);
+            this.btnClear.Location = new System.Drawing.Point(1082, 934);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(382, 154);
+            this.btnClear.Size = new System.Drawing.Size(382, 96);
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -81,10 +81,10 @@
             this.lblTotal.BackColor = System.Drawing.Color.White;
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTotal.Location = new System.Drawing.Point(1470, 876);
+            this.lblTotal.Location = new System.Drawing.Point(1082, 876);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(3);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(426, 52);
+            this.lblTotal.Size = new System.Drawing.Size(814, 52);
             this.lblTotal.TabIndex = 4;
             this.lblTotal.Text = "Total: 0.00 SEK";
             this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

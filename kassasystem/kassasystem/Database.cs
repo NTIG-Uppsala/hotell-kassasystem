@@ -4,6 +4,7 @@ using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.SQLite;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace kassasystem
@@ -255,6 +256,23 @@ namespace kassasystem
 
             QueryInsertExecutor($"INSERT INTO roomsBooked (bookingID, roomID) VALUES ('{newBookingID}', '{roomID}')");
 
+        }
+
+        public void EditBooking(Int64 roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate, decimal totalPrice, Int64 bookingID)
+        {
+            TimeSpan t = DateTime.Now - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
+            int currentDateNow = ((int)t.TotalSeconds);
+
+            var insertTotalPrice = decimal.ToInt64(totalPrice * 100m);
+
+            var newPaymentID = QueryInsertExecutor($"UPDATE payment SET (paymentTypeId, date, amount, isPaid) VALUES ('1', '{currentDateNow}', '{insertTotalPrice}', '0') WHERE bookingID = {bookingID}");
+            var newGuestID = QueryInsertExecutor($"UPDATE guests SET (firstName, lastName) VALUES ('{GuestFirstName}', '{GuestLastName}') WHERE bookingID = {bookingID}");
+
+            MessageBox.Show(GuestFirstName);
+
+            var updatedBookingID = QueryInsertExecutor($"UPDATE bookings SET (guestID, paymentID, dateFrom, dateTo, roomCount, isBreakfastIncluded, isRemoved) VALUES ('{newGuestID}', '{newPaymentID}', '{checkinDate}', '{checkoutDate}', '1', '1', '0') WHERE bookingID = {bookingID}");
+
+            QueryInsertExecutor($"UPDATE roomsBooked SET (bookingID, roomID) VALUES ('{updatedBookingID}', '{roomID}') WHERE bookingID = {bookingID}");
         }
 
         public List<Booking> GetBookings()

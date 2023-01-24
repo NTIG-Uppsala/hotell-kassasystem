@@ -14,10 +14,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace kassasystem
 {
-
+    enum State
+    {
+        Default,
+        Create,
+        Edit
+    }
 
     public partial class UserControlBooking : UserControl
     {
+        private State state;
         private ListViewColumnSorter lvwColumnSorter;
 
         Booking newBooking = new Booking(); // FIXME spelling
@@ -25,7 +31,6 @@ namespace kassasystem
         static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
         Database databaseConnection = new Database(path, "database.db");
         Dictionary<Int64, Room> availableRoomsList = new Dictionary<Int64, Room>();
-                                                                                    // REFACTOR
         public UserControlBooking()
         {
             InitializeComponent();
@@ -125,6 +130,7 @@ namespace kassasystem
 
         private void btnNewBooking_Click(object sender, EventArgs e)
         {
+            state = State.Create;
             btnSave.Show();
             btnCancelBooking.Show();
             inputFirstName.Show();
@@ -144,15 +150,7 @@ namespace kassasystem
         private void btnSave_Click(object sender, EventArgs e)
         {
             // REFACTOR
-            btnSave.Hide();
-            btnCancelBooking.Hide();
-            inputFirstName.Hide();
-            inputLastName.Hide();
-            label3.Hide();
-            label4.Hide();
-            availableRooms.Hide();
-            dateTimePicker1.Hide();
-            dateTimePicker2.Hide();
+            
 
             if (inputFirstName.Text.Length <= 0 || inputLastName.Text.Length <= 0) {
                 MessageBox.Show("Firstname input is missing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -179,13 +177,40 @@ namespace kassasystem
 
             var roomData = (Room) selectedRoom.Tag;
 
-            databaseConnection.CreateNewBooking(roomData.Id,
-                inputFirstName.Text,
-                inputLastName.Text,
-                convertDateToEpoch(dateTimePicker2.Value),
-                convertDateToEpoch(dateTimePicker1.Value),
-                CalculateRoomPrice(roomData.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value))
-            );
+            if (state == State.Create)
+            {
+                databaseConnection.CreateNewBooking(roomData.Id,
+                    inputFirstName.Text,
+                    inputLastName.Text,
+                    convertDateToEpoch(dateTimePicker2.Value),
+                    convertDateToEpoch(dateTimePicker1.Value),
+                    CalculateRoomPrice(roomData.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value)));
+            }
+            else if (state == State.Edit)
+            {
+                if (unpaidBookings.SelectedItems.Count == 0) return;
+                var selectedBooking = (Booking)unpaidBookings.SelectedItems[0].Tag;
+
+                databaseConnection.EditBooking(roomData.Id,
+                    inputFirstName.Text,
+                    inputLastName.Text,
+                    convertDateToEpoch(dateTimePicker2.Value),
+                    convertDateToEpoch(dateTimePicker1.Value),
+                    CalculateRoomPrice(roomData.Rate, CalculateNights(dateTimePicker2.Value, dateTimePicker1.Value)),
+                    selectedBooking.Id);
+            }
+            
+            state = State.Default;
+            btnSave.Hide();
+            btnCancelBooking.Hide();
+            inputFirstName.Hide();
+            inputLastName.Hide();
+            label3.Hide();
+            label4.Hide();
+            availableRooms.Hide();
+            dateTimePicker1.Hide();
+            dateTimePicker2.Hide();
+
             updateBookings();
         }
 
@@ -315,6 +340,7 @@ namespace kassasystem
 
         private void btnCancelBooking_Click(object sender, EventArgs e)
         {
+            state = State.Default;
             btnSave.Hide();
             btnCancelBooking.Hide();
 
@@ -330,6 +356,27 @@ namespace kassasystem
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
+        }
+
+        private void btnEditBooking_Click(object sender, EventArgs e)
+        {
+            state = State.Edit;
+            if (unpaidBookings.SelectedItems.Count == 0) return;
+            
+            btnSave.Show();
+            btnCancelBooking.Show();
+            inputFirstName.Show();
+            inputLastName.Show();
+            label3.Show();
+            label4.Show();
+            availableRooms.Show();
+            dateTimePicker1.Show();
+            dateTimePicker2.Show();
+
+            dateTimePicker1.Value = DateTime.Today;
+            dateTimePicker2.Value = DateTime.Today;
+
+            AvailableRooms();
         }
     }
 

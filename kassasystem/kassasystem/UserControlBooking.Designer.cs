@@ -105,7 +105,7 @@
             this.btnEditBooking.TabIndex = 5;
             this.btnEditBooking.Text = "Edit booking";
             this.btnEditBooking.UseVisualStyleBackColor = false;
-            this.btnEditBooking.Visible = false;
+            this.btnEditBooking.Click += new System.EventHandler(this.btnEditBooking_Click);
             // 
             // btnSave
             // 
