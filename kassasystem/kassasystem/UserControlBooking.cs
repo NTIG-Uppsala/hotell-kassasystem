@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace kassasystem
@@ -190,8 +191,7 @@ namespace kassasystem
             {
                 if (unpaidBookings.SelectedItems.Count == 0) return;
                 var selectedBooking = (Booking)unpaidBookings.SelectedItems[0].Tag;
-
-                databaseConnection.EditBooking(roomData.Id,
+                databaseConnection.EditBooking(
                     inputFirstName.Text,
                     inputLastName.Text,
                     convertDateToEpoch(dateTimePicker2.Value),
@@ -362,7 +362,7 @@ namespace kassasystem
         {
             state = State.Edit;
             if (unpaidBookings.SelectedItems.Count == 0) return;
-            
+           
             btnSave.Show();
             btnCancelBooking.Show();
             inputFirstName.Show();
@@ -373,8 +373,28 @@ namespace kassasystem
             dateTimePicker1.Show();
             dateTimePicker2.Show();
 
-            dateTimePicker1.Value = DateTime.Today;
-            dateTimePicker2.Value = DateTime.Today;
+            var selectedBooking = (Booking)unpaidBookings.SelectedItems[0].Tag;
+
+            inputFirstName.Text = selectedBooking.GuestFirstName;
+            inputLastName.Text = selectedBooking.GuestLastName;
+
+            var bookingDates = databaseConnection.GetSelectedBookingDates(selectedBooking.Id);
+            var val1 = bookingDates["dateFrom"];
+            var val2 = bookingDates["dateTo"];
+
+            string? dateFromStr = val1.ToString();
+            string? dateToStr = val2.ToString();
+
+            if (dateFromStr == null || dateToStr == null)
+                return;
+
+            long dateFrom2 = long.Parse(dateFromStr);
+            long dateTo2 = long.Parse(dateToStr);
+
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dateFrom2);
+            DateTimeOffset dateTimeOffset2 = DateTimeOffset.FromUnixTimeSeconds(dateTo2);
+            dateTimePicker1.Value = dateTimeOffset2.DateTime;
+            dateTimePicker2.Value = dateTimeOffset.DateTime;
 
             AvailableRooms();
         }

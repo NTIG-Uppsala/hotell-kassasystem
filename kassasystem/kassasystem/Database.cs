@@ -258,21 +258,23 @@ namespace kassasystem
 
         }
 
-        public void EditBooking(Int64 roomID, string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate, decimal totalPrice, Int64 bookingID)
+        public void EditBooking(string GuestFirstName, string GuestLastName, int checkinDate, int checkoutDate, decimal totalPrice, Int64 bookingID)
         {
-            TimeSpan t = DateTime.Now - new DateTime(1970, 1, 1); // Time in seconds since january 1 1970
-            int currentDateNow = ((int)t.TotalSeconds);
-
             var insertTotalPrice = decimal.ToInt64(totalPrice * 100m);
 
-            var newPaymentID = QueryInsertExecutor($"UPDATE payment SET (paymentTypeId, date, amount, isPaid) VALUES ('1', '{currentDateNow}', '{insertTotalPrice}', '0') WHERE bookingID = {bookingID}");
-            var newGuestID = QueryInsertExecutor($"UPDATE guests SET (firstName, lastName) VALUES ('{GuestFirstName}', '{GuestLastName}') WHERE bookingID = {bookingID}");
+            var guestID = QueryExecutor($"SELECT guestID FROM bookings WHERE bookingID = {bookingID}");
+            var paymentID = QueryExecutor($"SELECT paymentID FROM bookings WHERE bookingID = {bookingID}");
 
-            MessageBox.Show(GuestFirstName);
+            QueryInsertExecutor($"UPDATE guests SET firstName='{GuestFirstName}', lastName='{GuestLastName}' WHERE guestID = {guestID[0]["guestID"]}");
+            QueryInsertExecutor($"UPDATE bookings SET dateFrom={checkinDate}, dateTo={checkoutDate} WHERE bookingID = {bookingID}");
+            QueryInsertExecutor($"UPDATE payment SET amount={insertTotalPrice} WHERE paymentID = {paymentID[0]["paymentID"]}");
+        }
 
-            var updatedBookingID = QueryInsertExecutor($"UPDATE bookings SET (guestID, paymentID, dateFrom, dateTo, roomCount, isBreakfastIncluded, isRemoved) VALUES ('{newGuestID}', '{newPaymentID}', '{checkinDate}', '{checkoutDate}', '1', '1', '0') WHERE bookingID = {bookingID}");
-
-            QueryInsertExecutor($"UPDATE roomsBooked SET (bookingID, roomID) VALUES ('{updatedBookingID}', '{roomID}') WHERE bookingID = {bookingID}");
+        public Dictionary<string, object> GetSelectedBookingDates(Int64 bookingID)
+        {
+            var dateData = QueryExecutor($"SELECT dateFrom, dateTo FROM bookings WHERE bookingID = {bookingID}");
+            var updatedData = dateData[0];
+            return updatedData;
         }
 
         public List<Booking> GetBookings()
