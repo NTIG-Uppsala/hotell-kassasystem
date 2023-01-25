@@ -415,13 +415,21 @@ namespace kassasystem
             {
                 var item = paidBookings.Items[i];
                 item.Selected = false;
-                if (item.SubItems[0].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
-                {
-                    item.Selected = true;
-                    continue;
-                }
 
-                paidBookings.Items.Remove(item);
+                int subItemCount = item.SubItems.Count;
+
+                for (int i2 = 0; i2 < subItemCount; i2++)
+                {
+                    if (item.SubItems[i2].Text.ToLower().Contains(searchPaidBookings.Text.ToLower()))
+                    {
+                        item.Selected = true;
+                        continue;
+                    }
+                }
+                if (item.Selected == false)
+                {
+                    paidBookings.Items.Remove(item);
+                }
             }
         }
 
@@ -433,13 +441,21 @@ namespace kassasystem
             {
                 var item = unpaidBookings.Items[i];
                 item.Selected = false;
-                if (item.SubItems[0].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()))
-                {
-                    item.Selected = true;
-                    continue;
-                }
 
-                unpaidBookings.Items.Remove(item);
+                int subItemCount = item.SubItems.Count;
+
+                for (int i2 = 0; i2 < subItemCount; i2++)
+                {
+                    if (item.SubItems[i2].Text.ToLower().Contains(searchUnpaidBookings.Text.ToLower()))
+                    {
+                        item.Selected = true;
+                        continue;
+                    }
+                }
+                if (item.Selected == false)
+                {
+                    unpaidBookings.Items.Remove(item);
+                }
             }
         }
     }

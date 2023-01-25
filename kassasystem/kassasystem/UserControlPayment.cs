@@ -259,13 +259,21 @@ namespace kassasystem
             {
                 var item = bookingsList.Items[i];
                 item.Selected = false;
-                if (item.SubItems[0].Text.ToLower().Contains(searchBookings.Text.ToLower()) || item.SubItems[1].Text.ToLower().Contains(searchBookings.Text.ToLower()))
-                {
-                    item.Selected = true;
-                    continue;
-                }
 
-                bookingsList.Items.Remove(item);
+                int subItemCount = item.SubItems.Count;
+
+                for (int i2 = 0; i2 < subItemCount; i2++)
+                {
+                    if (item.SubItems[i2].Text.ToLower().Contains(searchBookings.Text.ToLower()))
+                    {
+                        item.Selected = true;
+                        continue;
+                    }
+                }
+                if (item.Selected == false)
+                {
+                    bookingsList.Items.Remove(item);
+                }
             }
         }
     }
