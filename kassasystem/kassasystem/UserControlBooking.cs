@@ -14,6 +14,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
+
 namespace kassasystem
 {
     enum State
@@ -27,6 +28,7 @@ namespace kassasystem
     {
         private State state;
         private ListViewColumnSorter lvwColumnSorter;
+        
 
         Booking newBooking = new Booking(); // FIXME spelling
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
@@ -455,6 +457,21 @@ namespace kassasystem
                 {
                     unpaidBookings.Items.Remove(item);
                 }
+            }
+        }
+
+        private void availableRooms_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (availableRooms.SelectedItems == null) return;
+            if (availableRooms.SelectedItems.Count== 0) return;
+            var selectedRoom = availableRooms.SelectedItems[0];
+            var roomData = (Room)selectedRoom.Tag;
+            Int64 roomID = roomData.Id;
+            var dateList = databaseConnection.GetOccupiedDates(roomID);
+            for (int i = 0; i < dateList.Count(); i++)
+            {
+                var item  = new TypedListViewItem(dateList[i][0], dateList[i][1]);
+                roomOccupation.Items.Add(item);
             }
         }
     }

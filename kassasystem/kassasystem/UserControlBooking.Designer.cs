@@ -59,6 +59,9 @@
             this.btnCancelBooking = new System.Windows.Forms.Button();
             this.searchPaidBookings = new System.Windows.Forms.TextBox();
             this.searchUnpaidBookings = new System.Windows.Forms.TextBox();
+            this.roomOccupation = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -267,6 +270,7 @@
             this.availableRooms.View = System.Windows.Forms.View.Details;
             this.availableRooms.Visible = false;
             this.availableRooms.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.availableRooms_ColumnClick);
+            this.availableRooms.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.availableRooms_ItemSelectionChanged);
             // 
             // columnHeader5
             // 
@@ -363,11 +367,34 @@
             this.searchUnpaidBookings.TabIndex = 22;
             this.searchUnpaidBookings.TextChanged += new System.EventHandler(this.searchUnpaidBookings_TextChanged);
             // 
+            // roomOccupation
+            // 
+            this.roomOccupation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader15});
+            this.roomOccupation.Location = new System.Drawing.Point(900, 29);
+            this.roomOccupation.Name = "roomOccupation";
+            this.roomOccupation.Size = new System.Drawing.Size(205, 185);
+            this.roomOccupation.TabIndex = 23;
+            this.roomOccupation.UseCompatibleStateImageBehavior = false;
+            this.roomOccupation.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Check-in date";
+            this.columnHeader3.Width = 100;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "Check-out date";
+            this.columnHeader15.Width = 100;
+            // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.roomOccupation);
             this.Controls.Add(this.searchUnpaidBookings);
             this.Controls.Add(this.searchPaidBookings);
             this.Controls.Add(this.btnCancelBooking);
@@ -426,5 +453,8 @@
         public Button btnCancelBooking;
         private TextBox searchPaidBookings;
         private TextBox searchUnpaidBookings;
+        private ListView roomOccupation;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader15;
     }
 }
