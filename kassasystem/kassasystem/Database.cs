@@ -226,7 +226,7 @@ namespace kassasystem
                 int intStartDate = int.Parse(strStartDate);
                 int intEndDate = int.Parse(strEndDate);
 
-                bool overlap = epochStartDate < intStartDate && intEndDate < epochEndDate;
+                bool overlap = epochStartDate < intEndDate && intStartDate < epochEndDate;
                 if (overlap)
                 {
                     string ID = bookings[i]["bookingID"].ToString();
@@ -516,30 +516,34 @@ namespace kassasystem
             if (bookedRooms.Count== 0) return dates;
             for (int i = 0; i < bookedRooms.Count(); i++)
             {
-                var bookings = QueryExecutor($"SELECT dateTo, dateFrom FROM bookings WHERE isRemoved = 0 AND bookingID = {bookedRooms[i]["bookingID"]}");
+                var bookings = QueryExecutor($"SELECT dateTo, dateFrom, isRemoved FROM bookings WHERE bookingID = {bookedRooms[i]["bookingID"]}");
                 if (bookings == null) return dates;
-                MessageBox.Show(bookings[0]["dateFrom"].ToString());
-                var dateFrom = bookings[0]["dateFrom"];
-                var dateTo = bookings[0]["dateTo"];
-
-                string dateFromStr = dateFrom.ToString();
-                string dateToStr = dateTo.ToString();
-             
-                long dateFrom2 = long.Parse(dateFromStr);
-                long dateTo2 = long.Parse(dateToStr);
-
-                DateTimeOffset checkInDate = DateTimeOffset.FromUnixTimeSeconds(dateFrom2);
-                DateTimeOffset checkOutDate = DateTimeOffset.FromUnixTimeSeconds(dateTo2);
-
-                string checkInDateStr = checkInDate.ToString();
-                string checkOutDateStr = checkOutDate.ToString();
-
-                string[] dataArray =
+                if (bookings[0]["isRemoved"].ToString() == "0")
                 {
+                    //MessageBox.Show(bookings[0]["dateFrom"].ToString());
+                    var dateFrom = bookings[0]["dateFrom"];
+                    var dateTo = bookings[0]["dateTo"];
+
+                    string dateFromStr = dateFrom.ToString();
+                    string dateToStr = dateTo.ToString();
+
+                    long dateFrom2 = long.Parse(dateFromStr);
+                    long dateTo2 = long.Parse(dateToStr);
+
+                    DateTimeOffset checkInDate = DateTimeOffset.FromUnixTimeSeconds(dateFrom2);
+                    DateTimeOffset checkOutDate = DateTimeOffset.FromUnixTimeSeconds(dateTo2);
+
+                    string checkInDateStr = checkInDate.ToString();
+                    string checkOutDateStr = checkOutDate.ToString();
+
+                    string[] dataArray =
+                    {
                     checkInDateStr.Split(" ")[0],
                     checkOutDateStr.Split(" ")[0]
                 };
-                dates.Add(dataArray);
+                    dates.Add(dataArray);
+                }
+
             }
             return dates;
         }

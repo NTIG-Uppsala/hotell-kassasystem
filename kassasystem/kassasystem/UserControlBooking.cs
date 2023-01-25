@@ -217,6 +217,8 @@ namespace kassasystem
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
+            roomOccupation.Hide();
+            label5.Hide();
 
             updateUnpaidBookings();
             updatePaidBookings();
@@ -365,6 +367,8 @@ namespace kassasystem
             availableRooms.Hide();
             dateTimePicker1.Hide();
             dateTimePicker2.Hide();
+            roomOccupation.Hide();
+            label5.Hide();
         }
 
         private void btnEditBooking_Click(object sender, EventArgs e)
@@ -462,8 +466,20 @@ namespace kassasystem
 
         private void availableRooms_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            if (availableRooms.SelectedItems.Count > 0)
+            {
+                roomOccupation.Show(); 
+                label5.Show(); 
+            }
+            else
+            { 
+                roomOccupation.Hide(); 
+                label5.Hide(); 
+            }
+
             if (availableRooms.SelectedItems == null) return;
             if (availableRooms.SelectedItems.Count== 0) return;
+            roomOccupation.Items.Clear();
             var selectedRoom = availableRooms.SelectedItems[0];
             var roomData = (Room)selectedRoom.Tag;
             Int64 roomID = roomData.Id;
@@ -474,6 +490,7 @@ namespace kassasystem
                 roomOccupation.Items.Add(item);
             }
         }
+
     }
 
 }

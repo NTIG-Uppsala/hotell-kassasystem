@@ -62,6 +62,7 @@
             this.roomOccupation = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -369,31 +370,48 @@
             // 
             // roomOccupation
             // 
+            this.roomOccupation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.roomOccupation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader15});
-            this.roomOccupation.Location = new System.Drawing.Point(900, 29);
+            this.roomOccupation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.roomOccupation.GridLines = true;
+            this.roomOccupation.Location = new System.Drawing.Point(861, 95);
             this.roomOccupation.Name = "roomOccupation";
-            this.roomOccupation.Size = new System.Drawing.Size(205, 185);
+            this.roomOccupation.Size = new System.Drawing.Size(244, 877);
             this.roomOccupation.TabIndex = 23;
             this.roomOccupation.UseCompatibleStateImageBehavior = false;
             this.roomOccupation.View = System.Windows.Forms.View.Details;
+            this.roomOccupation.Visible = false;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Check-in date";
-            this.columnHeader3.Width = 100;
+            this.columnHeader3.Width = 120;
             // 
             // columnHeader15
             // 
             this.columnHeader15.Text = "Check-out date";
-            this.columnHeader15.Width = 100;
+            this.columnHeader15.Width = 120;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(861, 71);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 21);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Occupied:";
+            this.label5.Visible = false;
             // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.roomOccupation);
             this.Controls.Add(this.searchUnpaidBookings);
             this.Controls.Add(this.searchPaidBookings);
@@ -456,5 +474,6 @@
         private ListView roomOccupation;
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader15;
+        private Label label5;
     }
 }
