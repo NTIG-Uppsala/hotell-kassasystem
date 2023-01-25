@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Core.Metadata.Edm;
@@ -202,14 +203,57 @@ namespace kassasystem
         }
         public List<Room> GetAvailableRooms(int epochStartDate, int epochEndDate)
         {
+            var bookings = QueryExecutor("SELECT * FROM bookings WHERE isRemoved = 0");
             var rooms = QueryExecutor("SELECT * FROM rooms");
+
+            List<int> roomIDs = new List<int>();
+
+            for (int i = bookings.Count -1; i >= 0; i--) 
+            {
+                string strStartDate = bookings[i]["dateTo"].ToString();
+                string strEndDate = bookings[i]["dateFrom"].ToString();
+
+                int intStartDate = int.Parse(strStartDate);
+                int intEndDate = int.Parse(strEndDate);
+
+                bool overlap = epochStartDate < intStartDate && intEndDate < epochEndDate;
+                if (overlap)
+                {
+                    string ID = bookings[i]["bookingID"].ToString();
+                    int newID = int.Parse(ID);
+
+                    var roomID = QueryExecutor($"SELECT roomID FROM roomsBooked WHERE bookingID = {newID}");
+                    for (int i2 = roomID.Count - 1; i2 >= 0; i2--)
+                    {
+                        string recievedID = roomID[i2]["roomID"].ToString();
+                        int recievedIntID = int.Parse(recievedID);
+
+
+                        if (!roomIDs.Contains(recievedIntID))
+                        {
+                            roomIDs.Add(recievedIntID);
+                        }
+                    }
+                }
+            }
+
             var roomTypes = QueryExecutor("SELECT * FROM roomTypes");
 
-            for (int x = 0; x < rooms.Count; x++)
+            for (int x = rooms.Count -1; x >= 0; x--)
             {
+                string roomID = rooms[x]["roomID"].ToString();
+                int roomIntID = int.Parse(roomID);
+
+                if (roomIDs.Contains(roomIntID))
+                {
+                    MessageBox.Show(rooms[x]["roomNumber"].ToString());
+                    rooms.RemoveAt(x);
+                    continue;
+                } 
+
                 var typeID = rooms[x]["roomTypesID"];
 
-                for (int y = 0; y < roomTypes.Count; y++)
+                for (int y = roomTypes.Count -1; y >= 0; y--)
                 {
                    
                     if (typeID.ToString() == roomTypes[y]["roomTypesID"].ToString())

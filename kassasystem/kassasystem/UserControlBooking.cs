@@ -114,7 +114,7 @@ namespace kassasystem
         private void AvailableRooms()
         {
             availableRooms.Items.Clear();
-
+            MessageBox.Show("ran available rooms");
             var rooms = databaseConnection.GetAvailableRooms(convertDateToEpoch(dateTimePicker1.Value), convertDateToEpoch(dateTimePicker2.Value));
             foreach (Room room in rooms)
             {
