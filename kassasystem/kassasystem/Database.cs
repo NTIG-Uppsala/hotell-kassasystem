@@ -210,8 +210,18 @@ namespace kassasystem
 
             for (int i = bookings.Count -1; i >= 0; i--) 
             {
-                string strStartDate = bookings[i]["dateTo"].ToString();
-                string strEndDate = bookings[i]["dateFrom"].ToString();
+                var startDate = bookings[i]["dateFrom"];
+                var endDate = bookings[i]["dateTo"];
+
+                if (startDate == null || endDate == null)
+                    return null;
+
+                string strStartDate = startDate.ToString();
+                string strEndDate = endDate.ToString();
+
+                if (strStartDate == null || strEndDate == null)
+                    return null;
+
 
                 int intStartDate = int.Parse(strStartDate);
                 int intEndDate = int.Parse(strEndDate);
@@ -246,7 +256,6 @@ namespace kassasystem
 
                 if (roomIDs.Contains(roomIntID))
                 {
-                    MessageBox.Show(rooms[x]["roomNumber"].ToString());
                     rooms.RemoveAt(x);
                     continue;
                 } 
@@ -497,6 +506,13 @@ namespace kassasystem
             data.number = (Int64)roomData[0]["roomNumber"];
 
             return data;
+        }
+
+        public void GetOccupiedDates(int epochStartDate, int epochEndDate)
+        {
+            var bookings = QueryExecutor("SELECT * FROM bookings WHERE isRemoved = 0");
+            var rooms = QueryExecutor("SELECT * FROM rooms");
+
         }
 
     }
