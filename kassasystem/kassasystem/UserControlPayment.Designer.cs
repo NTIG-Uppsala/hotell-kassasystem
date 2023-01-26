@@ -254,6 +254,7 @@
             this.searchBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.searchBookings.Location = new System.Drawing.Point(8, 41);
             this.searchBookings.Name = "searchBookings";
+            this.searchBookings.PlaceholderText = "Search bookings";
             this.searchBookings.Size = new System.Drawing.Size(694, 29);
             this.searchBookings.TabIndex = 23;
             this.searchBookings.TextChanged += new System.EventHandler(this.searchBookings_TextChanged);

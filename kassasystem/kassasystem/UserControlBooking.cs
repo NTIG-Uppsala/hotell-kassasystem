@@ -28,7 +28,13 @@ namespace kassasystem
     {
         private State state;
         private ListViewColumnSorter lvwColumnSorter;
-        
+
+        class ComboItem
+        {
+            public int ID { get; set; }
+            public string DText { get; set; }
+        }
+
 
         Booking newBooking = new Booking(); // FIXME spelling
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
@@ -45,6 +51,7 @@ namespace kassasystem
             this.availableRooms.ListViewItemSorter = lvwColumnSorter;
             this.unpaidBookings.ListViewItemSorter = lvwColumnSorter;
             this.paidBookings.ListViewItemSorter = lvwColumnSorter;
+            this.roomOccupation.ListViewItemSorter = lvwColumnSorter;
         }
 
         public void updateUnpaidBookings()
@@ -145,9 +152,11 @@ namespace kassasystem
             inputLastName.Show();
             label3.Show();
             label4.Show();
+            label6.Show();
             availableRooms.Show();
             dateTimePicker1.Show();
             dateTimePicker2.Show();
+            searchRooms.Show();
 
             dateTimePicker1.Value = DateTime.Today;
             dateTimePicker2.Value = DateTime.Today;
@@ -219,6 +228,12 @@ namespace kassasystem
             dateTimePicker2.Hide();
             roomOccupation.Hide();
             label5.Hide();
+            searchRooms.Hide();
+            label6.Hide();
+
+            inputFirstName.Clear();
+            inputLastName.Clear();
+            searchRooms.Clear();
 
             updateUnpaidBookings();
             updatePaidBookings();
@@ -334,6 +349,32 @@ namespace kassasystem
             this.paidBookings.Sort();
         }
 
+        private void roomOccupation_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.roomOccupation.Sort();
+        }
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (unpaidBookings.SelectedItems.Count == 0) return;
@@ -357,6 +398,7 @@ namespace kassasystem
 
             label3.Hide();
             label4.Hide();
+            label6.Hide();
 
             inputFirstName.Hide();
             inputFirstName.Clear();
@@ -369,6 +411,8 @@ namespace kassasystem
             dateTimePicker2.Hide();
             roomOccupation.Hide();
             label5.Hide();
+            searchRooms.Hide();
+            searchRooms.Clear();
         }
 
         private void btnEditBooking_Click(object sender, EventArgs e)
@@ -382,9 +426,11 @@ namespace kassasystem
             inputLastName.Show();
             label3.Show();
             label4.Show();
+            label6.Show();
             availableRooms.Show();
             dateTimePicker1.Show();
             dateTimePicker2.Show();
+            searchRooms.Show();
 
             var selectedBooking = (Booking)unpaidBookings.SelectedItems[0].Tag;
 
@@ -491,6 +537,30 @@ namespace kassasystem
             }
         }
 
-    }
+        private void searchRooms_TextChanged(object sender, EventArgs e)
+        {
+            AvailableRooms();
 
+            for (int i = availableRooms.Items.Count - 1; i >= 0; i--)
+            {
+                var item = availableRooms.Items[i];
+                item.Selected = false;
+
+                int subItemCount = item.SubItems.Count;
+
+                for (int i2 = 0; i2 < subItemCount; i2++)
+                {
+                    if (item.SubItems[i2].Text.ToLower().Contains(searchRooms.Text.ToLower()))
+                    {
+                        item.Selected = true;
+                        continue;
+                    }
+                }
+                if (item.Selected == false)
+                {
+                    availableRooms.Items.Remove(item);
+                }
+            }
+        }
+    }
 }

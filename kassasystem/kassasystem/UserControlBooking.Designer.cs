@@ -63,6 +63,8 @@
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
             this.label5 = new System.Windows.Forms.Label();
+            this.searchRooms = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -263,9 +265,9 @@
             this.availableRooms.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.availableRooms.FullRowSelect = true;
             this.availableRooms.GridLines = true;
-            this.availableRooms.Location = new System.Drawing.Point(1111, 95);
+            this.availableRooms.Location = new System.Drawing.Point(1111, 167);
             this.availableRooms.Name = "availableRooms";
-            this.availableRooms.Size = new System.Drawing.Size(557, 877);
+            this.availableRooms.Size = new System.Drawing.Size(557, 805);
             this.availableRooms.TabIndex = 16;
             this.availableRooms.UseCompatibleStateImageBehavior = false;
             this.availableRooms.View = System.Windows.Forms.View.Details;
@@ -355,6 +357,7 @@
             this.searchPaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.searchPaidBookings.Location = new System.Drawing.Point(8, 678);
             this.searchPaidBookings.Name = "searchPaidBookings";
+            this.searchPaidBookings.PlaceholderText = "Search bookings";
             this.searchPaidBookings.Size = new System.Drawing.Size(546, 29);
             this.searchPaidBookings.TabIndex = 21;
             this.searchPaidBookings.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -364,6 +367,7 @@
             this.searchUnpaidBookings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.searchUnpaidBookings.Location = new System.Drawing.Point(8, 41);
             this.searchUnpaidBookings.Name = "searchUnpaidBookings";
+            this.searchUnpaidBookings.PlaceholderText = "Search bookings";
             this.searchUnpaidBookings.Size = new System.Drawing.Size(546, 29);
             this.searchUnpaidBookings.TabIndex = 22;
             this.searchUnpaidBookings.TextChanged += new System.EventHandler(this.searchUnpaidBookings_TextChanged);
@@ -376,13 +380,14 @@
             this.columnHeader15});
             this.roomOccupation.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.roomOccupation.GridLines = true;
-            this.roomOccupation.Location = new System.Drawing.Point(861, 95);
+            this.roomOccupation.Location = new System.Drawing.Point(861, 167);
             this.roomOccupation.Name = "roomOccupation";
-            this.roomOccupation.Size = new System.Drawing.Size(244, 877);
+            this.roomOccupation.Size = new System.Drawing.Size(244, 805);
             this.roomOccupation.TabIndex = 23;
             this.roomOccupation.UseCompatibleStateImageBehavior = false;
             this.roomOccupation.View = System.Windows.Forms.View.Details;
             this.roomOccupation.Visible = false;
+            this.roomOccupation.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.roomOccupation_ColumnClick);
             // 
             // columnHeader3
             // 
@@ -399,18 +404,44 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(861, 71);
+            this.label5.Location = new System.Drawing.Point(861, 143);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 21);
             this.label5.TabIndex = 24;
             this.label5.Text = "Occupied:";
             this.label5.Visible = false;
             // 
+            // searchRooms
+            // 
+            this.searchRooms.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchRooms.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchRooms.Location = new System.Drawing.Point(1111, 95);
+            this.searchRooms.Name = "searchRooms";
+            this.searchRooms.PlaceholderText = "Search rooms";
+            this.searchRooms.Size = new System.Drawing.Size(557, 29);
+            this.searchRooms.TabIndex = 25;
+            this.searchRooms.Visible = false;
+            this.searchRooms.TextChanged += new System.EventHandler(this.searchRooms_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(1111, 143);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(122, 21);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "Available rooms";
+            this.label6.Visible = false;
+            // 
             // UserControlBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.searchRooms);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.roomOccupation);
             this.Controls.Add(this.searchUnpaidBookings);
@@ -475,5 +506,7 @@
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader15;
         private Label label5;
+        private TextBox searchRooms;
+        private Label label6;
     }
 }
