@@ -29,13 +29,6 @@ namespace kassasystem
         private State state;
         private ListViewColumnSorter lvwColumnSorter;
 
-        class ComboItem
-        {
-            public int ID { get; set; }
-            public string DText { get; set; }
-        }
-
-
         Booking newBooking = new Booking(); // FIXME spelling
         static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split("\\")[1];
         static string path = string.Format(@"C:\Users\{0}\Documents\hotel_database\", userName);
