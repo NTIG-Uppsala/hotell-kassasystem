@@ -40,3 +40,4 @@ We use SQLite for our database. To edit the database, we use [DB Browser](https:
 - High season/low season
 - Discounts
 - Tests
+- Fix warnings?
